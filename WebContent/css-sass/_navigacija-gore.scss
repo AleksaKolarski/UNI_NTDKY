@@ -1,0 +1,139 @@
+@mixin navigacija-gore{
+    .navigacija-gore {
+        position: fixed;
+        z-index: 2;
+        padding: 0px;
+        margin-top: 7px;
+        height: 50px;
+        background: $navigacija_color;
+        top: 0px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.18);
+    
+        nav {
+            ul {
+                list-style: none;
+                padding: 0px;
+                margin: 0px;
+                height: 50px;
+    
+                li {
+                    padding-left: 10px;
+                    padding-right: 10px;
+                }
+            }
+        }
+    
+        .navigacija-logo {
+            margin-left: 6px;
+            line-height: 50px; // da bi se centrirao sadrzaj
+            a {
+                text-decoration: none;
+            }
+        }
+    
+        .navigacija-search {
+            display: flex;  
+            align-items: center;
+            height: 50px;
+            padding: 0px;
+    
+            input{
+                height: 36px;
+            }
+            .input-group-btn {
+                width: 40px; // ako nema ovoga onda dugme sa lupom pobegne izvan
+                // .navigacija-search jer se input flexuje
+    
+                button {
+                    // centriramo lupu unutar dugmeta (naredna 3 reda)
+                    height: 36px;
+                    padding-top: 9px;
+                    padding-bottom: 9px;
+                }
+            }
+        }
+    
+        #navigacija-gore-polje {
+            line-height: 50px; // da bi se centrirao sadrzaj
+            height: 50px;
+    
+            .btn-gore-group-login-register-profil {
+                position: absolute;
+                right: 10px;
+                top: 7px;
+    
+                button {
+                    padding-top: 8px; // namestamo tekst po visini malo bolje
+                    padding-bottom: 6px;
+                }
+    
+                .divider {
+                    margin: 0px;
+                    height: 1px;
+                }
+    
+                #login-dropdown {
+                    width: 240px;
+                    height: 132px;
+                    padding: 5px;
+    
+                    li {
+                        padding: 0px;
+                        height: 39px;
+                    }
+                    input{
+                        margin-bottom: 5px;
+                    }
+                    button{
+                        margin-top: -2px
+                    }
+                }
+                #register-dropdown{
+                    width: 240px;
+                    height: 250px;
+                    padding: 5px;
+    
+                    li {
+                        padding: 0px;
+                        height: 39px;
+                    }
+                    input{
+                        margin-bottom: 5px;
+                    }
+                    button{
+                        margin-top: -2px
+                    }
+                }
+                p{
+                    display: inline-block;
+                    color: #f00;
+                    margin-left: 10px;
+                    margin-bottom: 0px;
+                    margin-top: -3px;
+                    width: 130px;
+                    line-height: 13px;
+                    vertical-align: middle;
+                    size: 9px;
+                }
+    
+                #profil-dropdown{
+                    width: 50px;
+                    height: 87px;
+                    padding: 5px;
+                    text-align: center;
+    
+                    a{
+                        line-height: 19px;
+                    }
+                }
+            }
+        }
+    }
+
+    @include xs {
+        .navigacija-gore {
+            height: 155px;
+        }
+    }
+}

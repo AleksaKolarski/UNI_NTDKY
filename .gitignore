@@ -1,0 +1,7 @@
+.settings/
+build/
+.classpath
+.project
+vsc-workspace.code-workspace
+.sass-cache/
+.vscode/

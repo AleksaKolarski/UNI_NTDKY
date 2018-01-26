@@ -1,0 +1,45 @@
+@mixin main {
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        color: $text_color;
+        font-family: $font_main;
+        text-decoration: none;
+    }
+    html {
+        height: 100%;
+    }
+    
+    body {
+        height: 100%;
+    }
+    
+    .osnova {
+        height: 100%;
+    }
+}
+
+@mixin xs {
+    @media screen and (max-width: 767px) {
+        @content;
+    }
+}
+
+@mixin sm {
+    @media screen and (min-width: 768px) and (max-width: 991px) {
+        @content;
+    }
+}
+
+@mixin md {
+    @media screen and (min-width: 992px) and (max-width: 1199px) {
+        @content;
+    }
+}
+
+@mixin lg {
+    @media screen and (min-width: 1200px) {
+        @content;
+    }
+}
