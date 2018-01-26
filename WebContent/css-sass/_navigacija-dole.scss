@@ -1,0 +1,20 @@
+@mixin navigacija-dole {
+    .navigacija-dole {
+        height: 80px;
+        background: $navigacija_color;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.18);
+
+        ul {
+            list-style: none;
+            height: 100%;
+        }
+    }
+
+    @include xs {
+        .navigacija-dole {
+            height: 250px;
+        }
+    }
+}

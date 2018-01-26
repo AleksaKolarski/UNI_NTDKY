@@ -1,0 +1,55 @@
+@mixin navigacija-levo {
+    .navigacija-levo {
+        display: block;
+        position: fixed;
+        padding: 0px;
+        height: calc(100% - 163px);
+        background: $navigacija_color;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.18);
+
+        ul {
+            list-style: none;
+            padding: 0px;
+            margin: 15px;
+
+            a {
+                text-decoration: none;
+            }
+
+            .sidebar-menu-item {
+                height: 30px;
+                padding: 0px 0px 0px 5px;
+                border-radius: 2px;
+                line-height: 30px;
+            }
+
+            .sidebar-menu-item:hover {
+                background: #DDDDDD;
+            }
+
+            .sidebar-subscribed-channel {
+                height: 30px;
+                margin: 5px 0px 0px 10px;
+                padding: 0px 0px 0px 5px;
+                border-radius: 2px;
+                line-height: 30px;
+
+                img {
+                    float: right;
+                }
+            }
+
+            .sidebar-subscribed-channel:hover {
+                background: #DDDDDD;
+            }
+        }
+    }
+
+    @include xs {
+        .navigacija-levo {
+            display: none;
+        }
+    }
+}
