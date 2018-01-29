@@ -15,8 +15,6 @@ $(document).ready(function(e){
     */
 
     $.get('KorisnikServlet', null, function(data){
-        console.log(data);
-
         var polje = $("#navigacija-gore-polje");
         polje.empty();
 
@@ -31,8 +29,7 @@ $(document).ready(function(e){
                             '<span class="caret"></span>' + 
                         '</button>' + 
                         '<ul class="dropdown-menu dropdown-menu-right" id="profil-dropdown">' + 
-                            '<li><a href="#">Moj kanal</a></li>' + 
-                            '<li><a href="#">Moj profil</a></li>' + 
+                            '<li><a href="profil.html?user=' + korisnik.korisnickoIme + '">Moj profil</a></li>' + 
                             '<li class="divider"></li>' + 
                             '<li><a href="LogoutServlet">Izloguj se</a></li>' + 
                         '</ul>' + 
@@ -123,23 +120,21 @@ $(document).ready(function(e){
             });
 
             // kacimo validaciju na input polja
-            validacija_input(login_korisnicko_ime);
-            validacija_input(login_lozinka);
-            validacija_input(register_ime);
-            validacija_input(register_prezime);
+            validacija_input(login_korisnicko_ime, 4, 16);
+            validacija_input(login_lozinka, 4, 16);
+            validacija_input(register_ime, 0, 16);
+            validacija_input(register_prezime, 0, 16);
             validacija_email(register_email);
-            validacija_input(register_korisnicko_ime);
-            validacija_input(register_lozinka);
+            validacija_input(register_korisnicko_ime, 4, 16);
+            validacija_input(register_lozinka, 4, 16);
 
             // na pritisak login dugmeta
             $(login_dugme).on('click', function(event){
                 // vrsimo proveru trenutnog stanja polja
                 login_log.empty();
-                if(check_input(login_korisnicko_ime) == true){
-                    if(check_input(login_lozinka) == true){
-                        console.log('Klijentska validacija logina prosla.');
+                if(check_input(login_korisnicko_ime, 4, 16) == true){
+                    if(check_input(login_lozinka, 4, 16) == true){
                         $.post('LoginServlet', {'korisnickoIme': login_korisnicko_ime.val(), 'lozinka': login_lozinka.val()}, function(data){
-                            console.log('Odgovor od servera: ' + data.status);
                             if(data.status == 'success'){
                                 // dobar login, refresuj stranicu
                                 window.location.reload(true);
@@ -161,14 +156,12 @@ $(document).ready(function(e){
             $(register_dugme).on('click', function(event){
                 // vrsimo proveru trenutnog stanja polja
                 register_log.empty();
-                if(check_input(register_ime) == true){
-                    if(check_input(register_prezime) == true){
+                if(check_input(register_ime, 4, 16) == true){
+                    if(check_input(register_prezime, 4, 16) == true){
                         if(check_email(register_email) == true){
-                            if(check_input(register_korisnicko_ime) == true){
-                                if(check_input(register_lozinka) == true){
-                                    console.log('Klijentska validacija registracije prosla.');
+                            if(check_input(register_korisnicko_ime, 4, 16) == true){
+                                if(check_input(register_lozinka, 4, 16) == true){
                                     $.post('RegisterServlet', {'ime': register_ime.val(), 'prezime': register_prezime.val(), 'email': register_email.val(), 'korisnickoIme': register_korisnicko_ime.val(), 'lozinka': register_lozinka.val()}, function(data){
-                                        console.log('Odgovor od servera: ' + data.status);
                                         if(data.status == 'success'){
                                             // dobra registracija
                                             window.location.reload(true);

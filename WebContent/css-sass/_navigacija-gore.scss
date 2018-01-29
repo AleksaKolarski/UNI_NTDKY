@@ -1,3 +1,9 @@
+/* SCSS fajl za gornju navigaciju. 
+**
+** Autor: Aleksa Kolarski (SF 27/2016)
+** 2018
+*/
+
 @mixin navigacija-gore {
     .navigacija-gore {
         position: fixed;
@@ -126,7 +132,7 @@
 
                 #profil-dropdown {
                     width: 50px;
-                    height: 87px;
+                    height: auto;
                     padding: 5px;
                     text-align: center;
 
@@ -141,6 +147,7 @@
     @include xs {
         .navigacija-gore {
             height: 155px;
+            position: absolute;
         }
     }
 }

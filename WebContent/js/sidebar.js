@@ -17,17 +17,15 @@ $(document).ready(function(e){
         ** koju treba izlistati, u slucaju ulogovanog to su njegove pretplate 
         ** a u slucaju neulogovanog onda najpopularnije. 
         */
-        console.log(data);
 
         var polje = $("div.navigacija-levo > ul");
-
         var kanali = data.kanali;
 
         if(data.status == 'success'){ // success
             // ulogovan je, prikazi pretplate
             var korisnik = data.korisnik;
             polje.append(
-                '<a href="ProfilServlet?user=' + korisnik + '">' + 
+                '<a href="profil.html?user=' + korisnik + '">' + 
                     '<li class="sidebar-menu-item">' + 
                         'Moj kanal' + 
                     '</li>' + 
@@ -44,7 +42,7 @@ $(document).ready(function(e){
                 );
                 for(var i in kanali){
                     polje.append(
-                        '<a href="ProfilServlet?user=' + kanali[i] + '">' + 
+                        '<a href="profil.html?user=' + kanali[i] + '">' + 
                             '<li class="sidebar-subscribed-channel">' + 
                                 kanali[i] + 
                                 '<img src="img/profile-photo.png" alt="profile photo">' + 
@@ -75,7 +73,7 @@ $(document).ready(function(e){
             );
             for(var i in kanali){
                 polje.append(
-                    '<a href="ProfilServlet?user=' + kanali[i] + '">' + 
+                    '<a href="profil.html?user=' + kanali[i] + '">' + 
                         '<li class="sidebar-subscribed-channel">' + 
                             kanali[i] + 
                             '<img src="img/profile-photo.png" alt="profile photo">' + 

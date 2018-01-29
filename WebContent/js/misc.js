@@ -9,9 +9,9 @@
 */
 
 // kacenje na input polja
-function validacija_input(polje){
+function validacija_input(polje, min, max){
     $(polje).keyup(function(e){
-        check_input(polje);
+        check_input(polje, min, max);
     });
 }
 
@@ -22,10 +22,20 @@ function validacija_email(polje){
     });
 }
 
+// kacenje na password reset polja
+function validacija_password_reset(polje1, polje2){
+    $(polje1).keyup(function(e){
+        check_password_reset(polje1, polje2);
+    });
+    $(polje2).keyup(function(e){
+        check_password_reset(polje1, polje2);
+    });
+}
+
 // validacija input polja
-function check_input(polje){
+function check_input(polje, min, max){
     var duzina_sadrzaja = polje.val().length;
-    if(duzina_sadrzaja >= 4 && duzina_sadrzaja <= 16){
+    if(duzina_sadrzaja >= min && duzina_sadrzaja <= max){
         polje.css('border', '1px solid #ccc');
         return true;
     }
@@ -40,5 +50,14 @@ function check_email(polje){
         return true;
     }
     polje.css('border', '1px solid #ff0000');
+    return false;
+}
+
+function check_password_reset(polje1, polje2){
+    if(polje1.val() == polje2.val()){
+        polje2.css('border', '1px solid #ccc');
+        return true;
+    }
+    polje2.css('border', '1px solid #ff0000');
     return false;
 }

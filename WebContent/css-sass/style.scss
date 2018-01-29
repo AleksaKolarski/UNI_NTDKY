@@ -9,12 +9,15 @@
 @import "navigacija-gore";
 @import "navigacija-levo";
 @import "navigacija-dole";
+@import "profile";
 
 @include main;
 
 @include navigacija-gore;
 @include navigacija-levo;
 @include navigacija-dole;
+
+@include profile;
 
 .page {
     padding-top: 70px;

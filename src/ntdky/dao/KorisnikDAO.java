@@ -204,6 +204,32 @@ public class KorisnikDAO {
 		}
 		return korisnici;
 	}
+	public static long getPretplateBroj(Korisnik korisnik){
+		/* Vraca listu korisnika na koje je korisnik pretplacen */
+		
+		Connection conn = ConnectionManager.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		try {
+			String query = "SELECT count(*) FROM Pretplata WHERE ko=?;";
+
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, korisnik.getKorisnickoIme());
+			rset = pstmt.executeQuery();
+			System.out.println(pstmt);
+			
+			if (rset.next()) {
+				return rset.getLong(1);
+			}
+		} catch (SQLException e) {
+			System.out.println("Greska u SQL upitu: ");
+			e.printStackTrace();
+		} finally {
+			try {pstmt.close();} catch (SQLException ex1) {ex1.printStackTrace();}
+			try {rset.close();} catch (SQLException ex1) {ex1.printStackTrace();}
+		}
+		return 0;
+	}
 	public static List<Korisnik> getPretplacene(Korisnik korisnik){
 		/* Vraca listu korisnika koji su pretplaceni na korisnika */
 		List<Korisnik> korisnici = new ArrayList<Korisnik>();
@@ -242,7 +268,7 @@ public class KorisnikDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		try {
-			String query = "SELECT * FROM Korisnik ORDER BY (SELECT count(*) FROM Pretplata WHERE koga = korisnickoIme) DESC LIMIT ?;";
+			String query = "SELECT korisnickoIme, lozinka, ime, prezime, email, opis, datum, tipKorisnika, blokiran, obrisan FROM Korisnik ORDER BY (SELECT count(*) FROM Pretplata WHERE koga = korisnickoIme) DESC LIMIT ?;";
 			
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, broj);
@@ -262,7 +288,7 @@ public class KorisnikDAO {
 					datum = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rset.getString(index++));
 				} catch (ParseException e) {
 					e.printStackTrace();
-					return null;
+					return korisnici;
 				}
 				TipKorisnika tip = TipKorisnika.valueOf(rset.getString(index++));
 				boolean blokiran = rset.getBoolean(index++);
@@ -280,5 +306,33 @@ public class KorisnikDAO {
 		}
 		
 		return korisnici;
+	}
+	
+	public static boolean checkPretplata(Korisnik ko, Korisnik koga){
+		/* Vraca true ako je ko pretplacen na koga */
+		
+		Connection conn = ConnectionManager.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		try {
+			String query = "SELECT * FROM Pretplata WHERE ko=? AND koga=?;";
+
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, ko.getKorisnickoIme());
+			pstmt.setString(2, koga.getKorisnickoIme());
+			rset = pstmt.executeQuery();
+			System.out.println(pstmt);
+			
+			if (rset.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			System.out.println("Greska u SQL upitu: ");
+			e.printStackTrace();
+		} finally {
+			try {pstmt.close();} catch (SQLException ex1) {ex1.printStackTrace();}
+			try {rset.close();} catch (SQLException ex1) {ex1.printStackTrace();}
+		}
+		return false;
 	}
 }
