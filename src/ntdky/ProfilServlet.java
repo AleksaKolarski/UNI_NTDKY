@@ -1,6 +1,5 @@
 package ntdky;
 
-import java.io.Console;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,18 +32,6 @@ public class ProfilServlet extends HttpServlet {
 
 		if (profileUsername != null) {
 			if ((profileUser = KorisnikDAO.get(profileUsername)) != null) {
-
-				/*
-				 * request.setAttribute("profileUsername", profileUsername);
-				 * request.setAttribute("profileName", profileUser.getIme());
-				 * request.setAttribute("profileLastName", profileUser.getPrezime());
-				 * request.setAttribute("profileDate", profileUser.getDatum());
-				 * request.setAttribute("profileUloga", profileUser.getTipKorisnika());
-				 * request.setAttribute("profileBrojPratilaca",
-				 * KorisnikDAO.getPretplateBroj(profileUser));
-				 * 
-				 * request.getRequestDispatcher("Profil.jsp").forward(request, response);
-				 */
 
 				if (ulogovaniKorisnik != null) {
 					status_login = "success";

@@ -77,4 +77,14 @@
     <servlet-name>VideoServlet</servlet-name>
     <url-pattern>/VideoServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LajkServlet</display-name>
+    <servlet-name>LajkServlet</servlet-name>
+    <servlet-class>ntdky.LajkServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LajkServlet</servlet-name>
+    <url-pattern>/LajkServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

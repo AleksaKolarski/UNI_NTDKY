@@ -68,7 +68,6 @@ public class KorisnikDAO {
 		try {
 			String query = "SELECT korisnickoIme, lozinka, ime, prezime, email, opis, datum, tipKorisnika, blokiran, obrisan FROM Korisnik;";
 
-			System.out.println(query);
 			pstmt = conn.prepareStatement(query);
 			rset = pstmt.executeQuery();
 
@@ -151,7 +150,6 @@ public class KorisnikDAO {
 			pstmt.setString(index++, korisnik.getTipKorisnika().toString());
 			pstmt.setBoolean(index++, korisnik.getBlokiran());
 			pstmt.setBoolean(index++, korisnik.getObrisan());
-			System.out.println(pstmt);
 			
 			return pstmt.executeUpdate() == 1;
 		} catch (SQLException ex) {
@@ -188,7 +186,6 @@ public class KorisnikDAO {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, korisnik.getKorisnickoIme());
 			rset = pstmt.executeQuery();
-			System.out.println(pstmt);
 			
 			while (rset.next()) {
 				String koga = rset.getString(1);
@@ -216,7 +213,6 @@ public class KorisnikDAO {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, korisnik.getKorisnickoIme());
 			rset = pstmt.executeQuery();
-			System.out.println(pstmt);
 			
 			if (rset.next()) {
 				return rset.getLong(1);
@@ -243,7 +239,6 @@ public class KorisnikDAO {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, korisnik.getKorisnickoIme());
 			rset = pstmt.executeQuery();
-			System.out.println(pstmt);
 			
 			while (rset.next()) {
 				String ko = rset.getString(1);
@@ -273,7 +268,6 @@ public class KorisnikDAO {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, broj);
 			rset = pstmt.executeQuery();
-			System.out.println(pstmt);
 			
 			while (rset.next()) {
 				int index = 1;
@@ -321,7 +315,6 @@ public class KorisnikDAO {
 			pstmt.setString(1, ko.getKorisnickoIme());
 			pstmt.setString(2, koga.getKorisnickoIme());
 			rset = pstmt.executeQuery();
-			System.out.println(pstmt);
 			
 			if (rset.next()) {
 				return true;

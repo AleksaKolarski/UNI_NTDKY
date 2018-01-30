@@ -23,7 +23,6 @@ public class VideoDAO {
 
 			pstmt = conn.prepareStatement(query);
 			pstmt.setLong(1, id);
-			System.out.println(pstmt);
 			rset = pstmt.executeQuery();
 
 			if (rset.next()) {
@@ -71,7 +70,6 @@ public class VideoDAO {
 		try {
 			String query = "SELECT id, naziv, putanjaVidea, putanjaSlike, opis, vidljivostVidea, vidljivostKomentari, vidljivostRejting, blokiran, brojPregleda, datum, vlasnik, obrisan FROM Video;";
 
-			System.out.println(query);
 			pstmt = conn.prepareStatement(query);
 			rset = pstmt.executeQuery();
 
@@ -130,7 +128,6 @@ public class VideoDAO {
 			pstmt.setString(index++, video.getVlasnik());
 			pstmt.setBoolean(index++, video.getObrisan());
 			pstmt.setLong(index++, video.getId());
-			System.out.println(pstmt);
 
 			return pstmt.executeUpdate() == 1;
 		} catch (SQLException ex) {
@@ -162,7 +159,6 @@ public class VideoDAO {
 			pstmt.setString(index++, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(video.getDatum()));
 			pstmt.setString(index++, video.getVlasnik());
 			pstmt.setBoolean(index++, video.getObrisan());
-			System.out.println(pstmt);
 			
 			return pstmt.executeUpdate() == 1;
 		} catch (SQLException ex) {

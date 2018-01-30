@@ -5,9 +5,9 @@
 <head>
 	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Video: ${requestScope.naziv}</title>
+	  <title>Video: ${requestScope.naziv}</title>
 	
-	<!-- Bootstrap and jQuery -->
+	  <!-- Bootstrap and jQuery -->
   	<link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css">
   	<script src="lib/jquery/jquery-3.2.1.js"></script>
   	<script src="lib/bootstrap/js/bootstrap.js"></script>
@@ -24,48 +24,12 @@
 <div class="container-fluid osnova">
 
     <!-- NAVIGACIJA GORE -->
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 navigacija-gore">
-        <nav>
-          <ul>
-            <li class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-              <div class="navigacija-logo">
-                <a href="#">NTDKY</a>
-              </div>
-            </li>
-            <li class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-              <div class="navigacija-search input-group">
-                <input type="text" class="form-control" placeholder="Pretraga...">
-                <span class="input-group-btn">
-                  <button class="btn btn-default" type="button">
-                    <span class="glyphicon glyphicon-search"></span>
-                  </button>
-                </span>
-              </div>
-            </li>
-            <li class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-              <div class="navigacija-user" id="navigacija-gore-polje">
-              </div>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </div>
-
+    <%@include file="include/navigacija_gore.html"%>
 
     <div class="row page">
 
       <!-- NAVIGACIJA LEVO -->
-      <div class="col-sm-3 col-md-2 col-lg-2 navigacija-levo">
-        <ul>
-          <!-- Menu items -->
-          <a href="#">
-            <li class="sidebar-menu-item">
-              Pocetna
-            </li>
-          </a>
-        </ul>
-      </div>
+      <%@include file="include/navigacija_levo.html"%>
 
       <!-- MAIN CONTENT -->
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2 main">
@@ -100,17 +64,32 @@
                   </td>
                 </tr>
                 <tr id="video-details-row1">
-                  <td id="video-details-r1-c0">
+                  <td rowspan="2" id="video-details-r1-c0">
                     <button type="button" class="btn btn-default btn-subscribe">Subscribe</button>
                   </td>
-                  <td id="video-details-r1-c1">
+                  <td rowspan="2" id="video-details-r1-c1">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" id="video-details-toggle">
-                      
                       <span class="glyphicon glyphicon-menu-down"></span>
                     </a>
                   </td>
                   <td id="video-details-r1-c2">
-                    ${requestScope.video.brojLajkova} lajkova
+                    <div id="video-details-line-container">
+                      <hr id="video-details-like-line">
+                      <hr id="video-details-dislike-line">
+                    </div>
+                  </td>
+                </tr>
+                
+                <tr id="video-details-row2">
+                  <td id="video-details-r2-c2">
+                    <a href="#" id="video-dugme-like-link">
+                      <span class="glyphicon glyphicon-thumbs-up" id="video-dugme-like"></span>
+                    </a>
+                    <p id="video-details-broj-lajkova"></p>
+                    <a href="#" id="video-dugme-dislike-link">
+                      <span class="glyphicon glyphicon-thumbs-down" id="video-dugme-dislike"></span>
+                    </a>
+                    <p id="video-details-broj-dislajkova"></p>
                   </td>
                 </tr>
               </table>
@@ -137,35 +116,7 @@
     </div>
 
     <!-- FOOTER -->
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 navigacija-dole">
-        <footer>
-          <ul>
-            <li class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-              <div class="">
-                <a href="#">NTDKY</a>
-                <p>Ovo je neki tekst</p>
-                <p>Ovo je neki tekst</p>
-              </div>
-            </li>
-            <li class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-              <div class="">
-                <a href="#">NTDKY</a>
-                <p>Ovo je neki tekst</p>
-                <p>Ovo je neki tekst</p>
-              </div>
-            </li>
-            <li class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-              <div class="">
-                <a href="#">NTDKY</a>
-                <p>Ovo je neki tekst</p>
-                <p>Ovo je neki tekst</p>
-              </div>
-            </li>
-          </ul>
-        </footer>
-      </div>
-    </div>
+    <%@include file="include/navigacija_dole.html"%>
   </div>
 
 </body>

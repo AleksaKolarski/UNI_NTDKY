@@ -105,6 +105,11 @@ CREATE TABLE Lajk (
     FOREIGN KEY(komentar) REFERENCES Komentar(id)
 );
 INSERT INTO Lajk (vlasnik, pozitivan, datum, tip, video) 
+VALUES ('user1', 1, '2018-01-12 07:14:32', 'VIDEO', 1);
+INSERT INTO Lajk (vlasnik, pozitivan, datum, tip, video) 
 VALUES ('user1', 1, '2018-01-12 07:14:32', 'VIDEO', 2);
+
+INSERT INTO Lajk (vlasnik, pozitivan, datum, tip, video) 
+VALUES ('user2', 0, '2018-01-12 07:14:32', 'VIDEO', 2);
 INSERT INTO Lajk (vlasnik, pozitivan, datum, tip, komentar) 
 VALUES ('user2', 0, '2018-01-12 20:41:21', 'KOMENTAR', 3);

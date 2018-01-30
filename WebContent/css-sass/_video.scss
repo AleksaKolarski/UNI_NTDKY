@@ -49,11 +49,14 @@
 
                     #video-details-r1-c1 {
                         text-align: center;
-                        a{
+
+                        a {
                             text-decoration: none;
                         }
-                        span{
+
+                        span {
                             vertical-align: bottom;
+
                             //display: block;
                             margin: 0px;
                             padding: 0px;
@@ -62,6 +65,53 @@
 
                     #video-details-r1-c2 {
                         text-align: right;
+
+                        #video-details-line-container {
+                            width: 100px;
+                            height: 4px;
+                            display: inline-block;
+
+                            //border: 1px solid black;
+
+                            #video-details-like-line {
+                                float: left;
+                                border: 0px;
+                                height: 100%;
+                                background-color: green;
+                            }
+
+                            #video-details-dislike-line {
+                                float: right;
+                                border: 0px;
+                                height: 100%;
+                                background-color: red;
+                            }
+                        }
+                    }
+
+                    #video-details-r2-c2 {
+                        text-align: right;
+
+                        a {
+                            text-decoration: none;
+
+                            #video-dugme-like {
+                                display: inline-block;
+                                font-size: 15px;
+                            }
+
+                            #video-dugme-dislike {
+                                margin-left: 10px;
+                                display: inline-block;
+                                font-size: 15px;
+                            }
+                        }
+
+                        p {
+                            display: inline-block;
+                            padding: 0px;
+                            margin: 0px;
+                        }
                     }
                 }
 
