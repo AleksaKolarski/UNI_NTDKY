@@ -34,8 +34,8 @@ public class RegisterServlet extends HttpServlet {
 		String lozinka = request.getParameter("lozinka");
 		
 		String status = "error";
-		if(ime.length() >= 4 && ime.length() <= 16) {
-			if(prezime.length() >= 4 && prezime.length() <= 16) {
+		if(ime.length() <= 16) {
+			if(prezime.length() <= 16) {
 				if(email.matches(".+\\@.+\\..+") && email.length() <= 30) {
 					if(korisnickoIme.length() >= 4 && korisnickoIme.length() <= 16) {
 						if(KorisnikDAO.get(korisnickoIme) == null) {

@@ -1,0 +1,104 @@
+/* SCSS fajl za stranicu videa. 
+**
+** Autor: Aleksa Kolarski (SF 27/2016)
+** 2018
+*/
+
+@mixin video {
+    .video {
+        padding: 0px;
+
+        h3 {
+            margin: 5px 0px 5px 0px;
+        }
+
+        .embed-responsive-16by9 {
+            padding-bottom: 56.25%; // da se skejluje dobro video po visini
+            iframe {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+            }
+        }
+
+        .video-details {
+            margin: 0px 0px 20px 0px;
+
+            #video-details-heading {
+                background-color: white;
+                border-color: white;
+                padding: 6px 10px 5px 10px;
+
+                #video-details-table {
+                    width: 100%;
+                    table-layout: fixed;
+
+                    #video-details-r0-c0 {}
+
+                    #video-details-r0-c1 {
+                        width: 60px;
+                        text-align: center;
+                        vertical-align: bottom;
+                    }
+
+                    #video-details-r0-c2 {
+                        text-align: right;
+                    }
+
+                    #video-details-r1-c0 {}
+
+                    #video-details-r1-c1 {
+                        text-align: center;
+                        a{
+                            text-decoration: none;
+                        }
+                        span{
+                            vertical-align: bottom;
+                            //display: block;
+                            margin: 0px;
+                            padding: 0px;
+                        }
+                    }
+
+                    #video-details-r1-c2 {
+                        text-align: right;
+                    }
+                }
+
+                #video-details-table, tr, td, th {
+                    //border: 1px solid black;
+                }
+            }
+
+            dl {
+                margin: 10px 0px 10px 0px;
+
+                dt {
+                    margin: 0px;
+                    width: 70px;
+                }
+
+                dd {
+                    margin-left: 77px;
+                }
+
+                @include xs {
+                    dt {
+                        margin-left: 6px;
+                    }
+
+                    dd {
+                        margin-left: 11px;
+                    }
+                }
+            }
+
+            hr {
+                margin: 0px;
+                border: 0px;
+                height: 1px;
+                background-color: #ddd;
+            }
+        }
+    }
+}

@@ -162,6 +162,11 @@ public class Video {
 	
 	// get komentari
 	
+	// get broj lajkova
+	public long getBrojLajkova() {
+		return 123;
+	}
+	
 	@Override
 	public String toString() {
 		return "'" + id + "' '" + naziv + "' '" + putanjaVidea + "' '" + putanjaSlike + "' '" + 

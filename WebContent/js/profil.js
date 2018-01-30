@@ -1,4 +1,4 @@
-/* Fajl za gornju navigaciju.
+/* Fajl za profil.
 ** -Pri ucitavanju se iz linka preuzima korisnicko ime profila koji 
 **  treba da se prikaze. Na osnovu toga se prikazuje taj profil i 
 **  u zavisnosti od toga da li trenutno ulogovani korisnik gleda 

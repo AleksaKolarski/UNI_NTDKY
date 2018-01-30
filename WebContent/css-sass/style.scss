@@ -10,6 +10,7 @@
 @import "navigacija-levo";
 @import "navigacija-dole";
 @import "profile";
+@import "video";
 
 @include main;
 
@@ -19,23 +20,26 @@
 
 @include profile;
 
+@include video;
+
 .page {
-    padding-top: 70px;
+    margin-top: 70px;
     margin-left: -15px;
     margin-right: -15px;
-    height: 100%;
-    margin-bottom: -80px;
+    height: calc(100% - 150px);
 }
 
 @include xs {
     .page {
-        padding-top: 170px;
+        height: calc(100% - 420px);
+        margin-top: 170px;
     }
 }
 
 
 .main {
     display: block;
+    padding: 0px 8px 0px 8px;
 }
 
 .pnl {
