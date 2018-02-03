@@ -57,12 +57,12 @@ $(document).ready(function (e) {
         });
     });
 
-    refreshComments(videoId);
+    refreshComments(videoId, 0, 5);
 
-    if($('#komentar-novi-button').length > 0){
-        $('#komentar-novi-button').on('click', null, function(){
+    if ($('#komentar-novi-button').length > 0) {
+        $('#komentar-novi-button').on('click', null, function () {
             var komentarInput = $('#komentar-novi-text');
-            if(komentarInput.val().length > 0){
+            if (komentarInput.val().length > 0) {
                 addComment(komentarInput.val(), videoId);
             }
         });
@@ -70,13 +70,13 @@ $(document).ready(function (e) {
 });
 
 
-function addComment(sadrzaj, videoId){
-    $.post('KomentarServlet', {'sadrzaj': sadrzaj, 'videoId': videoId}, function(data){
-        if(data.status == 'success'){
-            refreshComments(videoId);
+function addComment(sadrzaj, videoId) {
+    $.post('KomentarServlet', { 'sadrzaj': sadrzaj, 'videoId': videoId }, function (data) {
+        if (data.status == 'success') {
+            refreshComments(videoId, 0, 5);
             $('#komentar-novi-text').val('');
         }
-        else{
+        else {
             console.log('greska pri kreiranju komentara');
         }
     });
@@ -144,15 +144,13 @@ function refreshVideoLikes(videoId) {
         }
         else {
             console.log('Greska pri ucitavanju lajkova sa servera.');
-            console.log(data);
         }
     });
 }
 
 
-function refreshComments(videoId) {
+function refreshCommentsBezPaginacije(videoId) {
     $.get('KomentarServlet?videoId=' + videoId, function (data) {
-        console.log(data);
         var ulogovani = data.ulogovani;
         if (data.status == 'success') {
             var komentari = data.komentari;
@@ -168,28 +166,65 @@ function refreshComments(videoId) {
     });
 }
 
+function refreshComments(videoId, page, count) {
+    $.get('KomentarServlet?videoId=' + videoId, function (data) {
+        var ulogovani = data.ulogovani;
+        if (data.status == 'success') {
+            var komentari = data.komentari;
+            var poljeKomentara = $('#komentari-lista');
+            poljeKomentara.empty();
+            for (var i in komentari) {
+                if (i >= page * count && i < (page + 1) * count) {
+                    ispisiKomentar(komentari[i], poljeKomentara);
+                    if (i != komentari.length - 1 && i != (page + 1) * count - 1) {
+                        poljeKomentara.append('<hr>');
+                    }
+                }
+            }
+            $('#paginacija').empty();
+            for(var i = 0; i < komentari.length/count; i++){
+                dodajStranicuPaginacije(videoId, i, count, page);
+            }
+        }
+    });
+}
 
-function ispisiKomentar(komentar, poljeKomentara){
-    
+function dodajStranicuPaginacije(videoId, page, count, currentPage){
+    $('#paginacija').append('<li><a href="#komentari-container" id="paginacija-komentar-' + page + '">' + (page + 1) + '</a></li>');
+    $('#paginacija-komentar-' + page).on('click', function(){
+        refreshComments(videoId, page, count);
+    });
+    if(page == currentPage){
+        $('#paginacija-komentar-' + page).css('background-color', '#337ab7');
+        $('#paginacija-komentar-' + page).css('color', '#FFF');
+    }
+    else{
+        $('#paginacija-komentar-' + page).css('background-color', '#FFF');
+        $('#paginacija-komentar-' + page).css('color', '#337ab7');
+    }
+}
+
+function ispisiKomentar(komentar, poljeKomentara) {
+
     poljeKomentara.append(
         '<div class="komentar" id="komentar-' + komentar.id + '">' +
         '<a href="profil.html?user=' + komentar.vlasnik + '">' +
-            '<p class="komentar-ime">' + komentar.vlasnik + '</p>' +
+        '<p class="komentar-ime">' + komentar.vlasnik + '</p>' +
         '</a>' +
         '<p class="komentar-datum">' + $.format.date(komentar.datum, "dd.MM.yyyy.") + '</p>' +
         '<p class="komentar-sadrzaj">' + komentar.sadrzaj + '</p>' +
         '<a href="#komentar-like-' + komentar.id + '" id="komentar-like-' + komentar.id + '" class="komentar-dugme-link">' +
-            '<span id="komentar-like-dugme-' + komentar.id + '" class="glyphicon glyphicon-thumbs-up komentar-button-like"></span>' +
+        '<span id="komentar-like-dugme-' + komentar.id + '" class="glyphicon glyphicon-thumbs-up komentar-button-like"></span>' +
         '</a>' +
         '<p class="komentar-broj-like" id="komentar-broj-like-' + komentar.id + '"></p>' +
         '<a href="#komentar-dislike-' + komentar.id + '" id="komentar-dislike-' + komentar.id + '" class="komentar-dugme-link">' +
-            '<span id="komentar-dislike-dugme-' + komentar.id + '" class="glyphicon glyphicon-thumbs-down komentar-button-dislike"></span>' +
+        '<span id="komentar-dislike-dugme-' + komentar.id + '" class="glyphicon glyphicon-thumbs-down komentar-button-dislike"></span>' +
         '</a>' +
         '<p class="komentar-broj-dislike" id="komentar-broj-dislike-' + komentar.id + '"></p>' +
         '</div>');
     refreshCommentLikes(komentar.id);
 
-    $('#komentar-like-' + komentar.id).on('click', null, function(){
+    $('#komentar-like-' + komentar.id).on('click', null, function () {
         $.post('LajkServlet?target=KOMENTAR&id=' + komentar.id + '&tip=like', function (data) {
             if (data.status == 'error') {
                 console.log('greska pri lajkovanju');
@@ -199,7 +234,7 @@ function ispisiKomentar(komentar, poljeKomentara){
             }
         });
     });
-    $('#komentar-dislike-' + komentar.id).on('click', null, function(){
+    $('#komentar-dislike-' + komentar.id).on('click', null, function () {
         $.post('LajkServlet?target=KOMENTAR&id=' + komentar.id + '&tip=dislike', function (data) {
             if (data.status == 'error') {
                 console.log('greska pri lajkovanju');
@@ -212,9 +247,8 @@ function ispisiKomentar(komentar, poljeKomentara){
 }
 
 
-function refreshCommentLikes(komentarId){
+function refreshCommentLikes(komentarId) {
     $.get('LajkServlet?target=KOMENTAR&id=' + komentarId, function (data) {
-        console.log(data);
         if (data.status == 'success') {
             if (data.loginStatus != 'unauthenticated') {
                 // 0 nije
