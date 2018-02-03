@@ -10,10 +10,11 @@
 	  <!-- Bootstrap and jQuery -->
   	<link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css">
   	<script src="lib/jquery/jquery-3.2.1.js"></script>
+    <script src="lib/jquery/jquery-dateFormat.min.js"></script>
   	<script src="lib/bootstrap/js/bootstrap.js"></script>
 
   	<!-- Custom files -->
-  	<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700&amp;subset=latin-ext" rel="stylesheet">
+  	<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,600,700&amp;subset=latin-ext" rel="stylesheet">
   	<link rel="stylesheet" type="text/css" href="css/style.css">
   	<script src="js/misc.js"></script>
   	<script src="js/header.js"></script>
@@ -38,23 +39,13 @@
 		      <div class="embed-responsive embed-responsive-16by9">
 		  	    <iframe src="https://www.youtube.com/embed/${requestScope.video.putanjaVidea}?rel=0&amp;showinfo=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 		      </div>
-		      <!--
-		      <c:choose>
-			    <c:when test="${requestScope.ulogovani == requestScope.profileUsername}">
-				    <button type="button" class="btn btn-default btn-edit-profile">Edit profile</button>
-			    </c:when>
-			    <c:otherwise>
-				    <button type="button" class="btn btn-default btn-subscribe-profile">Subscribe</button>
-			    </c:otherwise>
-		      </c:choose>
-		      -->
 		  
 		      <div class="panel panel-default video-details">
-            <div class="panel-heading" role="tab" id="video-details-heading">
+            <div class="panel-heading" id="video-details-heading">
               <table id="video-details-table">
                 <tr id="video-details-row0">
                   <td id="video-details-r0-c0">
-                    ${requestScope.video.vlasnik}
+                    <a href="profil.html?user=${requestScope.video.vlasnik}">${requestScope.video.vlasnik}</a>
                   </td>
                   <td id="video-details-r0-c1">
                     
@@ -65,7 +56,7 @@
                 </tr>
                 <tr id="video-details-row1">
                   <td rowspan="2" id="video-details-r1-c0">
-                    <button type="button" class="btn btn-default btn-subscribe">Subscribe</button>
+                    <button type="button" class="btn btn-default" id="btn-subscribe">Subscribe</button>
                   </td>
                   <td rowspan="2" id="video-details-r1-c1">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" id="video-details-toggle">
@@ -109,7 +100,40 @@
           </div>
 
           <!-- Komentari -->
-          
+          <div id="komentari-container" class="col-sm-12 col-md-9 col-lg-8">
+            <%-- unos novog komentara --%>
+            <c:if test="${not empty sessionScope.ulogovaniKorisnik}">
+              <p id="komentar-novi-ime">${sessionScope.ulogovaniKorisnik.korisnickoIme}:</p>
+              <div class="input-group" id="komentar-novi-container">
+                <input type="text" class="form-control" placeholder="Komentar..." id="komentar-novi-text">
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="button" id="komentar-novi-button">
+                    <span class="glyphicon glyphicon-comment"></span>
+                  </button>
+                </span>
+              </div>
+              <hr>
+            </c:if>
+
+
+            <%-- lista komentara --%>
+            <div id="komentari-lista">
+
+            </div>
+
+
+            <nav>
+              <ul class="pagination" id="paginacija">
+                <li><a href="#"><span>&laquo;</span></a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#"><span>&raquo;</span></a></li>
+              </ul>
+            </nav>
+          </div>
 
   		  </div>
   	  </div>

@@ -2,6 +2,10 @@ package ntdky.model;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
+import ntdky.dao.LajkDAO;
+import ntdky.model.Lajk.Tip;
 
 public class Komentar {
 	
@@ -79,6 +83,50 @@ public class Komentar {
 	}
 	public void setObrisan(boolean obrisan) {
 		this.obrisan = obrisan;
+	}
+	
+	// get broj lajkova
+	public List<Long> getBrojLajkova() {
+		return LajkDAO.getLajkove(Tip.KOMENTAR, this.id);
+	}
+	
+	public void lajkuj(Korisnik korisnik) {
+		int provera = LajkDAO.checkLike(korisnik, Tip.KOMENTAR, this);
+		if(provera == -1) {
+			// napravi novi lajk;
+			LajkDAO.add(new Lajk(korisnik.getKorisnickoIme(), true, new Date(), Tip.KOMENTAR, this.getId(), false));
+		}
+		else if(provera == 1) {
+			Lajk lajk = LajkDAO.get(korisnik, Tip.KOMENTAR, this);
+			lajk.setObrisan(true);
+			LajkDAO.update(lajk);
+		}
+		else {
+			// ozivi lajk
+			Lajk lajk = LajkDAO.get(korisnik, Tip.KOMENTAR, this);
+			lajk.setObrisan(false);
+			lajk.setPozitivan(true);
+			LajkDAO.update(lajk);
+		}
+	}
+	
+	public void dislajkuj(Korisnik korisnik) {
+		int provera = LajkDAO.checkLike(korisnik, Tip.KOMENTAR, this);
+		if(provera == -1) {
+			// napravi novi dislajk
+			LajkDAO.add(new Lajk(korisnik.getKorisnickoIme(), false, new Date(), Tip.KOMENTAR, this.getId(), false));
+		}
+		else if(provera == 2) {
+			Lajk lajk = LajkDAO.get(korisnik, Tip.KOMENTAR, this);
+			lajk.setObrisan(true);
+			LajkDAO.update(lajk);
+		}
+		else{
+			Lajk lajk = LajkDAO.get(korisnik, Tip.KOMENTAR, this);
+			lajk.setObrisan(false);
+			lajk.setPozitivan(false);
+			LajkDAO.update(lajk);
+		}
 	}
 	
 	@Override

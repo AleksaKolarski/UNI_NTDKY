@@ -252,6 +252,8 @@ body {
           vertical-align: bottom; }
         .video .video-details #video-details-heading #video-details-table #video-details-r0-c2 {
           text-align: right; }
+        .video .video-details #video-details-heading #video-details-table #video-details-r1-c0 #btn-subscribe {
+          visibility: hidden; }
         .video .video-details #video-details-heading #video-details-table #video-details-r1-c1 {
           text-align: center; }
           .video .video-details #video-details-heading #video-details-table #video-details-r1-c1 a {
@@ -263,14 +265,14 @@ body {
         .video .video-details #video-details-heading #video-details-table #video-details-r1-c2 {
           text-align: right; }
           .video .video-details #video-details-heading #video-details-table #video-details-r1-c2 #video-details-line-container {
-            width: 100px;
+            width: 120px;
             height: 4px;
             display: inline-block; }
             .video .video-details #video-details-heading #video-details-table #video-details-r1-c2 #video-details-line-container #video-details-like-line {
               float: left;
               border: 0px;
               height: 100%;
-              background-color: green; }
+              background-color: #0CB71B; }
             .video .video-details #video-details-heading #video-details-table #video-details-r1-c2 #video-details-line-container #video-details-dislike-line {
               float: right;
               border: 0px;
@@ -308,6 +310,60 @@ body {
       border: 0px;
       height: 1px;
       background-color: #ddd; }
+  .video #komentari-container {
+    padding: 7px;
+    margin-bottom: 20px;
+    border: 1px solid #DDD;
+    border-radius: 10px;
+    box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.11); }
+    .video #komentari-container #komentar-novi-ime {
+      padding: 0px;
+      margin: 0px 0px 3px 0px; }
+    .video #komentari-container #komentar-novi-container {
+      margin-bottom: 10px; }
+    .video #komentari-container #komentari-lista {
+      margin-bottom: 5px; }
+      .video #komentari-container #komentari-lista .komentar-ime {
+        display: inline;
+        padding: 0px;
+        margin: 0px;
+        font-weight: 500; }
+      .video #komentari-container #komentari-lista .komentar-datum {
+        display: inline;
+        padding: 0px;
+        margin: 0px 0px 0px 10px;
+        color: #AAA;
+        font-size: smaller; }
+      .video #komentari-container #komentari-lista .komentar-sadrzaj {
+        display: block;
+        padding: 0px;
+        margin: 0px; }
+      .video #komentari-container #komentari-lista .komentar-button-like {
+        display: inline;
+        font-size: small; }
+      .video #komentari-container #komentari-lista .komentar-broj-like {
+        display: inline;
+        margin-left: 4px;
+        font-size: smaller; }
+      .video #komentari-container #komentari-lista .komentar-button-dislike {
+        display: inline;
+        margin-left: 12px;
+        font-size: small; }
+      .video #komentari-container #komentari-lista .komentar-broj-dislike {
+        display: inline;
+        margin-left: 4px;
+        font-size: smaller; }
+      .video #komentari-container #komentari-lista .komentar-dugme-link {
+        text-decoration: none; }
+    .video #komentari-container hr {
+      margin: 0px 0px 10px 0px;
+      padding: 0px;
+      border-color: #DDD; }
+    .video #komentari-container nav {
+      margin: 0px 0px 0px 0px;
+      text-align: center; }
+      .video #komentari-container nav #paginacija {
+        margin: 0px 0px -6px 0px; }
 
 .page {
   margin-top: 70px;

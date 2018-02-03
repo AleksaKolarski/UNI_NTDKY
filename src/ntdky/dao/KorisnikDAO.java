@@ -328,4 +328,46 @@ public class KorisnikDAO {
 		}
 		return false;
 	}
+	
+	public static boolean pretplati(Korisnik ko, Korisnik koga) {
+		Connection conn = ConnectionManager.getConnection();
+		PreparedStatement pstmt = null;
+		try {
+			String query = "INSERT INTO Pretplata (ko, koga) VALUES (?, ?);";
+			pstmt = conn.prepareStatement(query);
+			
+			int index = 1;
+			pstmt.setString(index++, ko.getKorisnickoIme());
+			pstmt.setString(index++, koga.getKorisnickoIme());
+			
+			return pstmt.executeUpdate() == 1;
+		} catch (SQLException e) {
+			System.out.println("Greska u SQL upitu: ");
+			e.printStackTrace();
+		} finally {
+			try {pstmt.close();} catch (SQLException ex1) {ex1.printStackTrace();}
+		}
+		return false;
+	}
+	
+	public static boolean ponistiPretplatu(Korisnik ko, Korisnik koga) {
+		Connection conn = ConnectionManager.getConnection();
+		PreparedStatement pstmt = null;
+		try {
+			String query = "DELETE FROM Pretplata WHERE ko=? AND koga=?;";
+			pstmt = conn.prepareStatement(query);
+			
+			int index = 1;
+			pstmt.setString(index++, ko.getKorisnickoIme());
+			pstmt.setString(index++, koga.getKorisnickoIme());
+			
+			return pstmt.executeUpdate() == 1;
+		} catch (SQLException e) {
+			System.out.println("Greska u SQL upitu: ");
+			e.printStackTrace();
+		} finally {
+			try {pstmt.close();} catch (SQLException ex1) {ex1.printStackTrace();}
+		}
+		return false;
+	}
 }

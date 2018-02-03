@@ -45,7 +45,11 @@
                         text-align: right;
                     }
 
-                    #video-details-r1-c0 {}
+                    #video-details-r1-c0 {
+                        #btn-subscribe {
+                            visibility: hidden;
+                        }
+                    }
 
                     #video-details-r1-c1 {
                         text-align: center;
@@ -67,7 +71,7 @@
                         text-align: right;
 
                         #video-details-line-container {
-                            width: 100px;
+                            width: 120px;
                             height: 4px;
                             display: inline-block;
 
@@ -77,7 +81,7 @@
                                 float: left;
                                 border: 0px;
                                 height: 100%;
-                                background-color: green;
+                                background-color: #0CB71B;
                             }
 
                             #video-details-dislike-line {
@@ -117,6 +121,7 @@
 
                 #video-details-table, tr, td, th {
                     //border: 1px solid black;
+               
                 }
             }
 
@@ -149,6 +154,85 @@
                 height: 1px;
                 background-color: #ddd;
             }
+        }
+
+        #komentari-container {
+            padding: 7px;
+            margin-bottom: 20px;
+            border: 1px solid #DDD;
+            border-radius: 10px;
+            box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.11);
+
+            #komentar-novi-ime {
+                padding: 0px;
+                margin: 0px 0px 3px 0px;
+            }
+
+            #komentar-novi-container {
+                margin-bottom: 10px;
+            }
+
+            #komentari-lista {
+                margin-bottom: 5px;
+
+                .komentar-ime{
+                    display: inline;
+                    padding: 0px;
+                    margin: 0px;
+                    font-weight: 500;
+                }
+                .komentar-datum{
+                    display: inline;
+                    padding: 0px;
+                    margin: 0px 0px 0px 10px;
+                    color: #AAA;
+                    font-size: smaller;
+                }
+                .komentar-sadrzaj{
+                    display: block;
+                    padding: 0px;
+                    margin: 0px;
+                }
+                .komentar-button-like{
+                    display: inline;
+                    font-size: small;
+                }
+                .komentar-broj-like{
+                    display: inline;
+                    margin-left: 4px;
+                    font-size: smaller;
+                }
+                .komentar-button-dislike{
+                    display: inline;
+                    margin-left: 12px;
+                    font-size: small;
+                }
+                .komentar-broj-dislike{
+                    display: inline;
+                    margin-left: 4px;
+                    font-size: smaller;
+                }
+
+                .komentar-dugme-link{
+                    text-decoration: none;
+                }
+            }
+
+            hr {
+                margin: 0px 0px 10px 0px;
+                padding: 0px;
+                border-color: #DDD;
+            }
+
+            nav{
+                margin: 0px 0px 0px 0px;
+                text-align: center;
+
+                #paginacija {
+                    margin: 0px 0px -6px 0px;
+                }
+            }
+            
         }
     }
 }

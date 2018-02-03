@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import ntdky.dao.KomentarDAO;
 import ntdky.dao.LajkDAO;
 import ntdky.dao.VideoDAO;
 import ntdky.model.Lajk.Tip;
@@ -167,6 +168,9 @@ public class Video {
 	}
 	
 	// get komentari
+	public List<Komentar> getKomentari(){
+		return KomentarDAO.getAllVideo(this.getId());
+	}
 	
 	// get broj lajkova
 	public List<Long> getBrojLajkova() {

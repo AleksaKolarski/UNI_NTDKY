@@ -154,4 +154,45 @@ public class KomentarDAO {
 		System.out.println("Kometntar je vec obrisan.");
 		return false;
 	}
+	
+	public static List<Komentar> getAllVideo(long videoId){
+		List<Komentar> komentari = new ArrayList<Komentar>();
+
+		Connection conn = ConnectionManager.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		try {
+			String query = "SELECT id, sadrzaj, datum, vlasnik, video, obrisan FROM Komentar WHERE video=?;";
+
+			System.out.println(query);
+			pstmt = conn.prepareStatement(query);
+			pstmt.setLong(1, videoId);
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				int index = 1;
+				long id = rset.getLong(index++);
+				String sadrzaj = rset.getString(index++);
+				Date datum;
+				try {
+					datum = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rset.getString(index++));
+				} catch (ParseException e) {
+					e.printStackTrace();
+					return null;
+				}
+				String vlasnik = rset.getString(index++);
+				long video = rset.getLong(index++);
+				boolean obrisan = rset.getBoolean(index++);
+
+				komentari.add(new Komentar(id, sadrzaj, datum, vlasnik, video, obrisan));
+			}
+		} catch (SQLException e) {
+			System.out.println("Greska u SQL upitu: ");
+			e.printStackTrace();
+		} finally {
+			try {pstmt.close();} catch (SQLException ex1) {ex1.printStackTrace();}
+			try {rset.close();} catch (SQLException ex1) {ex1.printStackTrace();}
+		}
+		return komentari;
+	}
 }

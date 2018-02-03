@@ -20,31 +20,88 @@ $(document).ready(function (e) {
         linkZaPadajuci.append('<span class="glyphicon glyphicon-menu-down"></span>');
     });
 
+    refreshsubscription(videoId);
+
+    $('#btn-subscribe').on('click', null, function () {
+        $.post('PretplataServlet?videoId=' + videoId, function (data) {
+            if (data.status == 'error') {
+                console.log('greska pri subskrajbovanju');
+            }
+            else {
+                refreshsubscription(videoId);
+            }
+        });
+    });
+
     // preuzimanje lajkova
     refreshVideoLikes(videoId);
 
-    $('#video-dugme-like-link').on('click', null, function(){
-        $.post('LajkServlet?target=VIDEO&id=' + videoId + '&tip=like', function(data){
-            if(data.status == 'error'){
+    $('#video-dugme-like-link').on('click', null, function () {
+        $.post('LajkServlet?target=VIDEO&id=' + videoId + '&tip=like', function (data) {
+            if (data.status == 'error') {
                 console.log('greska pri lajkovanju');
             }
-            else{
+            else {
                 refreshVideoLikes(videoId);
             }
         });
     });
-    $('#video-dugme-dislike-link').on('click', null, function(){
-        $.post('LajkServlet?target=VIDEO&id=' + videoId + '&tip=dislike', function(data){
-            if(data.status == 'error'){
+    $('#video-dugme-dislike-link').on('click', null, function () {
+        $.post('LajkServlet?target=VIDEO&id=' + videoId + '&tip=dislike', function (data) {
+            if (data.status == 'error') {
                 console.log('greska pri dislajkovanju');
             }
-            else{
+            else {
                 refreshVideoLikes(videoId);
             }
         });
     });
 
+    refreshComments(videoId);
+
+    if($('#komentar-novi-button').length > 0){
+        $('#komentar-novi-button').on('click', null, function(){
+            var komentarInput = $('#komentar-novi-text');
+            if(komentarInput.val().length > 0){
+                addComment(komentarInput.val(), videoId);
+            }
+        });
+    }
 });
+
+
+function addComment(sadrzaj, videoId){
+    $.post('KomentarServlet', {'sadrzaj': sadrzaj, 'videoId': videoId}, function(data){
+        if(data.status == 'success'){
+            refreshComments(videoId);
+            $('#komentar-novi-text').val('');
+        }
+        else{
+            console.log('greska pri kreiranju komentara');
+        }
+    });
+}
+
+
+function refreshsubscription(videoId) {
+    $.get('PretplataServlet?videoId=' + videoId, function (data) {
+        var dugme = $("#btn-subscribe");
+        if (data.status == "success") {
+            if (data.pretplacen == true) {
+                dugme.css("background-color", "#DDD");
+                dugme.text("Unsubscribe");
+                dugme.css("visibility", "visible");
+            }
+            else if (data.pretplacen == false) {
+                // dugme.css();
+                dugme.css("background-color", "#FFF");
+                dugme.text("Subscribe");
+                dugme.css("visibility", "visible");
+            }
+        }
+    });
+}
+
 
 function refreshVideoLikes(videoId) {
     var linijaLike = $('#video-details-like-line');
@@ -72,14 +129,14 @@ function refreshVideoLikes(videoId) {
             if (data.loginStatus != 'unauthenticated') {
                 // 0 nije
                 if (data.lajkovan == 1) { // lajkovan
-                    $('#video-dugme-like').css('color', 'green');
+                    $('#video-dugme-like').css('color', '#0CB71B');
                     $('#video-dugme-dislike').css('color', '#555');
                 }
                 else if (data.lajkovan == 2) { // dislajkovan
                     $('#video-dugme-dislike').css('color', 'red');
                     $('#video-dugme-like').css('color', '#555');
                 }
-                else{
+                else {
                     $('#video-dugme-like').css('color', '#555');
                     $('#video-dugme-dislike').css('color', '#555');
                 }
@@ -88,6 +145,94 @@ function refreshVideoLikes(videoId) {
         else {
             console.log('Greska pri ucitavanju lajkova sa servera.');
             console.log(data);
+        }
+    });
+}
+
+
+function refreshComments(videoId) {
+    $.get('KomentarServlet?videoId=' + videoId, function (data) {
+        console.log(data);
+        var ulogovani = data.ulogovani;
+        if (data.status == 'success') {
+            var komentari = data.komentari;
+            var poljeKomentara = $('#komentari-lista');
+            poljeKomentara.empty();
+            for (var i in komentari) {
+                ispisiKomentar(komentari[i], poljeKomentara);
+                if (i != komentari.length - 1) {
+                    poljeKomentara.append('<hr>');
+                }
+            }
+        }
+    });
+}
+
+
+function ispisiKomentar(komentar, poljeKomentara){
+    
+    poljeKomentara.append(
+        '<div class="komentar" id="komentar-' + komentar.id + '">' +
+        '<a href="profil.html?user=' + komentar.vlasnik + '">' +
+            '<p class="komentar-ime">' + komentar.vlasnik + '</p>' +
+        '</a>' +
+        '<p class="komentar-datum">' + $.format.date(komentar.datum, "dd.MM.yyyy.") + '</p>' +
+        '<p class="komentar-sadrzaj">' + komentar.sadrzaj + '</p>' +
+        '<a href="#komentar-like-' + komentar.id + '" id="komentar-like-' + komentar.id + '" class="komentar-dugme-link">' +
+            '<span id="komentar-like-dugme-' + komentar.id + '" class="glyphicon glyphicon-thumbs-up komentar-button-like"></span>' +
+        '</a>' +
+        '<p class="komentar-broj-like" id="komentar-broj-like-' + komentar.id + '"></p>' +
+        '<a href="#komentar-dislike-' + komentar.id + '" id="komentar-dislike-' + komentar.id + '" class="komentar-dugme-link">' +
+            '<span id="komentar-dislike-dugme-' + komentar.id + '" class="glyphicon glyphicon-thumbs-down komentar-button-dislike"></span>' +
+        '</a>' +
+        '<p class="komentar-broj-dislike" id="komentar-broj-dislike-' + komentar.id + '"></p>' +
+        '</div>');
+    refreshCommentLikes(komentar.id);
+
+    $('#komentar-like-' + komentar.id).on('click', null, function(){
+        $.post('LajkServlet?target=KOMENTAR&id=' + komentar.id + '&tip=like', function (data) {
+            if (data.status == 'error') {
+                console.log('greska pri lajkovanju');
+            }
+            else {
+                refreshCommentLikes(komentar.id);
+            }
+        });
+    });
+    $('#komentar-dislike-' + komentar.id).on('click', null, function(){
+        $.post('LajkServlet?target=KOMENTAR&id=' + komentar.id + '&tip=dislike', function (data) {
+            if (data.status == 'error') {
+                console.log('greska pri lajkovanju');
+            }
+            else {
+                refreshCommentLikes(komentar.id);
+            }
+        });
+    });
+}
+
+
+function refreshCommentLikes(komentarId){
+    $.get('LajkServlet?target=KOMENTAR&id=' + komentarId, function (data) {
+        console.log(data);
+        if (data.status == 'success') {
+            if (data.loginStatus != 'unauthenticated') {
+                // 0 nije
+                if (data.lajkovan == 1) { // lajkovan
+                    $('#komentar-like-dugme-' + komentarId).css('color', '#0CB71B');
+                    $('#komentar-dislike-dugme-' + komentarId).css('color', '#555');
+                }
+                else if (data.lajkovan == 2) { // dislajkovan
+                    $('#komentar-dislike-dugme-' + komentarId).css('color', 'red');
+                    $('#komentar-like-dugme-' + komentarId).css('color', '#555');
+                }
+                else {
+                    $('#komentar-like-dugme-' + komentarId).css('color', '#555');
+                    $('#komentar-dislike-dugme-' + komentarId).css('color', '#555');
+                }
+            }
+            $('#komentar-broj-like-' + komentarId).text(data.lajkovi[0]);
+            $('#komentar-broj-dislike-' + komentarId).text(data.lajkovi[1]);
         }
     });
 }

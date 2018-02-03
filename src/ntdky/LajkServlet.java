@@ -56,7 +56,10 @@ public class LajkServlet extends HttpServlet {
 						throw new Exception();
 					}
 					
-					// kod za lajkovanje komentara
+					data.put("lajkovi", komentar.getBrojLajkova());
+					if(ulogovaniKorisnik != null) {
+						data.put("lajkovan", LajkDAO.checkLike(ulogovaniKorisnik, Tip.KOMENTAR, komentar));
+					}
 				}
 			}catch(Exception e) {
 				System.out.println("Greska pri ucitavanu lajkova!");
@@ -115,7 +118,15 @@ public class LajkServlet extends HttpServlet {
 						throw new Exception();
 					}
 					
-					// kod za lajkovanje komentara
+					if(tipLajka.equals("like")) {
+						komentar.lajkuj(ulogovaniKorisnik);
+					}
+					else if(tipLajka.equals("dislike")) {
+						komentar.dislajkuj(ulogovaniKorisnik);
+					}
+					else {
+						status = "error";
+					}
 				}
 			}catch(Exception e) {
 				System.out.println("Greska pri lajkovanju/dislajkovanju!");	

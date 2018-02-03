@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import ntdky.dao.KorisnikDAO;
+
 public class Korisnik {
 	public enum TipKorisnika{
 		USER,
@@ -134,6 +136,15 @@ public class Korisnik {
 	public static Korisnik getByKorisnickoIme(String korisnickoIme) {
 		// prodji kroz sve korisnike i vrati korisnika
 		return new Korisnik();
+	}
+	
+	public static void pretplata(Korisnik ko, Korisnik koga) {
+		if(KorisnikDAO.checkPretplata(ko, koga)) {
+			KorisnikDAO.ponistiPretplatu(ko, koga);
+		}
+		else {
+			KorisnikDAO.pretplati(ko, koga);
+		}
 	}
 	
 	@Override

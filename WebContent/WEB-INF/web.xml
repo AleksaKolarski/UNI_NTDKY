@@ -87,4 +87,24 @@
     <servlet-name>LajkServlet</servlet-name>
     <url-pattern>/LajkServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PretplataServlet</display-name>
+    <servlet-name>PretplataServlet</servlet-name>
+    <servlet-class>ntdky.PretplataServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PretplataServlet</servlet-name>
+    <url-pattern>/PretplataServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>KomentarServlet</display-name>
+    <servlet-name>KomentarServlet</servlet-name>
+    <servlet-class>ntdky.KomentarServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>KomentarServlet</servlet-name>
+    <url-pattern>/KomentarServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
