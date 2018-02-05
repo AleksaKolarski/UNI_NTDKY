@@ -64,7 +64,6 @@ public class ProfilServlet extends HttpServlet {
 
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonData = mapper.writeValueAsString(data);
-		System.out.println(jsonData);
 
 		response.setContentType("application/json");
 		response.getWriter().write(jsonData);
@@ -122,7 +121,6 @@ public class ProfilServlet extends HttpServlet {
 
 			ObjectMapper mapper = new ObjectMapper();
 			String jsonData = mapper.writeValueAsString(data);
-			System.out.println(jsonData);
 
 			response.setContentType("application/json");
 			response.getWriter().write(jsonData);

@@ -17,9 +17,7 @@ import ntdky.dao.VideoDAO;
 import ntdky.model.Korisnik;
 import ntdky.model.Video;
 
-/**
- * 
- */
+
 public class PretplataServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -81,7 +79,6 @@ public class PretplataServlet extends HttpServlet {
 
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonData = mapper.writeValueAsString(data);
-		System.out.println(jsonData);
 
 		response.setContentType("application/json");
 		response.getWriter().write(jsonData);
@@ -148,7 +145,6 @@ public class PretplataServlet extends HttpServlet {
 
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonData = mapper.writeValueAsString(data);
-		System.out.println(jsonData);
 
 		response.setContentType("application/json");
 		response.getWriter().write(jsonData);

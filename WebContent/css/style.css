@@ -50,7 +50,7 @@ body {
   z-index: 2;
   padding: 0px;
   margin-top: 7px;
-  height: 50px;
+  height: auto;
   background: #F5F5F5;
   top: 0px;
   border-radius: 10px;
@@ -136,9 +136,9 @@ body {
 
 @media screen and (max-width: 767px) {
   .navigacija-gore {
-    height: 155px;
+    height: auto;
     position: absolute; } }
-.navigacija-levo {
+#navigacija-levo {
   display: block;
   position: fixed;
   padding: 0px;
@@ -147,32 +147,32 @@ body {
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.18); }
-  .navigacija-levo ul {
+  #navigacija-levo ul {
     list-style: none;
     padding: 0px;
     margin: 15px; }
-    .navigacija-levo ul a {
+    #navigacija-levo ul a {
       text-decoration: none; }
-    .navigacija-levo ul .sidebar-menu-item {
+    #navigacija-levo ul .sidebar-menu-item {
       height: 30px;
       padding: 0px 0px 0px 5px;
       border-radius: 2px;
       line-height: 30px; }
-    .navigacija-levo ul .sidebar-menu-item:hover {
+    #navigacija-levo ul .sidebar-menu-item:hover {
       background: #DDDDDD; }
-    .navigacija-levo ul .sidebar-subscribed-channel {
+    #navigacija-levo ul .sidebar-subscribed-channel {
       height: 30px;
       margin: 5px 0px 0px 10px;
       padding: 0px 0px 0px 5px;
       border-radius: 2px;
       line-height: 30px; }
-      .navigacija-levo ul .sidebar-subscribed-channel img {
+      #navigacija-levo ul .sidebar-subscribed-channel img {
         float: right; }
-    .navigacija-levo ul .sidebar-subscribed-channel:hover {
+    #navigacija-levo ul .sidebar-subscribed-channel:hover {
       background: #DDDDDD; }
 
 @media screen and (max-width: 767px) {
-  .navigacija-levo {
+  #navigacija-levo {
     display: none; } }
 .navigacija-dole {
   height: 80px;
@@ -312,7 +312,7 @@ body {
       background-color: #ddd; }
   .video #komentari-container {
     padding: 7px;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     border: 1px solid #DDD;
     border-radius: 10px;
     box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.11); }
@@ -361,10 +361,138 @@ body {
       border-color: #DDD; }
     .video #komentari-container nav {
       margin: 0px 0px 0px 0px;
-      text-align: center; }
+      text-align: center;
+      height: auto; }
       .video #komentari-container nav #paginacija {
         margin: 0px 0px -6px 0px; }
 
+.video-panel {
+  margin: auto;
+  padding-left: 5px;
+  padding-right: 5px; }
+  .video-panel a {
+    text-decoration: none; }
+    .video-panel a .video-panel-body {
+      margin: 0px;
+      padding: 0px; }
+      .video-panel a .video-panel-body img {
+        display: block;
+        width: 100%;
+        height: 100%; }
+  .video-panel .video-panel-footer {
+    padding: 3px; }
+    .video-panel .video-panel-footer a {
+      text-decoration: none; }
+      .video-panel .video-panel-footer a #video-panel-naziv {
+        padding: 0px;
+        margin: 0px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; }
+    .video-panel .video-panel-footer a #video-panel-vlasnik {
+      display: inline;
+      padding: 0px;
+      margin: 0px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; }
+    .video-panel .video-panel-footer #video-panel-pregledi {
+      float: right;
+      margin: 0px; }
+    .video-panel .video-panel-footer #video-panel-datum {
+      display: inline;
+      margin: 0px;
+      color: #AAA;
+      font-size: smaller; }
+    .video-panel .video-panel-footer #video-panel-lajkovi {
+      float: right;
+      margin: 0px; }
+
+#pretraga-levo {
+  display: block;
+  position: fixed;
+  padding: 10px 8px 10px 8px;
+  height: calc(100% - 163px);
+  background: #F5F5F5;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.18); }
+  #pretraga-levo #naziv-filter p {
+    padding: 0px;
+    margin: 0px; }
+  #pretraga-levo #vlasnik-filter {
+    margin-top: 10px; }
+    #pretraga-levo #vlasnik-filter p {
+      padding: 0px;
+      margin: 0px; }
+  #pretraga-levo #broj-filter {
+    margin-top: 14px;
+    text-align: center; }
+    #pretraga-levo #broj-filter p {
+      padding: 0px;
+      margin: 0px 0px 5px 0px; }
+    #pretraga-levo #broj-filter #broj-slider {
+      width: 90%;
+      margin: auto; }
+      #pretraga-levo #broj-filter #broj-slider .noUi-connect {
+        background: #BBB; }
+      #pretraga-levo #broj-filter #broj-slider .noUi-tooltip {
+        height: 29px;
+        bottom: 115%; }
+  #pretraga-levo #datum-filter {
+    margin-top: 10px; }
+    #pretraga-levo #datum-filter #datum-filter-div {
+      display: table-row;
+      height: 25px; }
+      #pretraga-levo #datum-filter #datum-filter-div p {
+        display: inline; }
+      #pretraga-levo #datum-filter #datum-filter-div #datum-filter-clear-btn {
+        position: absolute;
+        right: 0px;
+        height: 25px;
+        padding: 3px; }
+    #pretraga-levo #datum-filter #datum-filter1 {
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+      padding: 6px 2px 6px 2px; }
+    #pretraga-levo #datum-filter #datum-filter2 {
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+      padding: 6px 2px 6px 2px; }
+  #pretraga-levo #sort-wrapper {
+    margin-top: 10px;
+    height: auto; }
+    #pretraga-levo #sort-wrapper #sort-filter {
+      display: inline-block;
+      margin-right: 15px;
+      margin-bottom: 10px; }
+      #pretraga-levo #sort-wrapper #sort-filter p {
+        padding: 0px;
+        margin: 0px; }
+      #pretraga-levo #sort-wrapper #sort-filter select {
+        width: auto;
+        padding: 4px 8px 4px 8px; }
+    #pretraga-levo #sort-wrapper #sort-by-filter {
+      display: inline-block; }
+      #pretraga-levo #sort-wrapper #sort-by-filter p {
+        padding: 0px;
+        margin: 0px; }
+      #pretraga-levo #sort-wrapper #sort-by-filter .radio-inline {
+        margin-right: 5px;
+        margin-top: 4px; }
+        #pretraga-levo #sort-wrapper #sort-by-filter .radio-inline label {
+          font-size: 20px;
+          margin: 0px; }
+  #pretraga-levo #pretraga-btn-wrapper {
+    display: block;
+    text-align: right; }
+
+@media screen and (max-width: 767px) {
+  #pretraga-levo {
+    height: auto;
+    position: initial;
+    margin-bottom: 10px;
+    border-radius: 10px; } }
 .page {
   margin-top: 70px;
   margin-left: -15px;
@@ -378,18 +506,5 @@ body {
 .main {
   display: block;
   padding: 0px 8px 0px 8px; }
-
-.pnl {
-  margin: auto;
-  padding-left: 5px;
-  padding-right: 5px; }
-
-.panel-body {
-  margin: 0px;
-  padding: 0px; }
-  .panel-body img {
-    display: block;
-    width: 100%;
-    height: 100%; }
 
 /*# sourceMappingURL=style.css.map */

@@ -61,7 +61,6 @@ public class RegisterServlet extends HttpServlet {
 		// mapu konvertujemo u json
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonData = mapper.writeValueAsString(data);
-		System.out.println(jsonData);
 
 		// json ispisujemo u response
 		response.setContentType("application/json");

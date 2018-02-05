@@ -18,7 +18,7 @@ $(document).ready(function(e){
         ** a u slucaju neulogovanog onda najpopularnije. 
         */
 
-        var polje = $("div.navigacija-levo > ul");
+        var polje = $("#navigacija-levo > ul");
         var kanali = data.kanali;
 
         if(data.status == 'success'){ // success

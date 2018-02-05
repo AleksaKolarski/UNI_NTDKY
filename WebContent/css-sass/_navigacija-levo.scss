@@ -5,7 +5,7 @@
 */
 
 @mixin navigacija-levo {
-    .navigacija-levo {
+    #navigacija-levo {
         display: block;
         position: fixed;
         padding: 0px;
@@ -54,7 +54,7 @@
     }
 
     @include xs {
-        .navigacija-levo {
+        #navigacija-levo {
             display: none;
         }
     }

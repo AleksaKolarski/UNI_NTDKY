@@ -199,4 +199,8 @@ $(document).ready(function(e){
             });
         }
     });
+
+    $('#header-pretraga-btn').on('click', null, function(){
+        window.location.href = '/NTDKY/Pretraga.jsp?naziv=' + $('#header-pretraga-input').val();
+    });
 });

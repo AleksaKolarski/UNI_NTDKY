@@ -10,7 +10,7 @@
         z-index: 2;
         padding: 0px;
         margin-top: 7px;
-        height: 50px;
+        height: auto;
         background: $navigacija_color;
         top: 0px;
         border-radius: 10px;
@@ -146,7 +146,7 @@
 
     @include xs {
         .navigacija-gore {
-            height: 155px;
+            height: auto;
             position: absolute;
         }
     }

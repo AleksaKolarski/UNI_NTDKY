@@ -2,7 +2,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
   <display-name>NTDKY</display-name>
   <welcome-file-list>
-    <welcome-file>pocetna.html</welcome-file>
+    <welcome-file>Pocetna.jsp</welcome-file>
   </welcome-file-list>
   <listener>
     <listener-class>ntdky.InitListener</listener-class>
@@ -106,5 +106,15 @@
   <servlet-mapping>
     <servlet-name>KomentarServlet</servlet-name>
     <url-pattern>/KomentarServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>VideoFilterServlet</display-name>
+    <servlet-name>VideoFilterServlet</servlet-name>
+    <servlet-class>ntdky.VideoFilterServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>VideoFilterServlet</servlet-name>
+    <url-pattern>/VideoFilterServlet</url-pattern>
   </servlet-mapping>
 </web-app>

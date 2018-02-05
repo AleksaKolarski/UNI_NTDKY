@@ -23,7 +23,6 @@ public class KorisnikDAO {
 			String query = "SELECT lozinka, ime, prezime, email, opis, datum, tipKorisnika, blokiran, obrisan FROM Korisnik WHERE korisnickoIme=?;";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, korisnickoIme);
-			System.out.println(pstmt);
 			rset = pstmt.executeQuery();
 
 			if (rset.next()) {
@@ -120,7 +119,6 @@ public class KorisnikDAO {
 			pstmt.setBoolean(index++, korisnik.getBlokiran());
 			pstmt.setBoolean(index++, korisnik.getObrisan());
 			pstmt.setString(index++, korisnik.getKorisnickoIme());
-			System.out.println(pstmt);
 
 			return pstmt.executeUpdate() == 1;
 		} catch (SQLException ex) {

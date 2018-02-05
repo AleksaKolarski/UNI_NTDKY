@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,7 +57,12 @@
                 </tr>
                 <tr id="video-details-row1">
                   <td rowspan="2" id="video-details-r1-c0">
-                    <button type="button" class="btn btn-default" id="btn-subscribe">Subscribe</button>
+                    <c:if test="${(sessionScope.ulogovaniKorisnik.korisnickoIme == requestScope.video.vlasnik) || (sessionScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN')}">
+                      <button type="button" class="btn btn-default" id="btn-video-edit">Edit video</button>
+                    </c:if>
+                    <c:if test="${sessionScope.ulogovaniKorisnik.korisnickoIme != requestScope.video.vlasnik}">
+                      <button type="button" class="btn btn-default" id="btn-subscribe">Subscribe</button>
+                    </c:if>
                   </td>
                   <td rowspan="2" id="video-details-r1-c1">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" id="video-details-toggle">
@@ -93,7 +99,7 @@
 		  				    <dt>Opis:</dt>
 		  				    <dd>${requestScope.video.opis}</dd>
                   <dt>Datum:</dt>
-		  				    <dd>${requestScope.video.datum}</dd>
+                  <dd><fmt:formatDate value="${requestScope.video.datum}" pattern="dd.MM.yyyy. HH:mm" /></dd>
 		  			    </dl>
       	  	  </div>
     	  	  </div>
@@ -108,7 +114,7 @@
                 <input type="text" class="form-control" placeholder="Komentar..." id="komentar-novi-text">
                 <span class="input-group-btn">
                   <button class="btn btn-default" type="button" id="komentar-novi-button">
-                    <span class="glyphicon glyphicon-comment"></span>
+                    <span class="glyphicon glyphicon-send"></span>
                   </button>
                 </span>
               </div>
@@ -122,7 +128,7 @@
             </div>
 
 
-            <nav>
+            <nav id="paginacija-nav">
               <ul class="pagination" id="paginacija">
               </ul>
             </nav>

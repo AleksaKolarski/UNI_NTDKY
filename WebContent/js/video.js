@@ -182,23 +182,29 @@ function refreshComments(videoId, page, count) {
                 }
             }
             $('#paginacija').empty();
-            for(var i = 0; i < komentari.length/count; i++){
-                dodajStranicuPaginacije(videoId, i, count, page);
+            if (komentari.length > count) {
+                $('#paginacija-nav').css('height', 'auto');
+                for (var i = 0; i < komentari.length / count; i++) {
+                    dodajStranicuPaginacije(videoId, i, count, page);
+                }
+            }
+            else{
+                $('#paginacija-nav').css('height', '0px');
             }
         }
     });
 }
 
-function dodajStranicuPaginacije(videoId, page, count, currentPage){
+function dodajStranicuPaginacije(videoId, page, count, currentPage) {
     $('#paginacija').append('<li><a href="#komentari-container" id="paginacija-komentar-' + page + '">' + (page + 1) + '</a></li>');
-    $('#paginacija-komentar-' + page).on('click', function(){
+    $('#paginacija-komentar-' + page).on('click', function () {
         refreshComments(videoId, page, count);
     });
-    if(page == currentPage){
+    if (page == currentPage) {
         $('#paginacija-komentar-' + page).css('background-color', '#337ab7');
         $('#paginacija-komentar-' + page).css('color', '#FFF');
     }
-    else{
+    else {
         $('#paginacija-komentar-' + page).css('background-color', '#FFF');
         $('#paginacija-komentar-' + page).css('color', '#337ab7');
     }
@@ -211,7 +217,7 @@ function ispisiKomentar(komentar, poljeKomentara) {
         '<a href="profil.html?user=' + komentar.vlasnik + '">' +
         '<p class="komentar-ime">' + komentar.vlasnik + '</p>' +
         '</a>' +
-        '<p class="komentar-datum">' + $.format.date(komentar.datum, "dd.MM.yyyy.") + '</p>' +
+        '<p class="komentar-datum">' + $.format.date(komentar.datum, "dd.MM.yyyy. HH:mm") + '</p>' +
         '<p class="komentar-sadrzaj">' + komentar.sadrzaj + '</p>' +
         '<a href="#komentar-like-' + komentar.id + '" id="komentar-like-' + komentar.id + '" class="komentar-dugme-link">' +
         '<span id="komentar-like-dugme-' + komentar.id + '" class="glyphicon glyphicon-thumbs-up komentar-button-like"></span>' +

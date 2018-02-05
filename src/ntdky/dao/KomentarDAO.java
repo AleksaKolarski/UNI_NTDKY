@@ -22,7 +22,6 @@ public class KomentarDAO {
 
 			pstmt = conn.prepareStatement(query);
 			pstmt.setLong(1, id);
-			System.out.println(pstmt);
 			rset = pstmt.executeQuery();
 
 			if (rset.next()) {
@@ -63,7 +62,6 @@ public class KomentarDAO {
 		try {
 			String query = "SELECT id, sadrzaj, datum, vlasnik, video, obrisan FROM Komentar;";
 
-			System.out.println(query);
 			pstmt = conn.prepareStatement(query);
 			rset = pstmt.executeQuery();
 
@@ -108,7 +106,6 @@ public class KomentarDAO {
 			pstmt.setLong(index++, komentar.getVideo());
 			pstmt.setBoolean(index++, komentar.getObrisan());
 			pstmt.setLong(index++, komentar.getId());
-			System.out.println(pstmt);
 
 			return pstmt.executeUpdate() == 1;
 		} catch (SQLException ex) {
@@ -133,7 +130,6 @@ public class KomentarDAO {
 			pstmt.setString(index++, komentar.getVlasnik());
 			pstmt.setLong(index++, komentar.getVideo());
 			pstmt.setBoolean(index++, komentar.getObrisan());
-			System.out.println(pstmt);
 			
 			return pstmt.executeUpdate() == 1;
 		} catch (SQLException ex) {
@@ -164,7 +160,6 @@ public class KomentarDAO {
 		try {
 			String query = "SELECT id, sadrzaj, datum, vlasnik, video, obrisan FROM Komentar WHERE video=?;";
 
-			System.out.println(query);
 			pstmt = conn.prepareStatement(query);
 			pstmt.setLong(1, videoId);
 			rset = pstmt.executeQuery();
