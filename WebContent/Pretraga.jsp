@@ -63,10 +63,10 @@
 					<div id="sort-filter">
 						<p>Sortiraj po:</p>
 						<select class="form-control" id="sort-filter-select">
-							<option>Datumu</option>
-  						<option>Nazivu</option>
-  						<option>Vlasniku</option>
-  						<option>Broju pregleda</option>
+							<option value="datum">Datumu</option>
+  							<option value="naziv">Nazivu</option>
+  							<option value="vlasnik">Vlasniku</option>
+  							<option value="brojPregleda"> Broju pregleda</option>
 						</select>
 					</div>
 
@@ -74,13 +74,13 @@
 						<p>Redosled:</p>
 						<div class="radio-inline">
   						<label>
-    						<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+    						<input type="radio" name="optionsRadios" id="optionsRadios1" value="DESC" checked>
     						<span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
   						</label>
 						</div>
 						<div class="radio-inline">
   						<label>
-    						<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+    						<input type="radio" name="optionsRadios" id="optionsRadios2" value="ASC">
     						<span class="glyphicon glyphicon-sort-by-attributes"></span>
  							</label>
 						</div>

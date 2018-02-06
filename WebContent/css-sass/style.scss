@@ -9,7 +9,7 @@
 @import "navigacija-gore";
 @import "navigacija-levo";
 @import "navigacija-dole";
-@import "profile";
+@import "profil";
 @import "video";
 @import "video_panel";
 @import "pretraga";
@@ -18,7 +18,7 @@
 @include navigacija-gore;
 @include navigacija-levo;
 @include navigacija-dole;
-@include profile;
+@include profil;
 @include video;
 @include video_panel;
 @include pretraga;

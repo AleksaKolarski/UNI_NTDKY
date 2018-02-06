@@ -61,7 +61,7 @@
                       <button type="button" class="btn btn-default" id="btn-video-edit">Edit video</button>
                     </c:if>
                     <c:if test="${sessionScope.ulogovaniKorisnik.korisnickoIme != requestScope.video.vlasnik}">
-                      <button type="button" class="btn btn-default" id="btn-subscribe">Subscribe</button>
+                      <button type="button" class="btn btn-default" id="btn-subscribe"></button>
                     </c:if>
                   </td>
                   <td rowspan="2" id="video-details-r1-c1">

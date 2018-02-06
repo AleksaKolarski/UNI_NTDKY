@@ -25,7 +25,7 @@ $(document).ready(function(e){
             // ulogovan je, prikazi pretplate
             var korisnik = data.korisnik;
             polje.append(
-                '<a href="profil.html?user=' + korisnik + '">' + 
+                '<a href="ProfilServlet?user=' + korisnik + '">' + 
                     '<li class="sidebar-menu-item">' + 
                         'Moj kanal' + 
                     '</li>' + 
@@ -42,10 +42,10 @@ $(document).ready(function(e){
                 );
                 for(var i in kanali){
                     polje.append(
-                        '<a href="profil.html?user=' + kanali[i] + '">' + 
+                        '<a href="ProfilServlet?user=' + kanali[i] + '">' + 
                             '<li class="sidebar-subscribed-channel">' + 
                                 kanali[i] + 
-                                '<img src="img/profile-photo.png" alt="profile photo">' + 
+                                '<img src="img/profile/profile-photo.png" alt="profile photo">' + 
                             '</li>' + 
                         '</a>'
                     );
@@ -73,10 +73,10 @@ $(document).ready(function(e){
             );
             for(var i in kanali){
                 polje.append(
-                    '<a href="profil.html?user=' + kanali[i] + '">' + 
+                    '<a href="ProfilServlet?user=' + kanali[i] + '">' + 
                         '<li class="sidebar-subscribed-channel">' + 
                             kanali[i] + 
-                            '<img src="img/profile-photo.png" alt="profile photo">' + 
+                            '<img src="img/profile/profile-photo.png" alt="profile photo">' + 
                         '</li>' + 
                     '</a>'
                 );

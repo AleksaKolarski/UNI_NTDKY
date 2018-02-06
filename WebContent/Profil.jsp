@@ -1,253 +1,186 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Profil: ${requestScope.profileUsername}</title>
+	<title>Profil: ${requestScope.profil.korisnickoIme}</title>
+	
 	<!-- Bootstrap and jQuery -->
   	<link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css">
   	<script src="lib/jquery/jquery-3.2.1.js"></script>
+    <script src="lib/jquery/jquery-dateFormat.min.js"></script>
   	<script src="lib/bootstrap/js/bootstrap.js"></script>
 
   	<!-- Custom files -->
-  	<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700&amp;subset=latin-ext" rel="stylesheet">
+  	<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,600,700&amp;subset=latin-ext" rel="stylesheet">
   	<link rel="stylesheet" type="text/css" href="css/style.css">
   	<script src="js/misc.js"></script>
   	<script src="js/header.js"></script>
   	<script src="js/sidebar.js"></script>
+    <script src="js/profil.js"></script>
 </head>
 <body>
 <div class="container-fluid osnova">
 
     <!-- NAVIGACIJA GORE -->
-    <div class="row">
-      <!-- <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2 navigacija-gore"> -->
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 navigacija-gore">
-        <nav>
-          <ul>
-            <li class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-              <div class="navigacija-logo">
-                <a href="#">NTDKY</a>
-              </div>
-            </li>
-            <li class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-              <div class="navigacija-search input-group">
-                <input type="text" class="form-control" placeholder="Pretraga...">
-                <span class="input-group-btn">
-                  <button class="btn btn-default" type="button">
-                    <span class="glyphicon glyphicon-search"></span>
-                  </button>
-                </span>
-              </div>
-            </li>
-            <li class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-              <div class="navigacija-user" id="navigacija-gore-polje">
-              </div>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </div>
-
+    <%@include file="include/navigacija_gore.html"%>
 
     <div class="row page">
 
       <!-- NAVIGACIJA LEVO -->
-      <div class="col-sm-3 col-md-2 col-lg-2 navigacija-levo">
-        <ul>
-          <!-- Menu items -->
-          <a href="#">
-            <li class="sidebar-menu-item">
-              Pocetna
-            </li>
-          </a>
-        </ul>
-      </div>
+      <%@include file="include/navigacija_levo.html"%>
 
       <!-- MAIN CONTENT -->
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2 main">
-	  	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 profile-details">
-		  <h4>Korisnicko ime: ${requestScope.profileUsername}</h4>
-		  <h4>Ime: ${requestScope.profileName}</h4>
-		  <h4>Prezime: ${requestScope.profileLastName}</h4>
-		  <h4>Datum registracije: ${requestScope.profileDate}</h4>
-		  <h4>Uloga: ${requestScope.profileUloga}</h4>
-		  <h4>Broj pratilaca: ${requestScope.profileBrojPratilaca}</h4>
-		  <c:choose>
-			<c:when test="${requestScope.ulogovani == requestScope.profileUsername}">
-				<button type="button" class="btn btn-default btn-edit-profile">Edit profile</button>
-			</c:when>
-			<c:otherwise>
-				<button type="button" class="btn btn-default btn-subscribe-profile">Subscribe</button>
-			</c:otherwise>
-		  </c:choose>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pnl">
-          <a href="#">
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <img src="img/video-thumbnail-1.jpg">
-              </div>
-              <div class="panel-footer">Panel footer</div>
+        <c:if test="${not empty requestScope.profil}">
+  	      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 profile-details">
+            <c:choose>
+              <c:when test="${not empty requestScope.profil.slika}">
+                <img src="img/profile/${requestScope.profil.slika}" id="profile-image" alt="profile photo">
+              </c:when>
+              <c:otherwise>
+                <img src="img/profile/_.png" id="profile-image" alt="profile photo">
+              </c:otherwise>
+            </c:choose>
+
+            <c:if test="${(requestScope.edit == true) && ((sessionScope.ulogovaniKorisnik.korisnickoIme == requestScope.profil.korisnickoIme) || (sessionScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN'))}">
+              <input type="file" id="profile-image-chooser" accept="image/*">
+            </c:if>
+
+            <div class="profile-input-div">
+              <p class="profile-p profile-p-title">Korisnicko ime: </p>
+              <p class="profile-p">${requestScope.profil.korisnickoIme}</p>
             </div>
-          </a>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pnl">
-          <a href="#">
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <img src="img/video-thumbnail-2.jpg">
-              </div>
-              <div class="panel-footer">Panel footer</div>
+
+            <div class="profile-input-div">
+              <p class="profile-p profile-p-title">Ime: </p>
+              <c:choose>
+                <c:when test="${(requestScope.edit == true) && ((sessionScope.ulogovaniKorisnik.korisnickoIme == requestScope.profil.korisnickoIme) || (sessionScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN'))}">
+                  <input type="text" id="profile-input-ime" class="form-control" value="${requestScope.profil.ime}">
+                </c:when>
+                <c:otherwise>
+                  <p class="profile-p">${requestScope.profil.ime}</p>
+                </c:otherwise>
+              </c:choose>
             </div>
-          </a>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pnl">
-          <a href="#">
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <img src="img/video-thumbnail-3.jpg">
-              </div>
-              <div class="panel-footer">Panel footer</div>
+
+            <div class="profile-input-div">
+              <p class="profile-p profile-p-title">Prezime: </p>
+              <c:choose>
+                <c:when test="${(requestScope.edit == true) && ((sessionScope.ulogovaniKorisnik.korisnickoIme == requestScope.profil.korisnickoIme) || (sessionScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN'))}">
+                  <input type="text" id="profile-input-prezime" class="form-control" value="${requestScope.profil.prezime}">
+                </c:when>
+                <c:otherwise>
+                  <p class="profile-p">${requestScope.profil.prezime}</p>
+                </c:otherwise>
+              </c:choose>
             </div>
-          </a>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pnl">
-          <a href="#">
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <img src="img/video-thumbnail-4.jpg">
-              </div>
-              <div class="panel-footer">Panel footer</div>
+
+            <div class="profile-input-div">
+              <p class="profile-p profile-p-title">Opis: </p>
+              <c:choose>
+                <c:when test="${(requestScope.edit == true) && ((sessionScope.ulogovaniKorisnik.korisnickoIme == requestScope.profil.korisnickoIme) || (sessionScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN'))}">
+                  <textarea id="profile-input-opis" class="form-control" rows="4">${requestScope.profil.opis}</textarea>
+                </c:when>
+                <c:otherwise>
+                  <p class="profile-p">${requestScope.profil.opis}</p>
+                </c:otherwise>
+              </c:choose>
             </div>
-          </a>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pnl">
-          <a href="#">
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <img src="img/video-thumbnail-5.jpg">
-              </div>
-              <div class="panel-footer">Panel footer</div>
+            
+            <div class="profile-input-div">
+              <p class="profile-p profile-p-title">Uloga: </p>
+              <c:choose>
+                <c:when test="${(requestScope.edit == true) && (sessionScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN')}">
+                  <select class="form-control" id="profile-user-type">
+                    <c:if test="${requestScope.profil.tipKorisnika == 'USER'}">
+							        <option value="USER" label="Obican korisnik" selected="selected"></option>
+  						        <option value="ADMIN" label="Administrator"></option>
+                    </c:if>
+                    <c:if test="${requestScope.profil.tipKorisnika == 'ADMIN'}">
+							        <option value="USER" label="Obican korisnik"></option>
+  						        <option value="ADMIN" label="Administrator" selected="selected"></option>
+                    </c:if>
+						      </select>
+                </c:when>
+                <c:otherwise>
+                  <p class="profile-p">${requestScope.profil.tipKorisnika}</p>
+                </c:otherwise>
+              </c:choose>
             </div>
-          </a>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pnl">
-          <a href="#">
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <img src="img/video-thumbnail-6.jpg">
-              </div>
-              <div class="panel-footer">Panel footer</div>
+
+            <div class="profile-input-div">
+              <p class="profile-p profile-p-title">Datum registracije: </p>
+              <p class="profile-p"><fmt:formatDate value="${requestScope.profil.datum}" pattern="dd.MM.yyyy. HH:mm" /></p>
             </div>
-          </a>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pnl">
-          <a href="#">
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <img src="img/video-thumbnail-7.jpg">
+
+            <c:if test="${(sessionScope.ulogovaniKorisnik.korisnickoIme == requestScope.profil.korisnickoIme) || (sessionScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN')}">
+              <div class="profile-input-div">
+                <p class="profile-p profile-p-title">Email: </p>
+                <p class="profile-p">${requestScope.profil.email}</p>
               </div>
-              <div class="panel-footer">Panel footer</div>
+            </c:if>
+
+            <div class="profile-input-div">
+              <p class="profile-p profile-p-title">Broj pratilaca: </p>
+              <p class="profile-p">${requestScope.profil.brojPratioca}</p>
             </div>
-          </a>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pnl">
-          <a href="#">
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <img src="img/video-thumbnail-8.jpg">
-              </div>
-              <div class="panel-footer">Panel footer</div>
-            </div>
-          </a>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pnl">
-          <a href="#">
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <img src="img/video-thumbnail-1.jpg">
-              </div>
-              <div class="panel-footer">Panel footer</div>
-            </div>
-          </a>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pnl">
-          <a href="#">
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <img src="img/video-thumbnail-2.jpg">
-              </div>
-              <div class="panel-footer">Panel footer</div>
-            </div>
-          </a>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pnl">
-          <a href="#">
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <img src="img/video-thumbnail-3.jpg">
-              </div>
-              <div class="panel-footer">Panel footer</div>
-            </div>
-          </a>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pnl">
-          <a href="#">
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <img src="img/video-thumbnail-4.jpg">
-              </div>
-              <div class="panel-footer">Panel footer</div>
-            </div>
-          </a>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 pnl">
-          <a href="#">
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <img src="img/video-thumbnail-5.jpg">
-              </div>
-              <div class="panel-footer">Panel footer</div>
-            </div>
-          </a>
-        </div>
+          
+            <c:if test="${not empty sessionScope.ulogovaniKorisnik}">
+              <c:if test="${(sessionScope.ulogovaniKorisnik.korisnickoIme == requestScope.profil.korisnickoIme) || (sessionScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN')}">
+                <c:if test="${requestScope.edit != true}">
+                  <button type="button" class="btn btn-default" id="btn-profile-edit">Edit profile</button>
+                </c:if>
+                <c:if test="${requestScope.edit == true}">
+                  <div class="profile-input-div">
+                    <p class="profile-p profile-p-title">Nova lozinka: </p>
+                    <input type="password" class="form-control" id="profile-lozinka1"/>
+                  </div>
+                  <div class="profile-input-div">
+                    <p class="profile-p profile-p-title">Ponovite lozinku: </p>
+                    <input type="password" class="form-control" id="profile-lozinka2"/>
+                  </div>
+                  
+                  <c:if test="${(sessionScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN')}">
+                    <div class="profile-input-div">
+                      <p class="profile-p profile-p-title">Blokiranje: </p>
+                      <select class="form-control" id="profile-user-block">
+                        <c:if test="${requestScope.profil.blokiran == false}">
+							            <option value="FALSE" label="Nije blokiran" selected="selected"></option>
+  						            <option value="TRUE" label="Blokiran"></option>
+                        </c:if>
+                        <c:if test="${requestScope.profil.blokiran == true}">
+							            <option value="FALSE" label="Nije blokiran"></option>
+  						            <option value="TRUE" label="Blokiran" selected="selected"></option>
+                         </c:if>
+						          </select>
+                    </div>
+                  </c:if>
+
+                  <button type="button" class="btn btn-default" id="btn-profile-save">Save</button>
+                  <button type="button" class="btn btn-default" id="btn-profile-cancel">Cancel</button>
+                  <p id="profile-log"></p>
+                  <button type="button" class="btn btn-default" id="btn-profile-delete">Obrisi nalog</button>
+                </c:if>
+              </c:if>
+              <c:if test="${sessionScope.ulogovaniKorisnik.korisnickoIme != requestScope.profil.korisnickoIme}">
+                <button type="button" class="btn btn-default" id="btn-subscribe"></button>
+              </c:if>
+            </c:if>
+          </div>
+
+          <%-- videi --%>
+          
+          <%-- pretplate --%>
+        </c:if>
       </div>
     </div>
 
     <!-- FOOTER -->
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 navigacija-dole">
-        <footer>
-          <ul>
-            <li class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-              <div class="">
-                <a href="#">NTDKY</a>
-                <p>Ovo je neki tekst</p>
-                <p>Ovo je neki tekst</p>
-              </div>
-            </li>
-            <li class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-              <div class="">
-                <a href="#">NTDKY</a>
-                <p>Ovo je neki tekst</p>
-                <p>Ovo je neki tekst</p>
-              </div>
-            </li>
-            <li class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-              <div class="">
-                <a href="#">NTDKY</a>
-                <p>Ovo je neki tekst</p>
-                <p>Ovo je neki tekst</p>
-              </div>
-            </li>
-          </ul>
-        </footer>
-      </div>
-    </div>
+    <%@include file="include/navigacija_dole.html"%>
   </div>
-
 </body>
 </html>

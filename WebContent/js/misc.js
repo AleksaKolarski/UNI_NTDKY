@@ -67,7 +67,7 @@ function videoPanel(video) {
                     '<div class="panel panel-default">' +
                         '<a href="VideoServlet?id=' + video.id + '">' +
                             '<div class="video-panel-body">' +
-                                '<img src="img/' + video.putanjaSlike + '">' +
+                                '<img src="img/video/' + video.putanjaSlike + '">' +
                             '</div>' +
                         '</a>' +
                         '<div class="video-panel-footer">' + 

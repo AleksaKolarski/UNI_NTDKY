@@ -58,39 +58,8 @@ function novaPretragaVidea(){
     var datumMin = $('#datum-filter1').val();
     var datumMax = $('#datum-filter2').val();
 
-    var sortByRaw = $('#sort-filter-select').val();
-    var sortDirectionRaw = $('#sort-by-filter input:radio:checked').val();
-
-    var sortBy;
-    switch(sortByRaw){
-        case 'Nazivu':
-            sortBy = 'naziv';
-            break;
-        case 'Vlasniku':
-            sortBy = 'vlasnik';
-            break;
-        case 'Broju pregleda':
-            sortBy = 'brojPregleda';
-            break;
-        case 'Datumu':
-            sortBy = 'datum';
-            break;
-        default:
-            sortBy = 'datum';
-    }
-
-    var sortDirection;
-    switch(sortDirectionRaw){
-        case 'option1':
-            sortDirection = 'DESC';
-            break;
-        case 'option2':
-            sortDirection = 'ASC';
-            break;
-        default:
-            sortDirection = 'DESC';
-    }
-
+    var sortBy = $('#sort-filter-select').val();
+    var sortDirection = $('#sort-by-filter input:radio:checked').val();
 
     $.get('VideoFilterServlet', {"nazivFilter":naziv, "vlasnikFilter":vlasnik, "datumFilterMin":datumMin, "datumFilterMax":datumMax, "brojFilterMin":brojPregleda[0], "brojFilterMax":brojPregleda[1], "sortBy":sortBy, "sortDirection":sortDirection}, function(data){
         if(data.status == 'success'){

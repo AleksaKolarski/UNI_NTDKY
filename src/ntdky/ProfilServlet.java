@@ -18,50 +18,36 @@ import ntdky.model.Korisnik;
 public class ProfilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute("ulogovaniKorisnik");
 
-		String profileUsername = request.getParameter("profil");
+		String profileUsername = request.getParameter("user");
 		Korisnik profileUser;
 
 		Map<String, Object> data = new HashMap<>();
-		String status_login = "unauthenticated";
-		String status_profile = "not-found";
-
-		if (profileUsername != null) {
-			if ((profileUser = KorisnikDAO.get(profileUsername)) != null) {
-
-				if (ulogovaniKorisnik != null) {
-					status_login = "success";
-					data.put("ulogovani", ulogovaniKorisnik.getKorisnickoIme());
-
-					data.put("pretplacen",
-							(KorisnikDAO.checkPretplata(ulogovaniKorisnik, profileUser)) ? "true" : "false");
+		String status = "error";
+		
+		if(profileUsername != null) {
+			if((profileUser = KorisnikDAO.get(profileUsername)) != null) {
+				profileUser.setLozinka("");
+				request.setAttribute("profil", profileUser);
+				status = "success";
+				String edit = request.getParameter("edit");
+				if(edit != null) {
+					if(edit.equals("true")) {
+						request.setAttribute("edit", true);
+					}
+					else {
+						request.setAttribute("edit", false);
+					}
 				}
-
-				status_profile = "found";
-
-				data.put("korisnickoIme", profileUser.getKorisnickoIme());
-				data.put("ime", profileUser.getIme());
-				data.put("prezime", profileUser.getPrezime());
-				data.put("opis", profileUser.getOpis());
-				data.put("datum", profileUser.getDatum().toString());
-				data.put("uloga", profileUser.getTipKorisnika());
-				data.put("brojPratilaca", KorisnikDAO.getPretplateBroj(profileUser));
-			} else {
-				// nema tog korisnika
-				System.out.println("Nije pronadjen taj korisnik");
+				request.getRequestDispatcher("Profil.jsp").forward(request, response);
 			}
-		} else {
-			// u linku nije specificiran korisnik
-			System.out.println("U linku nije specificiran korisnik");
 		}
-
-		data.put("status_login", status_login);
-		data.put("status_profile", status_profile);
-
+		
+		data.put("status", status);
+		
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonData = mapper.writeValueAsString(data);
 
@@ -69,8 +55,7 @@ public class ProfilServlet extends HttpServlet {
 		response.getWriter().write(jsonData);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute("ulogovaniKorisnik");
 

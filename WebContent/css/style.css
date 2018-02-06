@@ -192,40 +192,77 @@ body {
   background: #F5F5F5;
   margin-bottom: 15px;
   border-radius: 10px;
-  box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.18); }
-  .profile-details .details-polje {
+  box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.18);
+  vertical-align: middle; }
+  .profile-details #profile-image {
+    width: 100px;
+    height: 100px; }
+  .profile-details .profile-p {
+    margin: 0px;
+    display: inline-block;
     vertical-align: middle;
-    display: inline;
-    height: auto;
-    width: 100%;
-    margin-top: 2px;
-    margin-bottom: 1px;
-    word-wrap: break-word; }
-    .profile-details .details-polje input {
+    height: auto; }
+  .profile-details .profile-p-title {
+    font-weight: 600; }
+  .profile-details .profile-input-div {
+    margin: 3px 0px 0px 0px; }
+    .profile-details .profile-input-div #profile-input-ime {
       display: inline-block;
-      margin: 0px;
-      height: 22px;
       width: 150px;
-      padding: 1px 4px 1px 4px; }
-    .profile-details .details-polje #input-opis-profil {
-      padding: 1px 3px 1px 3px;
+      padding: 5px 4px 5px 4px;
+      height: 26px; }
+    .profile-details .profile-input-div #profile-input-prezime {
+      display: inline-block;
+      width: 150px;
+      padding: 5px 4px 5px 4px;
+      height: 26px; }
+    .profile-details .profile-input-div #profile-input-opis {
+      display: inline-block;
       width: 200px;
-      resize: none; }
-    .profile-details .details-polje p {
-      margin: 0px; }
-  .profile-details .btn-edit-profile {
+      padding: 1px 3px 1px 3px;
+      resize: none;
+      vertical-align: middle; }
+    .profile-details .profile-input-div #profile-user-type {
+      width: auto;
+      display: inline-block;
+      padding: 4px 4px 4px 4px;
+      height: 26px;
+      vertical-align: middle; }
+    .profile-details .profile-input-div #profile-lozinka1 {
+      display: inline-block;
+      width: 150px;
+      padding: 6px 4px 6px 4px;
+      height: 26px;
+      vertical-align: middle; }
+    .profile-details .profile-input-div #profile-lozinka2 {
+      display: inline-block;
+      width: 150px;
+      padding: 6px 4px 6px 4px;
+      height: 26px;
+      vertical-align: middle; }
+    .profile-details .profile-input-div #profile-user-block {
+      width: auto;
+      display: inline-block;
+      padding: 3px 4px 4px 4px;
+      height: 26px;
+      vertical-align: middle; }
+  .profile-details #btn-subscribe {
     position: absolute;
     top: 10px;
     right: 10px; }
-  .profile-details .btn-save-profile {
-    margin: 7px 9px 0px 0px; }
-  .profile-details .btn-cancel-profile {
-    margin: 7px 9px 0px 0px; }
-  .profile-details #save-profile-log {
-    display: inline-block; }
-  .profile-details p {
-    margin: 0px;
-    display: inline; }
+  .profile-details #btn-profile-edit {
+    margin: 5px 0px 0px 0px; }
+  .profile-details #btn-profile-save {
+    margin: 7px 0px 0px 0px; }
+  .profile-details #btn-profile-cancel {
+    margin: 7px 0px 0px 7px; }
+  .profile-details #profile-log {
+    display: inline-block;
+    margin: 0px 0px 0px 15px; }
+  .profile-details #btn-profile-delete {
+    position: absolute;
+    bottom: 10px;
+    right: 10px; }
 
 .video {
   padding: 0px; }

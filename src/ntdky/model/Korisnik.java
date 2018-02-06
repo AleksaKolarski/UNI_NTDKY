@@ -1,7 +1,6 @@
 package ntdky.model;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +18,7 @@ public class Korisnik {
 	private String prezime;
 	private String email;
 	private String opis;
+	private String slika;
 	private Date datum;
 	private TipKorisnika tipKorisnika;
 	private boolean blokiran;
@@ -31,13 +31,14 @@ public class Korisnik {
 		
 	}
 	
-	public Korisnik(String korisnickoIme, String lozinka, String ime, String prezime, String email, String opis, Date datum, TipKorisnika tipKorisnika, boolean blokiran, boolean obrisan) {
+	public Korisnik(String korisnickoIme, String lozinka, String ime, String prezime, String email, String opis, String slika, Date datum, TipKorisnika tipKorisnika, boolean blokiran, boolean obrisan) {
 		this.korisnickoIme = korisnickoIme;
 		this.lozinka = lozinka;
 		this.ime = ime;
 		this.prezime = prezime;
 		this.email = email;
 		this.opis = opis;
+		this.slika = slika;
 		this.datum = datum; 
 		this.tipKorisnika = tipKorisnika;
 		this.blokiran = blokiran;
@@ -87,6 +88,13 @@ public class Korisnik {
 		this.opis = opis;
 	}
 	
+	public String getSlika() {
+		return slika;
+	}
+	public void setSlika(String slika) {
+		this.slika = slika;
+	}
+	
 	public Date getDatum() {
 		return datum;
 	}
@@ -112,9 +120,13 @@ public class Korisnik {
 		this.obrisan = obrisan;
 	}
 	
-	public List<String> getPratioci(){
+	public List<Korisnik> getPratioci(){
 		// generisati listu pratioca
-		return new ArrayList<String>();
+		return KorisnikDAO.getPretplacene(this);
+	}
+	
+	public Long getBrojPratioca() {
+		return KorisnikDAO.getPretplaceneBroj(this);
 	}
 	
 	/*
@@ -133,10 +145,6 @@ public class Korisnik {
 	}
 	*/
 	
-	public static Korisnik getByKorisnickoIme(String korisnickoIme) {
-		// prodji kroz sve korisnike i vrati korisnika
-		return new Korisnik();
-	}
 	
 	public static void pretplata(Korisnik ko, Korisnik koga) {
 		if(KorisnikDAO.checkPretplata(ko, koga)) {
