@@ -39,6 +39,15 @@ $(document).ready(function (e) {
         });
     });
 
+    buttonDelete.on('click', null, function(){
+        $.post('ProfilServlet', { 'profil': profil, 'obrisan': 'true' }, function (data2) {
+            if(data2.status == 'success'){
+                window.location.href = '/NTDKY';
+            }else{
+                poljeLog.append('Greska pri brisanju korisnika!');
+            }
+        });
+    });
 
     buttonEdit.on('click', null, function(){
         window.location.href = '/NTDKY/ProfilServlet?user=' + profil + '&edit=true';
@@ -98,6 +107,13 @@ $(document).ready(function (e) {
             return;
         }
         poljeLog.append('Ime mora biti krace od 17 karaktera!');
+    });
+
+
+    $.get('VideoFilterServlet', {"vlasnikFilter":profil}, function(data){
+        if(data.status == 'success'){
+            popuniRezultatePretrageVidea(data.videi, '#profile-videos');
+        }
     });
 });
 

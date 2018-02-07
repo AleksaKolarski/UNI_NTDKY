@@ -184,6 +184,34 @@
           </div>
 
           <%-- videi --%>
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="profil-video-sort-wrapper">
+					  <div id="sort-filter">
+						  <p>Sortiraj po:</p>
+						  <select class="form-control" id="sort-filter-select">
+							  <option value="datum">Datumu</option>
+  							<option value="brojPregleda"> Broju pregleda</option>
+						  </select>
+					  </div>
+
+					  <div id="sort-by-filter">
+						  <p>Redosled:</p>
+						  <div class="radio-inline">
+  						  <label>
+    						  <input type="radio" name="optionsRadios" id="optionsRadios1" value="DESC" checked>
+    						  <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+  						  </label>
+						  </div>
+						  <div class="radio-inline">
+  						  <label>
+    						  <input type="radio" name="optionsRadios" id="optionsRadios2" value="ASC">
+    						  <span class="glyphicon glyphicon-sort-by-attributes"></span>
+ 							  </label>
+						  </div>
+					  </div>
+				  </div>
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="profile-videos">
+
+          </div>
           
           <%-- pretplate --%>
         </c:if>

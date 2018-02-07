@@ -69,6 +69,23 @@ public class ProfilServlet extends HttpServlet {
 			if(profil != null && (ulogovaniKorisnik.getKorisnickoIme().equals(profil) || ulogovaniKorisnik.getTipKorisnika() == TipKorisnika.ADMIN)) {
 				Korisnik korisnik = KorisnikDAO.get(profil);
 				if(korisnik != null) {
+					
+					String obrisan = request.getParameter("obrisan");
+					if(obrisan != null && obrisan.equals("true")) {
+						KorisnikDAO.delete(korisnik);
+						data.put("status", "success");
+
+						ObjectMapper mapper = new ObjectMapper();
+						String jsonData = mapper.writeValueAsString(data);
+
+						response.setContentType("application/json");
+						response.getWriter().write(jsonData);
+						
+						return;
+					}
+					
+					
+					
 					String ime = request.getParameter("ime");
 					String prezime = request.getParameter("prezime");
 					String opis = request.getParameter("opis");

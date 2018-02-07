@@ -8,7 +8,7 @@
     .profile-details {
         padding: 10px;
         background: $navigacija_color;
-        margin-bottom: 15px;
+        margin-bottom: 6px;
         border-radius: 10px;
         box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.18);
         vertical-align: middle;
@@ -104,6 +104,7 @@
 
         #button-div {
             margin-top: 6px;
+
             #btn-profile-save {
                 margin: 3px 0px 3px 0px;
             }
@@ -126,5 +127,58 @@
             bottom: 10px;
             right: 10px;
         }
+    }
+
+    #profil-video-sort-wrapper {
+        height: auto;
+        padding: 0px 5px 0px 5px;
+
+        #sort-filter {
+            display: inline-block;
+
+            //vertical-align: middle;
+            margin-right: 15px;
+            //margin-bottom: 10px;
+
+            p {
+                padding: 0px;
+                margin: 0px;
+            }
+
+            select {
+                width: auto;
+                padding: 4px 8px 4px 8px;
+            }
+        }
+
+        #sort-by-filter {
+            display: inline-block;
+
+            //vertical-align: middle;
+
+            p {
+                padding: 0px;
+                margin: 0px;
+
+                //margin: 0px 0px 6px 0px;
+           
+            }
+
+            .radio-inline {
+                //display: inline;
+                margin-right: 5px;
+                margin-top: 4px;
+
+                label {
+                    font-size: 20px;
+                    margin: 0px;
+                }
+            }
+        }
+    }
+    
+    #profile-videos{
+        padding: 0px;
+        margin-top: 6px;
     }
 }

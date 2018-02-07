@@ -28,7 +28,7 @@ $(document).ready(function (e) {
                 step: 1
             });
 
-            popuniRezultatePretrageVidea(data.videi);
+            popuniRezultatePretrageVidea(data.videi, '.main');
         }
     });
     
@@ -63,7 +63,7 @@ function novaPretragaVidea(){
 
     $.get('VideoFilterServlet', {"nazivFilter":naziv, "vlasnikFilter":vlasnik, "datumFilterMin":datumMin, "datumFilterMax":datumMax, "brojFilterMin":brojPregleda[0], "brojFilterMax":brojPregleda[1], "sortBy":sortBy, "sortDirection":sortDirection}, function(data){
         if(data.status == 'success'){
-            popuniRezultatePretrageVidea(data.videi);
+            popuniRezultatePretrageVidea(data.videi, '.main');
         }
     });
 
@@ -87,10 +87,3 @@ function novaPretragaVidea(){
     */
 }
 
-function popuniRezultatePretrageVidea(videi){
-    var main = $('.main');
-    main.empty();
-    for(var i in videi){
-        main.append(videoPanel(videi[i]));
-    }
-}

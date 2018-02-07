@@ -192,7 +192,7 @@ body {
 .profile-details {
   padding: 10px;
   background: #F5F5F5;
-  margin-bottom: 15px;
+  margin-bottom: 6px;
   border-radius: 10px;
   box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.18);
   vertical-align: middle; }
@@ -270,6 +270,34 @@ body {
     position: absolute;
     bottom: 10px;
     right: 10px; }
+
+#profil-video-sort-wrapper {
+  height: auto;
+  padding: 0px 5px 0px 5px; }
+  #profil-video-sort-wrapper #sort-filter {
+    display: inline-block;
+    margin-right: 15px; }
+    #profil-video-sort-wrapper #sort-filter p {
+      padding: 0px;
+      margin: 0px; }
+    #profil-video-sort-wrapper #sort-filter select {
+      width: auto;
+      padding: 4px 8px 4px 8px; }
+  #profil-video-sort-wrapper #sort-by-filter {
+    display: inline-block; }
+    #profil-video-sort-wrapper #sort-by-filter p {
+      padding: 0px;
+      margin: 0px; }
+    #profil-video-sort-wrapper #sort-by-filter .radio-inline {
+      margin-right: 5px;
+      margin-top: 4px; }
+      #profil-video-sort-wrapper #sort-by-filter .radio-inline label {
+        font-size: 20px;
+        margin: 0px; }
+
+#profile-videos {
+  padding: 0px;
+  margin-top: 6px; }
 
 .video {
   padding: 0px; }
