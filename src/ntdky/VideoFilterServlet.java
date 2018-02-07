@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import ntdky.dao.KorisnikDAO;
 import ntdky.dao.VideoDAO;
 import ntdky.model.Korisnik;
 import ntdky.model.Video;
@@ -28,7 +29,7 @@ public class VideoFilterServlet extends HttpServlet {
 	@SuppressWarnings("deprecation")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute("ulogovaniKorisnik");
+		Korisnik ulogovaniKorisnik = KorisnikDAO.get((String) session.getAttribute("ulogovaniKorisnik"));
 		
 		Map<String, Object> data = new HashMap<>();
 		
@@ -46,13 +47,13 @@ public class VideoFilterServlet extends HttpServlet {
 		if(nazivFilter == null) {
 			nazivFilter = "";
 		}
-		System.out.println("naziv: '" + nazivFilter + "'");
+		//System.out.println("naziv: '" + nazivFilter + "'");
 		
 		String vlasnikFilter = request.getParameter("vlasnikFilter");
 		if(vlasnikFilter == null) {
 			vlasnikFilter = "";
 		}
-		System.out.println("vlasnik: '" + vlasnikFilter + "'");
+		//System.out.println("vlasnik: '" + vlasnikFilter + "'");
 		
 		Date datumFilterMin;
 		Date datumFilterMax;
@@ -66,8 +67,8 @@ public class VideoFilterServlet extends HttpServlet {
 			datumFilterMax = new Date(9999-1900, 1, 1); // nesto daleko
 		}
 		
-		System.out.println("datumMin: '" + datumFilterMin + "'");
-		System.out.println("datumMax: '" + datumFilterMax + "'");
+		//System.out.println("datumMin: '" + datumFilterMin + "'");
+		//System.out.println("datumMax: '" + datumFilterMax + "'");
 		
 		long brojFilterMin;
 		long brojFilterMax;
@@ -86,8 +87,8 @@ public class VideoFilterServlet extends HttpServlet {
 			brojFilterMax = 0;
 		}
 		
-		System.out.println("brojMin: '" + brojFilterMin + "'");
-		System.out.println("brojMax: '" + brojFilterMax + "'");
+		//System.out.println("brojMin: '" + brojFilterMin + "'");
+		//System.out.println("brojMax: '" + brojFilterMax + "'");
 		
 		String sortBy = request.getParameter("sortBy");
 		if(sortBy != null) {
@@ -98,7 +99,7 @@ public class VideoFilterServlet extends HttpServlet {
 		else {
 			sortBy = "datum";
 		}
-		System.out.println("sortBy: '" + sortBy + "'");
+		//System.out.println("sortBy: '" + sortBy + "'");
 		
 		String sortDirection = request.getParameter("sortDirection");
 		if(sortDirection != null) {
@@ -109,7 +110,7 @@ public class VideoFilterServlet extends HttpServlet {
 		else {
 			sortDirection = "DESC";
 		}
-		System.out.println("sortDirection: '" + sortDirection + "'");
+		//System.out.println("sortDirection: '" + sortDirection + "'");
 		
 		List<Video> videi = VideoDAO.getFilter(nazivFilter, vlasnikFilter, datumFilterMin, datumFilterMax, brojFilterMin, brojFilterMax, sortBy, sortDirection);
 		if(videi != null) {

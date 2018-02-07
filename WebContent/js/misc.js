@@ -62,6 +62,14 @@ function check_password_reset(polje1, polje2) {
     return false;
 }
 
+function sendFile(odakle, naziv, gde){
+    var formData = new FormData();
+    formData.append(naziv, document.getElementById(odakle).files[0]);
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", gde, false);
+    xhr.send(formData);
+}
+
 function videoPanel(video) {
     return  '<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 video-panel">' +
                     '<div class="panel panel-default">' +
@@ -74,7 +82,7 @@ function videoPanel(video) {
                             '<a href="VideoServlet?id=' + video.id + '">' +
                                 '<p id="video-panel-naziv">' + video.naziv + '</p>' +
                             '</a>' +
-                            '<a href="profil.html?user=' + video.vlasnik + '">' +
+                            '<a href="ProfilServlet?user=' + video.vlasnik + '">' +
                                 '<p id="video-panel-vlasnik">' + video.vlasnik + '</p>' +
                             '</a>' + 
                             '<p id="video-panel-pregledi">' + video.brojPregleda + ' <span class="glyphicon glyphicon-play-circle"></span></p>' +

@@ -29,6 +29,7 @@ $(document).ready(function (e) {
             }
             else {
                 refreshsubscription(videoId);
+                refreshSidebar();
             }
         });
     });

@@ -25,11 +25,11 @@ $(document).ready(function(e){
                 '<div class="btn-group btn-gore-group-login-register-profil">' + 
                     '<div class="btn-group">' + 
                         '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">' + 
-                            korisnik.korisnickoIme  + ' ' + 
+                            korisnik  + ' ' + 
                             '<span class="caret"></span>' + 
                         '</button>' + 
                         '<ul class="dropdown-menu dropdown-menu-right" id="profil-dropdown">' + 
-                            '<li><a href="profil.html?user=' + korisnik.korisnickoIme + '">Moj profil</a></li>' + 
+                            '<li><a href="ProfilServlet?user=' + korisnik + '">Moj profil</a></li>' + 
                             '<li class="divider"></li>' + 
                             '<li><a href="LogoutServlet">Izloguj se</a></li>' + 
                         '</ul>' + 

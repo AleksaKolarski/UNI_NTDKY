@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import ntdky.dao.KorisnikDAO;
 import ntdky.dao.VideoDAO;
 import ntdky.model.Korisnik;
 import ntdky.model.Video;
@@ -22,7 +23,7 @@ public class VideoServlet extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute("ulogovaniKorisnik");
+		Korisnik ulogovaniKorisnik = KorisnikDAO.get((String) session.getAttribute("ulogovaniKorisnik"));
 		
 		Map<String, Object> data = new HashMap<>();
 		
@@ -42,6 +43,7 @@ public class VideoServlet extends HttpServlet {
 				
 			video.incrementBrojPregleda();
 			request.setAttribute("video", video);
+			request.setAttribute("ulogovaniKorisnik", ulogovaniKorisnik);
 			request.getRequestDispatcher("Video.jsp").forward(request, response);
 			
 		}catch(Exception e) {
@@ -59,6 +61,6 @@ public class VideoServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		doGet(request, response);
 	}
 }

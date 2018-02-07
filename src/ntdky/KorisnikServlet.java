@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import ntdky.dao.KorisnikDAO;
 import ntdky.model.Korisnik;
 
 public class KorisnikServlet extends HttpServlet {
@@ -23,14 +24,14 @@ public class KorisnikServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute("ulogovaniKorisnik");
+		Korisnik ulogovaniKorisnik = KorisnikDAO.get((String) session.getAttribute("ulogovaniKorisnik"));
 		
 		Map<String, Object> data = new HashMap<>();
 		String status;
 		if (ulogovaniKorisnik != null) {
 			// ulogovan je pa vracamo success i korisnicko ime
 			status = "success";
-			data.put("korisnik", ulogovaniKorisnik);
+			data.put("korisnik", ulogovaniKorisnik.getKorisnickoIme());
 		}
 		else {
 			// nije ulogovan

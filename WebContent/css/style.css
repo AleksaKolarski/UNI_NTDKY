@@ -167,7 +167,9 @@ body {
       border-radius: 2px;
       line-height: 30px; }
       #navigacija-levo ul .sidebar-subscribed-channel img {
-        float: right; }
+        float: right;
+        width: 30px;
+        height: 30px; }
     #navigacija-levo ul .sidebar-subscribed-channel:hover {
       background: #DDDDDD; }
 
@@ -252,13 +254,18 @@ body {
     right: 10px; }
   .profile-details #btn-profile-edit {
     margin: 5px 0px 0px 0px; }
-  .profile-details #btn-profile-save {
-    margin: 7px 0px 0px 0px; }
-  .profile-details #btn-profile-cancel {
-    margin: 7px 0px 0px 7px; }
-  .profile-details #profile-log {
-    display: inline-block;
-    margin: 0px 0px 0px 15px; }
+  .profile-details #button-div {
+    margin-top: 6px; }
+    .profile-details #button-div #btn-profile-save {
+      margin: 3px 0px 3px 0px; }
+    .profile-details #button-div #btn-profile-cancel {
+      margin: 3px 0px 3px 7px; }
+    .profile-details #button-div #profile-log {
+      display: inline-block;
+      margin: 0px 0px 0px 15px;
+      color: red;
+      width: 150px;
+      vertical-align: middle; }
   .profile-details #btn-profile-delete {
     position: absolute;
     bottom: 10px;

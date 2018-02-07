@@ -12,8 +12,8 @@
         border-radius: 10px;
         box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.18);
         vertical-align: middle;
-        
-        #profile-image{
+
+        #profile-image {
             width: 100px;
             height: 100px;
         }
@@ -62,7 +62,9 @@
                 padding: 4px 4px 4px 4px;
                 height: 26px;
                 vertical-align: middle;
+
                 //line-height: 100%;
+           
             }
 
             #profile-lozinka1 {
@@ -81,15 +83,13 @@
                 vertical-align: middle;
             }
 
-            #profile-user-block{
+            #profile-user-block {
                 width: auto;
                 display: inline-block;
                 padding: 3px 4px 4px 4px;
                 height: 26px;
                 vertical-align: middle;
             }
-
-            
         }
 
         #btn-subscribe {
@@ -98,24 +98,30 @@
             right: 10px;
         }
 
-        #btn-profile-edit{
+        #btn-profile-edit {
             margin: 5px 0px 0px 0px;
         }
 
-        #btn-profile-save {
-            margin: 7px 0px 0px 0px;
+        #button-div {
+            margin-top: 6px;
+            #btn-profile-save {
+                margin: 3px 0px 3px 0px;
+            }
+
+            #btn-profile-cancel {
+                margin: 3px 0px 3px 7px;
+            }
+
+            #profile-log {
+                display: inline-block;
+                margin: 0px 0px 0px 15px;
+                color: red;
+                width: 150px;
+                vertical-align: middle;
+            }
         }
 
-        #btn-profile-cancel {
-            margin: 7px 0px 0px 7px;
-        }
-
-        #profile-log {
-            display: inline-block;
-            margin: 0px 0px 0px 15px;
-        }
-
-        #btn-profile-delete{
+        #btn-profile-delete {
             position: absolute;
             bottom: 10px;
             right: 10px;

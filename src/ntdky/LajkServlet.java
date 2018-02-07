@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ntdky.dao.KomentarDAO;
+import ntdky.dao.KorisnikDAO;
 import ntdky.dao.LajkDAO;
 import ntdky.dao.VideoDAO;
 import ntdky.model.Komentar;
@@ -26,14 +27,13 @@ public class LajkServlet extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute("ulogovaniKorisnik");
+		Korisnik ulogovaniKorisnik = KorisnikDAO.get((String) session.getAttribute("ulogovaniKorisnik"));
 		
 		String target = request.getParameter("target");
 		
 		Map<String, Object> data = new HashMap<>();
 		
 		String status = "success";
-		
 		
 		if(target != null) {
 			try {
@@ -82,7 +82,7 @@ public class LajkServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute("ulogovaniKorisnik");
+		Korisnik ulogovaniKorisnik = KorisnikDAO.get((String) session.getAttribute("ulogovaniKorisnik"));
 		
 		String target = request.getParameter("target");
 		String tipLajka = request.getParameter("tip");

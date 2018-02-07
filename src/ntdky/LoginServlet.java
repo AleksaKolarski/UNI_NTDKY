@@ -33,7 +33,7 @@ public class LoginServlet extends HttpServlet {
 			if(korisnik.getLozinka().equals(lozinka)) {
 				// login pozitivan
 				HttpSession session = request.getSession();
-				session.setAttribute("ulogovaniKorisnik", korisnik);
+				session.setAttribute("ulogovaniKorisnik", korisnik.getKorisnickoIme());
 				status = "success";
 			}
 		}

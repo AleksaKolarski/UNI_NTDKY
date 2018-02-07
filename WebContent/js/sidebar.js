@@ -12,16 +12,21 @@ $(document).ready(function(e){
     /* Proveravamo da li je korisnik ulogovan.
     */
 
-    $.get('SidebarServlet', null, function(data){
+    refreshSidebar();
+});
+
+function refreshSidebar(){
+    $.get('SidebarServlet', function(data){
         /* Vraca success ili unauthenticated. Takodje vraca i listu kanala 
         ** koju treba izlistati, u slucaju ulogovanog to su njegove pretplate 
         ** a u slucaju neulogovanog onda najpopularnije. 
         */
 
         var polje = $("#navigacija-levo > ul");
+        polje.empty();
         var kanali = data.kanali;
-
         if(data.status == 'success'){ // success
+            
             // ulogovan je, prikazi pretplate
             var korisnik = data.korisnik;
             polje.append(
@@ -42,10 +47,10 @@ $(document).ready(function(e){
                 );
                 for(var i in kanali){
                     polje.append(
-                        '<a href="ProfilServlet?user=' + kanali[i] + '">' + 
+                        '<a href="ProfilServlet?user=' + kanali[i]["profil"] + '">' + 
                             '<li class="sidebar-subscribed-channel">' + 
-                                kanali[i] + 
-                                '<img src="img/profile/profile-photo.png" alt="profile photo">' + 
+                                kanali[i]["profil"] + 
+                                '<img src="img/profile/' + ((kanali[i]["slika"])?kanali[i]["slika"]:'_.png') + '" alt="profile photo">' + 
                             '</li>' + 
                         '</a>'
                     );
@@ -73,14 +78,14 @@ $(document).ready(function(e){
             );
             for(var i in kanali){
                 polje.append(
-                    '<a href="ProfilServlet?user=' + kanali[i] + '">' + 
+                    '<a href="ProfilServlet?user=' + kanali[i]["profil"] + '">' + 
                         '<li class="sidebar-subscribed-channel">' + 
-                            kanali[i] + 
-                            '<img src="img/profile/profile-photo.png" alt="profile photo">' + 
+                            kanali[i]["profil"] + 
+                            '<img src="img/profile/' + ((kanali[i]["slika"])?kanali[i]["slika"]:'_.png') + '" alt="profile photo">' + 
                         '</li>' + 
                     '</a>'
                 );
             }
         }
     });
-});
+}

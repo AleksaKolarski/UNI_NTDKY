@@ -12,6 +12,7 @@
   	<link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css">
   	<script src="lib/jquery/jquery-3.2.1.js"></script>
     <script src="lib/jquery/jquery-dateFormat.min.js"></script>
+    <script src"lib/jquery-ui-1.12.1/jquery-ui.min.js"></script>
   	<script src="lib/bootstrap/js/bootstrap.js"></script>
 
   	<!-- Custom files -->
@@ -46,127 +47,137 @@
               </c:otherwise>
             </c:choose>
 
-            <c:if test="${(requestScope.edit == true) && ((sessionScope.ulogovaniKorisnik.korisnickoIme == requestScope.profil.korisnickoIme) || (sessionScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN'))}">
-              <input type="file" id="profile-image-chooser" accept="image/*">
-            </c:if>
+            <%-- <form method="POST" enctype="multipart/form-data" action="fup.cgi"> --%>
+            <form action="ImageServlet" method="GET" id="profile-image-form" enctype="multipart/form-data" method="POST">
+              <c:if test="${(requestScope.edit == true) && ((requestScope.ulogovaniKorisnik.korisnickoIme == requestScope.profil.korisnickoIme) || (requestScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN'))}">
+                <input type="file" id="profile-image-chooser" accept="image/*" name="${requestScope.profil.korisnickoIme}" onchange="promenjenaSlika(event)">
+                
+              </c:if>
+            </form>
 
-            <div class="profile-input-div">
-              <p class="profile-p profile-p-title">Korisnicko ime: </p>
-              <p class="profile-p">${requestScope.profil.korisnickoIme}</p>
-            </div>
+              <div class="profile-input-div">
+                <p class="profile-p profile-p-title">Korisnicko ime: </p>
+                <p class="profile-p">${requestScope.profil.korisnickoIme}</p>
+              </div>
 
-            <div class="profile-input-div">
-              <p class="profile-p profile-p-title">Ime: </p>
-              <c:choose>
-                <c:when test="${(requestScope.edit == true) && ((sessionScope.ulogovaniKorisnik.korisnickoIme == requestScope.profil.korisnickoIme) || (sessionScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN'))}">
-                  <input type="text" id="profile-input-ime" class="form-control" value="${requestScope.profil.ime}">
-                </c:when>
-                <c:otherwise>
-                  <p class="profile-p">${requestScope.profil.ime}</p>
-                </c:otherwise>
-              </c:choose>
-            </div>
+              <div class="profile-input-div">
+                <p class="profile-p profile-p-title">Ime: </p>
+                <c:choose>
+                  <c:when test="${(requestScope.edit == true) && ((requestScope.ulogovaniKorisnik.korisnickoIme == requestScope.profil.korisnickoIme) || (requestScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN'))}">
+                    <input type="text" id="profile-input-ime" class="form-control" value="${requestScope.profil.ime}">
+                  </c:when>
+                  <c:otherwise>
+                    <p class="profile-p">${requestScope.profil.ime}</p>
+                  </c:otherwise>
+                </c:choose>
+              </div>
 
-            <div class="profile-input-div">
-              <p class="profile-p profile-p-title">Prezime: </p>
-              <c:choose>
-                <c:when test="${(requestScope.edit == true) && ((sessionScope.ulogovaniKorisnik.korisnickoIme == requestScope.profil.korisnickoIme) || (sessionScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN'))}">
-                  <input type="text" id="profile-input-prezime" class="form-control" value="${requestScope.profil.prezime}">
-                </c:when>
-                <c:otherwise>
-                  <p class="profile-p">${requestScope.profil.prezime}</p>
-                </c:otherwise>
-              </c:choose>
-            </div>
+              <div class="profile-input-div">
+                <p class="profile-p profile-p-title">Prezime: </p>
+                <c:choose>
+                  <c:when test="${(requestScope.edit == true) && ((requestScope.ulogovaniKorisnik.korisnickoIme == requestScope.profil.korisnickoIme) || (requestScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN'))}">
+                    <input type="text" id="profile-input-prezime" class="form-control" value="${requestScope.profil.prezime}">
+                  </c:when>
+                  <c:otherwise>
+                    <p class="profile-p">${requestScope.profil.prezime}</p>
+                  </c:otherwise>
+                </c:choose>
+              </div>
 
-            <div class="profile-input-div">
-              <p class="profile-p profile-p-title">Opis: </p>
-              <c:choose>
-                <c:when test="${(requestScope.edit == true) && ((sessionScope.ulogovaniKorisnik.korisnickoIme == requestScope.profil.korisnickoIme) || (sessionScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN'))}">
-                  <textarea id="profile-input-opis" class="form-control" rows="4">${requestScope.profil.opis}</textarea>
-                </c:when>
-                <c:otherwise>
-                  <p class="profile-p">${requestScope.profil.opis}</p>
-                </c:otherwise>
-              </c:choose>
-            </div>
+              <div class="profile-input-div">
+                <p class="profile-p profile-p-title">Opis: </p>
+                <c:choose>
+                  <c:when test="${(requestScope.edit == true) && ((requestScope.ulogovaniKorisnik.korisnickoIme == requestScope.profil.korisnickoIme) || (requestScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN'))}">
+                    <textarea id="profile-input-opis" class="form-control" rows="4">${requestScope.profil.opis}</textarea>
+                  </c:when>
+                  <c:otherwise>
+                    <p class="profile-p">${requestScope.profil.opis}</p>
+                  </c:otherwise>
+                </c:choose>
+              </div>
             
-            <div class="profile-input-div">
-              <p class="profile-p profile-p-title">Uloga: </p>
-              <c:choose>
-                <c:when test="${(requestScope.edit == true) && (sessionScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN')}">
-                  <select class="form-control" id="profile-user-type">
+              <div class="profile-input-div">
+                <p class="profile-p profile-p-title">Uloga: </p>
+                <c:choose>
+                  <c:when test="${(requestScope.edit == true) && (requestScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN')}">
+                    <select class="form-control" id="profile-user-type">
+                      <c:if test="${requestScope.profil.tipKorisnika == 'USER'}">
+							          <option value="USER" label="Obican korisnik" selected="selected">Obican korisnik</option> <%-- Mozilla Firefox ima bug zbog kog ne prikazuje labele --%>
+  						          <option value="ADMIN" label="Administrator">Administrator</option>
+                      </c:if>
+                      <c:if test="${requestScope.profil.tipKorisnika == 'ADMIN'}">
+							          <option value="USER" label="Obican korisnik">Obican korisnik</option>
+  						          <option value="ADMIN" label="Administrator" selected="selected">Administrator</option>
+                      </c:if>
+						        </select>
+                  </c:when>
+                  <c:otherwise>
                     <c:if test="${requestScope.profil.tipKorisnika == 'USER'}">
-							        <option value="USER" label="Obican korisnik" selected="selected"></option>
-  						        <option value="ADMIN" label="Administrator"></option>
+                      <p class="profile-p">Obican korisnik</p>
                     </c:if>
                     <c:if test="${requestScope.profil.tipKorisnika == 'ADMIN'}">
-							        <option value="USER" label="Obican korisnik"></option>
-  						        <option value="ADMIN" label="Administrator" selected="selected"></option>
+                      <p class="profile-p">Administrator</p>
                     </c:if>
-						      </select>
-                </c:when>
-                <c:otherwise>
-                  <p class="profile-p">${requestScope.profil.tipKorisnika}</p>
-                </c:otherwise>
-              </c:choose>
-            </div>
-
-            <div class="profile-input-div">
-              <p class="profile-p profile-p-title">Datum registracije: </p>
-              <p class="profile-p"><fmt:formatDate value="${requestScope.profil.datum}" pattern="dd.MM.yyyy. HH:mm" /></p>
-            </div>
-
-            <c:if test="${(sessionScope.ulogovaniKorisnik.korisnickoIme == requestScope.profil.korisnickoIme) || (sessionScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN')}">
-              <div class="profile-input-div">
-                <p class="profile-p profile-p-title">Email: </p>
-                <p class="profile-p">${requestScope.profil.email}</p>
+                  </c:otherwise>
+                </c:choose>
               </div>
-            </c:if>
 
-            <div class="profile-input-div">
-              <p class="profile-p profile-p-title">Broj pratilaca: </p>
-              <p class="profile-p">${requestScope.profil.brojPratioca}</p>
-            </div>
+              <div class="profile-input-div">
+                <p class="profile-p profile-p-title">Datum registracije: </p>
+                <p class="profile-p"><fmt:formatDate value="${requestScope.profil.datum}" pattern="dd.MM.yyyy. HH:mm" /></p>
+              </div>
+
+              <c:if test="${(requestScope.ulogovaniKorisnik.korisnickoIme == requestScope.profil.korisnickoIme) || (requestScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN')}">
+                <div class="profile-input-div">
+                  <p class="profile-p profile-p-title">Email: </p>
+                  <p class="profile-p">${requestScope.profil.email}</p>
+                </div>
+              </c:if>
+
+              <div class="profile-input-div">
+                <p class="profile-p profile-p-title">Broj pratilaca: </p>
+                <p class="profile-p">${requestScope.profil.brojPratioca}</p>
+              </div>
           
-            <c:if test="${not empty sessionScope.ulogovaniKorisnik}">
-              <c:if test="${(sessionScope.ulogovaniKorisnik.korisnickoIme == requestScope.profil.korisnickoIme) || (sessionScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN')}">
-                <c:if test="${requestScope.edit != true}">
-                  <button type="button" class="btn btn-default" id="btn-profile-edit">Edit profile</button>
-                </c:if>
-                <c:if test="${requestScope.edit == true}">
-                  <div class="profile-input-div">
-                    <p class="profile-p profile-p-title">Nova lozinka: </p>
-                    <input type="password" class="form-control" id="profile-lozinka1"/>
-                  </div>
-                  <div class="profile-input-div">
-                    <p class="profile-p profile-p-title">Ponovite lozinku: </p>
-                    <input type="password" class="form-control" id="profile-lozinka2"/>
-                  </div>
-                  
-                  <c:if test="${(sessionScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN')}">
-                    <div class="profile-input-div">
-                      <p class="profile-p profile-p-title">Blokiranje: </p>
-                      <select class="form-control" id="profile-user-block">
-                        <c:if test="${requestScope.profil.blokiran == false}">
-							            <option value="FALSE" label="Nije blokiran" selected="selected"></option>
-  						            <option value="TRUE" label="Blokiran"></option>
-                        </c:if>
-                        <c:if test="${requestScope.profil.blokiran == true}">
-							            <option value="FALSE" label="Nije blokiran"></option>
-  						            <option value="TRUE" label="Blokiran" selected="selected"></option>
-                         </c:if>
-						          </select>
-                    </div>
+              <c:if test="${not empty requestScope.ulogovaniKorisnik}">
+                <c:if test="${(requestScope.ulogovaniKorisnik.korisnickoIme == requestScope.profil.korisnickoIme) || (requestScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN')}">
+                  <c:if test="${requestScope.edit != true}">
+                    <button type="button" class="btn btn-default" id="btn-profile-edit">Edit profile</button>
                   </c:if>
-
-                  <button type="button" class="btn btn-default" id="btn-profile-save">Save</button>
-                  <button type="button" class="btn btn-default" id="btn-profile-cancel">Cancel</button>
-                  <p id="profile-log"></p>
-                  <button type="button" class="btn btn-default" id="btn-profile-delete">Obrisi nalog</button>
+                  <c:if test="${requestScope.edit == true}">
+                    <div class="profile-input-div">
+                      <p class="profile-p profile-p-title">Nova lozinka: </p>
+                      <input type="password" class="form-control" id="profile-lozinka1"/>
+                    </div>
+                    <div class="profile-input-div">
+                      <p class="profile-p profile-p-title">Ponovite lozinku: </p>
+                      <input type="password" class="form-control" id="profile-lozinka2"/>
+                    </div>
+                  
+                    <c:if test="${(requestScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN')}">
+                      <div class="profile-input-div">
+                        <p class="profile-p profile-p-title">Blokiranje: </p>
+                        <select class="form-control" id="profile-user-block">
+                          <c:if test="${requestScope.profil.blokiran == false}">
+							              <option value="FALSE" label="Nije blokiran" selected="selected">Nije blokiran</option>  <%-- Mozilla Firefox ima bug zbog kog ne prikazuje labele --%>
+  						              <option value="TRUE" label="Blokiran">Blokiran</option>
+                          </c:if>
+                          <c:if test="${requestScope.profil.blokiran == true}">
+							              <option value="FALSE" label="Nije blokiran">Nije blokiran</option>
+  						              <option value="TRUE" label="Blokiran" selected="selected">Blokiran</option>
+                          </c:if>
+						            </select>
+                      </div>
+                    </c:if>
+                    <div id="button-div">
+                    <button type="button" class="btn btn-default" id="btn-profile-save">Save</button>
+                    <button type="button" class="btn btn-default" id="btn-profile-cancel">Cancel</button>
+                    <p id="profile-log"></p>
+                    </div>
+                    <button type="button" class="btn btn-default" id="btn-profile-delete">Obrisi nalog</button>
                 </c:if>
               </c:if>
-              <c:if test="${sessionScope.ulogovaniKorisnik.korisnickoIme != requestScope.profil.korisnickoIme}">
+              <c:if test="${requestScope.ulogovaniKorisnik.korisnickoIme != requestScope.profil.korisnickoIme}">
                 <button type="button" class="btn btn-default" id="btn-subscribe"></button>
               </c:if>
             </c:if>

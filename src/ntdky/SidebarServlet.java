@@ -22,16 +22,13 @@ public class SidebarServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		HttpSession session = request.getSession();
-		Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute("ulogovaniKorisnik");
+		Korisnik ulogovaniKorisnik = KorisnikDAO.get((String) session.getAttribute("ulogovaniKorisnik"));
 		
 		String status;
 		Map<String, Object> data = new HashMap<>();
 		
-		
-		
-		List<String> kanali = new ArrayList<String>();
+		List<Map<String, String>> kanali = new ArrayList<Map<String, String>>();
 		if(ulogovaniKorisnik != null) {
 			// ulogovan je pa vracamo listu pretplata
 			status = "success";
@@ -40,7 +37,10 @@ public class SidebarServlet extends HttpServlet {
 			
 			List<Korisnik> pretplate = KorisnikDAO.getPretplate(ulogovaniKorisnik);
 			for(Korisnik korisnik: pretplate) {
-				kanali.add(korisnik.getKorisnickoIme());
+				Map<String, String> mapa = new HashMap<String, String>();
+				mapa.put("profil", korisnik.getKorisnickoIme());
+				mapa.put("slika", korisnik.getSlika());
+				kanali.add(mapa);
 			}
 		}
 		else {
@@ -50,7 +50,10 @@ public class SidebarServlet extends HttpServlet {
 			List<Korisnik> korisnici = KorisnikDAO.getPopularne(5);
 			
 			for(Korisnik korisnik: korisnici) {
-				kanali.add(korisnik.getKorisnickoIme());
+				Map<String, String> mapa = new HashMap<String, String>();
+				mapa.put("profil", korisnik.getKorisnickoIme());
+				mapa.put("slika", korisnik.getSlika());
+				kanali.add(mapa);
 			}
 		}
 		

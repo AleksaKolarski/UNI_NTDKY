@@ -41,7 +41,7 @@ public class RegisterServlet extends HttpServlet {
 						if(KorisnikDAO.get(korisnickoIme) == null) {
 							if(lozinka.length() >= 4 && lozinka.length() <= 16) {
 								System.out.println("Registrovan novi korisnik '" + korisnickoIme + "'");
-								if(KorisnikDAO.add(new Korisnik(korisnickoIme, lozinka, ime, prezime, email, "", new Date(), TipKorisnika.USER, false, false))) {
+								if(KorisnikDAO.add(new Korisnik(korisnickoIme, lozinka, ime, prezime, email, "", null, new Date(), TipKorisnika.USER, false, false))) {
 									status = "success";
 								}
 							}

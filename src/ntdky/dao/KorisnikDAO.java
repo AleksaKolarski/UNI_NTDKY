@@ -16,6 +16,9 @@ import ntdky.model.Korisnik.TipKorisnika;
 public class KorisnikDAO {
 
 	public static Korisnik get(String korisnickoIme) {
+		if(korisnickoIme == null) {
+			return (Korisnik) null;
+		}
 		Connection conn = ConnectionManager.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -107,7 +110,7 @@ public class KorisnikDAO {
 		Connection conn = ConnectionManager.getConnection();
 		PreparedStatement pstmt = null;
 		try {
-			String query = "UPDATE Korisnik SET lozinka=?, ime=?, prezime=?, email=?, opis=?, datum=?, tipKorisnika=?, blokiran=?, obrisan=? WHERE korisnickoIme=?;";
+			String query = "UPDATE Korisnik SET lozinka=?, ime=?, prezime=?, email=?, opis=?, slika=?, datum=?, tipKorisnika=?, blokiran=?, obrisan=? WHERE korisnickoIme=?;";
 			pstmt = conn.prepareStatement(query);
 
 			int index = 1;
@@ -116,6 +119,7 @@ public class KorisnikDAO {
 			pstmt.setString(index++, korisnik.getPrezime());
 			pstmt.setString(index++, korisnik.getEmail());
 			pstmt.setString(index++, korisnik.getOpis());
+			pstmt.setString(index++, korisnik.getSlika());
 			pstmt.setString(index++, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(korisnik.getDatum()));
 			pstmt.setString(index++, korisnik.getTipKorisnika().toString());
 			pstmt.setBoolean(index++, korisnik.getBlokiran());

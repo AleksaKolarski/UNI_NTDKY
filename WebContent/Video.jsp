@@ -57,10 +57,10 @@
                 </tr>
                 <tr id="video-details-row1">
                   <td rowspan="2" id="video-details-r1-c0">
-                    <c:if test="${(sessionScope.ulogovaniKorisnik.korisnickoIme == requestScope.video.vlasnik) || (sessionScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN')}">
+                    <c:if test="${(requestScope.ulogovaniKorisnik.korisnickoIme == requestScope.video.vlasnik) || (requestScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN')}">
                       <button type="button" class="btn btn-default" id="btn-video-edit">Edit video</button>
                     </c:if>
-                    <c:if test="${sessionScope.ulogovaniKorisnik.korisnickoIme != requestScope.video.vlasnik}">
+                    <c:if test="${requestScope.ulogovaniKorisnik.korisnickoIme != requestScope.video.vlasnik}">
                       <button type="button" class="btn btn-default" id="btn-subscribe"></button>
                     </c:if>
                   </td>
@@ -108,8 +108,8 @@
           <!-- Komentari -->
           <div id="komentari-container" class="col-sm-12 col-md-9 col-lg-8">
             <%-- unos novog komentara --%>
-            <c:if test="${not empty sessionScope.ulogovaniKorisnik}">
-              <p id="komentar-novi-ime">${sessionScope.ulogovaniKorisnik.korisnickoIme}:</p>
+            <c:if test="${not empty requestScope.ulogovaniKorisnik}">
+              <p id="komentar-novi-ime">${requestScope.ulogovaniKorisnik.korisnickoIme}:</p>
               <div class="input-group" id="komentar-novi-container">
                 <input type="text" class="form-control" placeholder="Komentar..." id="komentar-novi-text">
                 <span class="input-group-btn">
