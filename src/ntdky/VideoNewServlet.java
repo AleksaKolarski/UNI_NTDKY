@@ -102,6 +102,20 @@ public class VideoNewServlet extends HttpServlet {
 				System.out.println("parametar video nije naveden");
 			}
 			
+			String obrisan = request.getParameter("obrisan");
+			if(obrisan != null && obrisan.equals("true")) {
+				VideoDAO.delete(video);
+				data.put("status", "success");
+
+				ObjectMapper mapper = new ObjectMapper();
+				String jsonData = mapper.writeValueAsString(data);
+
+				response.setContentType("application/json");
+				response.getWriter().write(jsonData);
+				
+				return;
+			}
+			
 			String  naziv = request.getParameter("naziv");
 			String putanja = request.getParameter("putanja");
 			String opis = request.getParameter("opis");

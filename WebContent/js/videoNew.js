@@ -54,6 +54,16 @@ $(document).ready(function (e) {
         poljeLog.append('Naziv mora biti duzine od 4 do 80 karaktera!');
     });
 
+    deleteBtn.on('click', null, function(){
+        $.post('VideoNewServlet', { 'videoId':videoId, 'obrisan':true}, function (data) {
+            if(data.status == 'success'){
+                window.location.href = '/NTDKY';
+            }
+            else{
+                poljeLog.append('Greska!');
+            }
+        });
+    });
 });
 
 function promenjenaSlika(event){
