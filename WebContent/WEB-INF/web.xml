@@ -147,4 +147,14 @@
     <servlet-name>VideoImageServlet</servlet-name>
     <url-pattern>/VideoImageServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AdminPanelServlet</display-name>
+    <servlet-name>AdminPanelServlet</servlet-name>
+    <servlet-class>ntdky.AdminPanelServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminPanelServlet</servlet-name>
+    <url-pattern>/AdminPanelServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

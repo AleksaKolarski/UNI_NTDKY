@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -76,6 +77,59 @@ public class KorisnikDAO {
 
 			while (rset.next()) {
 				int index = 1;
+				String korisnickoIme = rset.getString(index++);
+				String lozinka = rset.getString(index++);
+				String ime = rset.getString(index++);
+				String prezime = rset.getString(index++);
+				String email = rset.getString(index++);
+				String opis = rset.getString(index++);
+				String slika = rset.getString(index++);
+				Date datum;
+				try {
+					datum = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rset.getString(index++));
+				} catch (ParseException e) {
+					e.printStackTrace();
+					return null;
+				}
+				TipKorisnika tip = TipKorisnika.valueOf(rset.getString(index++));
+				boolean blokiran = rset.getBoolean(index++);
+				boolean obrisan = rset.getBoolean(index++);
+
+				korisnici.add(new Korisnik(korisnickoIme, lozinka, ime, prezime, email, opis, slika, datum, tip, blokiran, obrisan));
+			}
+		} catch (SQLException e) {
+			System.out.println("Greska u SQL upitu: ");
+			e.printStackTrace();
+		} finally {
+			try {pstmt.close();} catch (SQLException ex1) {ex1.printStackTrace();}
+			try {rset.close();} catch (SQLException ex1) {ex1.printStackTrace();}
+		}
+		return korisnici;
+	}
+	
+	public static List<Korisnik> getFilter(String korisnickoImeFilter, String imeFilter, String prezimeFilter, String emailFilter, String ulogaFilter, String sortBy, String sortDirection) {
+		List<Korisnik> korisnici = new ArrayList<Korisnik>();
+
+		Connection conn = ConnectionManager.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		try {
+			String query = "SELECT korisnickoIme, lozinka, ime, prezime, email, opis, slika, datum, tipKorisnika, blokiran, obrisan " + 
+							"FROM Korisnik " + 
+							"WHERE korisnickoIme LIKE ? AND ime LIKE ? AND prezime LIKE ? AND email LIKE ? " + (((Arrays.asList("USER", "ADMIN")).contains(ulogaFilter))?("AND tipKorisnika='" + ulogaFilter) + "'":"")+ " ORDER BY " + sortBy + " " + sortDirection + ";";
+	
+			pstmt = conn.prepareStatement(query);
+			
+			int index = 1;
+			pstmt.setString(index++, "%" + korisnickoImeFilter + "%");
+			pstmt.setString(index++, "%" + imeFilter + "%");
+			pstmt.setString(index++, "%" + prezimeFilter + "%");
+			pstmt.setString(index++, "%" + emailFilter + "%");
+						
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				index = 1;
 				String korisnickoIme = rset.getString(index++);
 				String lozinka = rset.getString(index++);
 				String ime = rset.getString(index++);

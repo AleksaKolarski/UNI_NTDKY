@@ -66,24 +66,5 @@ function novaPretragaVidea(){
             popuniRezultatePretrageVidea(data.videi, '.main');
         }
     });
-
-    /*
-    console.log('naziv:');
-    console.log(naziv);
-    console.log('vlasnik:');
-    console.log(vlasnik);
-    console.log('brMin:');
-    console.log(brojPregleda[0]);
-    console.log('brMax:');
-    console.log(brojPregleda[1]);
-    console.log('datumMin:');
-    console.log(datumMin);
-    console.log('datumMax:');
-    console.log(datumMax);
-    console.log('sortFilter:');
-    console.log(sortBy);
-    console.log('sortDirection:');
-    console.log(sortDirection);
-    */
 }
 

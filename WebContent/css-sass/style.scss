@@ -14,6 +14,7 @@
 @import "video_panel";
 @import "pretraga";
 @import "videoNew";
+@import "admin-panel";
 
 @include main;
 @include navigacija-gore;
@@ -24,6 +25,7 @@
 @include video_panel;
 @include pretraga;
 @include videoNew;
+@include admin-panel;
 
 .page {
     margin-top: 70px;

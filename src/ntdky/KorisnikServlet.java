@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ntdky.dao.KorisnikDAO;
 import ntdky.model.Korisnik;
+import ntdky.model.Korisnik.TipKorisnika;
 
 public class KorisnikServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -32,6 +33,10 @@ public class KorisnikServlet extends HttpServlet {
 			// ulogovan je pa vracamo success i korisnicko ime
 			status = "success";
 			data.put("korisnik", ulogovaniKorisnik.getKorisnickoIme());
+			
+			if(ulogovaniKorisnik.getTipKorisnika() == TipKorisnika.ADMIN) {
+				data.put("tipKorisnika", "ADMIN");
+			}
 		}
 		else {
 			// nije ulogovan

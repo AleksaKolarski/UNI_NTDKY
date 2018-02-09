@@ -35,7 +35,7 @@
       <%@include file="include/navigacija_levo.html"%>
 
       <!-- MAIN CONTENT -->
-      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2 main">
+      <div class="col-xs-12 col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2 main">
 				<div id="video-new" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
 					<%-- SLIKA --%>
