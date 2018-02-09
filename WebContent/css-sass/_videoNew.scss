@@ -1,0 +1,18 @@
+@mixin videoNew {
+    #video-new {
+        height: auto;
+        padding: 10px;
+        background: $navigacija_color;
+        margin-bottom: 6px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.18);
+
+        #video-new-image-wrap {
+
+            #video-new-image {
+                width: 246px;
+                height: 138px;
+            }
+        }
+    }
+}

@@ -101,14 +101,8 @@
                 <c:choose>
                   <c:when test="${(requestScope.edit == true) && (requestScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN')}">
                     <select class="form-control" id="profile-user-type">
-                      <c:if test="${requestScope.profil.tipKorisnika == 'USER'}">
-							          <option value="USER" label="Obican korisnik" selected="selected">Obican korisnik</option> <%-- Mozilla Firefox ima bug zbog kog ne prikazuje labele --%>
-  						          <option value="ADMIN" label="Administrator">Administrator</option>
-                      </c:if>
-                      <c:if test="${requestScope.profil.tipKorisnika == 'ADMIN'}">
-							          <option value="USER" label="Obican korisnik">Obican korisnik</option>
-  						          <option value="ADMIN" label="Administrator" selected="selected">Administrator</option>
-                      </c:if>
+							        <option value="USER" label="Obican korisnik" ${requestScope.profil.tipKorisnika == 'USER'?'selected':''}>Obican korisnik</option> <%-- Mozilla Firefox ima bug zbog kog ne prikazuje labele --%>
+  						        <option value="ADMIN" label="Administrator" ${requestScope.profil.tipKorisnika == 'ADMIN'?'selected':''}>Administrator</option>
 						        </select>
                   </c:when>
                   <c:otherwise>
@@ -158,14 +152,8 @@
                       <div class="profile-input-div">
                         <p class="profile-p profile-p-title">Blokiranje: </p>
                         <select class="form-control" id="profile-user-block">
-                          <c:if test="${requestScope.profil.blokiran == false}">
-							              <option value="FALSE" label="Nije blokiran" selected="selected">Nije blokiran</option>  <%-- Mozilla Firefox ima bug zbog kog ne prikazuje labele --%>
-  						              <option value="TRUE" label="Blokiran">Blokiran</option>
-                          </c:if>
-                          <c:if test="${requestScope.profil.blokiran == true}">
-							              <option value="FALSE" label="Nije blokiran">Nije blokiran</option>
-  						              <option value="TRUE" label="Blokiran" selected="selected">Blokiran</option>
-                          </c:if>
+							            <option value="FALSE" label="Nije blokiran" ${requestScope.profil.blokiran == false?'selected':''}>Nije blokiran</option>  <%-- Mozilla Firefox ima bug zbog kog ne prikazuje labele --%>
+  						            <option value="TRUE" label="Blokiran" ${requestScope.profil.blokiran == true?'selected':''}>Blokiran</option>
 						            </select>
                       </div>
                     </c:if>
@@ -208,6 +196,7 @@
  							  </label>
 						  </div>
 					  </div>
+            <button type="button" class="btn btn-default" id="sortiraj-btn">Sortiraj</button>
 				  </div>
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="profile-videos">
 

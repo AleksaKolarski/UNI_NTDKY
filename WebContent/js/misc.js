@@ -68,6 +68,7 @@ function sendFile(odakle, naziv, gde){
     var xhr = new XMLHttpRequest();
     xhr.open("POST", gde, false);
     xhr.send(formData);
+    console.log(xhr);
 }
 
 function videoPanel(video) {
@@ -75,7 +76,9 @@ function videoPanel(video) {
                     '<div class="panel panel-default">' +
                         '<a href="VideoServlet?id=' + video.id + '">' +
                             '<div class="video-panel-body">' +
-                                '<img src="img/video/' + video.putanjaSlike + '">' +
+                                '<img class="video-panel-img" src="img/video/icon/' + video.putanjaSlike + '" onerror="nemaSlike(event)" />' +
+                                //'<img src="img/video/icon/' + video.putanjaSlike + '" >' +
+                                
                             '</div>' +
                         '</a>' +
                         '<div class="video-panel-footer">' + 
@@ -94,6 +97,21 @@ function videoPanel(video) {
             '</div>';
 }
 
+function videoPanelImgResize() {
+    var mapElements = document.querySelectorAll('.video-panel-img');
+    var width;
+    if(mapElements[0]){
+        width = mapElements[0].offsetWidth;
+    }
+    mapElements.forEach(element => {
+        element.style.height = (width * 0.5625) + 'px';
+    });
+}
+
+function nemaSlike(event){
+    event.target.src="./img/video/icon/_.png";
+}
+
 
 function popuniRezultatePretrageVidea(videi, gde){
     var poljeZaPopunjavanje = $(gde);
@@ -101,4 +119,7 @@ function popuniRezultatePretrageVidea(videi, gde){
     for(var i in videi){
         poljeZaPopunjavanje.append(videoPanel(videi[i]));
     }
+
+    videoPanelImgResize();
+    window.addEventListener("resize", videoPanelImgResize);
 }

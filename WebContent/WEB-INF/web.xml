@@ -127,4 +127,24 @@
     <servlet-name>ImageServlet</servlet-name>
     <url-pattern>/ImageServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>VideoNewServlet</display-name>
+    <servlet-name>VideoNewServlet</servlet-name>
+    <servlet-class>ntdky.VideoNewServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>VideoNewServlet</servlet-name>
+    <url-pattern>/VideoNewServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>VideoImageServlet</display-name>
+    <servlet-name>VideoImageServlet</servlet-name>
+    <servlet-class>ntdky.VideoImageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>VideoImageServlet</servlet-name>
+    <url-pattern>/VideoImageServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

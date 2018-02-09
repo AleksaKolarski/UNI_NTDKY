@@ -58,7 +58,7 @@
                 <tr id="video-details-row1">
                   <td rowspan="2" id="video-details-r1-c0">
                     <c:if test="${(requestScope.ulogovaniKorisnik.korisnickoIme == requestScope.video.vlasnik) || (requestScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN')}">
-                      <button type="button" class="btn btn-default" id="btn-video-edit">Edit video</button>
+                      <button type="button" class="btn btn-default" id="btn-video-edit" onclick="window.location.href='/NTDKY/VideoNewServlet?videoId=${requestScope.video.id}&edit=true';">Edit video</button>
                     </c:if>
                     <c:if test="${requestScope.ulogovaniKorisnik.korisnickoIme != requestScope.video.vlasnik}">
                       <button type="button" class="btn btn-default" id="btn-subscribe"></button>

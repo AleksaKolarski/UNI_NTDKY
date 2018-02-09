@@ -5,14 +5,17 @@
 ** 2018
 */
 
-$(document).ready(function(e){
-    $.get('VideoFilterServlet', null, function(data){
-        if(data.status == 'success'){
+$(document).ready(function (e) {
+    $.get('VideoFilterServlet', null, function (data) {
+        if (data.status == 'success') {
             var main = $('.main');
             var videi = data.videi;
-            for(var i in videi){
+            for (var i in videi) {
                 main.append(videoPanel(videi[i]));
             }
+
+            videoPanelImgResize();
+            window.addEventListener("resize", videoPanelImgResize);
         }
     });
 });

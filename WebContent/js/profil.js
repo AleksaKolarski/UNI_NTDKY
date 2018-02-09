@@ -67,7 +67,6 @@ $(document).ready(function (e) {
                             if (check_password_reset(inputLozinka1, inputLozinka2) == true) {
                                 $.post('ProfilServlet', { 'profil': profil, 'ime': inputIme.val(), 'prezime': inputPrezime.val(), 'opis': inputOpis.val(), 'lozinka': inputLozinka1.val(), 'blokiran':inputBlokiranje.val(), 'uloga':inputTipKorisnika.val() }, function (data2) {
                                     if (data2.status == 'success') {
-                                        var formData = new FormData();
                                         if($('#profile-image-chooser').val()){
                                             sendFile('profile-image-chooser', profil, 'ImageServlet');
                                         }
@@ -115,7 +114,22 @@ $(document).ready(function (e) {
             popuniRezultatePretrageVidea(data.videi, '#profile-videos');
         }
     });
+
+    $('#sortiraj-btn').on('click', null, function(){
+        sortirajVideeKorisnika(profil);
+    });
 });
+
+function sortirajVideeKorisnika(profil){            
+    var sortBy = $('#sort-filter-select').val();
+    var sortDirection = $('#sort-by-filter input:radio:checked').val();
+    
+     $.get('VideoFilterServlet', {"vlasnikFilter":profil, "sortBy":sortBy, "sortDirection":sortDirection}, function(data){
+        if(data.status == 'success'){
+            popuniRezultatePretrageVidea(data.videi, '#profile-videos');
+        }
+    });
+}
 
 function promenjenaSlika(event){
     var file = event.target.files[0];

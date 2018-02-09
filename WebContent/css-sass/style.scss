@@ -13,6 +13,7 @@
 @import "video";
 @import "video_panel";
 @import "pretraga";
+@import "videoNew";
 
 @include main;
 @include navigacija-gore;
@@ -22,6 +23,7 @@
 @include video;
 @include video_panel;
 @include pretraga;
+@include videoNew;
 
 .page {
     margin-top: 70px;
@@ -39,6 +41,7 @@
 
 
 .main {
+    //height: 100%;
     display: block;
     padding: 0px 8px 0px 8px;
 }

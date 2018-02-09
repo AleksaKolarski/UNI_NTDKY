@@ -30,6 +30,7 @@ $(document).ready(function(e){
                         '</button>' + 
                         '<ul class="dropdown-menu dropdown-menu-right" id="profil-dropdown">' + 
                             '<li><a href="ProfilServlet?user=' + korisnik + '">Moj profil</a></li>' + 
+                            '<li><a href="VideoNewServlet">Postavite novi video</a></li>' + 
                             '<li class="divider"></li>' + 
                             '<li><a href="LogoutServlet">Izloguj se</a></li>' + 
                         '</ul>' + 
