@@ -177,7 +177,7 @@
 						  <p>Sortiraj po:</p>
 						  <select class="form-control" id="sort-filter-select">
 							  <option value="datum">Datumu</option>
-  							<option value="brojPregleda"> Broju pregleda</option>
+  							<option value="brojPregleda">Broju pregleda</option>
 						  </select>
 					  </div>
 

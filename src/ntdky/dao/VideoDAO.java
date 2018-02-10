@@ -20,7 +20,7 @@ public class VideoDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		try {
-			String query = "SELECT naziv, putanjaVidea, putanjaSlike, opis, vidljivostVidea, vidljivostKomentari, vidljivostRejting, blokiran, brojPregleda, datum, vlasnik, obrisan FROM Video WHERE id=?;";
+			String query = "SELECT naziv, putanjaVidea, putanjaSlike, opis, vidljivostVidea, vidljivostKomentari, vidljivostRejting, blokiran, brojPregleda, datum, vlasnik, obrisan FROM Video WHERE id=? AND obrisan=0 AND (SELECT obrisan FROM Korisnik WHERE korisnickoIme=vlasnik)=0;";
 
 			pstmt = conn.prepareStatement(query);
 			pstmt.setLong(1, id);
@@ -71,7 +71,7 @@ public class VideoDAO {
 		try {
 			String query = "SELECT id, naziv, putanjaVidea, putanjaSlike, opis, vidljivostVidea, vidljivostKomentari, vidljivostRejting, blokiran, brojPregleda, datum, vlasnik, obrisan " + 
 							"FROM Video " + 
-							"WHERE naziv LIKE ? AND vlasnik LIKE ? AND datum BETWEEN CAST(? AS DATE) AND DATE_ADD(CAST(? AS DATE), INTERVAL 1 DAY) AND brojPregleda BETWEEN ? AND ? ORDER BY " + sortBy + " " + sortDirection + ";";
+							"WHERE naziv LIKE ? AND vlasnik LIKE ? AND datum BETWEEN CAST(? AS DATE) AND DATE_ADD(CAST(? AS DATE), INTERVAL 1 DAY) AND brojPregleda BETWEEN ? AND ? AND obrisan=0 AND (SELECT obrisan FROM Korisnik WHERE korisnickoIme=vlasnik)=0 ORDER BY " + sortBy + " " + sortDirection + ";";
 			
 			pstmt = conn.prepareStatement(query);
 			int index = 1;
@@ -128,7 +128,7 @@ public class VideoDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		try {
-			String query = "SELECT id, naziv, putanjaVidea, putanjaSlike, opis, vidljivostVidea, vidljivostKomentari, vidljivostRejting, blokiran, brojPregleda, datum, vlasnik, obrisan FROM Video;";
+			String query = "SELECT id, naziv, putanjaVidea, putanjaSlike, opis, vidljivostVidea, vidljivostKomentari, vidljivostRejting, blokiran, brojPregleda, datum, vlasnik, obrisan FROM Video WHERE obrisan=0 AND (SELECT obrisan FROM Korisnik WHERE korisnickoIme=vlasnik)=0;";
 
 			pstmt = conn.prepareStatement(query);
 			rset = pstmt.executeQuery();
@@ -250,7 +250,7 @@ public class VideoDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		try {
-			String query = "SELECT MIN(brojPregleda), MAX(brojPregleda) FROM Video;";
+			String query = "SELECT MIN(brojPregleda), MAX(brojPregleda) FROM Video WHERE obrisan=0 AND (SELECT obrisan FROM Korisnik WHERE korisnickoIme=vlasnik)=0;";
 
 			pstmt = conn.prepareStatement(query);
 			rset = pstmt.executeQuery();

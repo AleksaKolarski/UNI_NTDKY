@@ -40,6 +40,7 @@ public class PretplataServlet extends HttpServlet {
 				if (korisnik != null) {
 					if (!ulogovaniKorisnik.getKorisnickoIme().equals(korisnik.getKorisnickoIme())) {
 						data.put("pretplacen", KorisnikDAO.checkPretplata(ulogovaniKorisnik, korisnik));
+						data.put("broj", KorisnikDAO.getPretplaceneBroj(korisnik));
 						gotovo = true;
 					}
 				} else {
@@ -59,6 +60,7 @@ public class PretplataServlet extends HttpServlet {
 						if (koga != null) {
 							if (!ulogovaniKorisnik.getKorisnickoIme().equals(koga.getKorisnickoIme())) {
 								data.put("pretplacen", KorisnikDAO.checkPretplata(ulogovaniKorisnik, koga));
+								data.put("broj", KorisnikDAO.getPretplaceneBroj(koga));
 							} else {
 								throw new Exception();
 							}

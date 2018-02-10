@@ -135,10 +135,7 @@
 
         #sort-filter {
             display: inline-block;
-
-            //vertical-align: middle;
             margin-right: 15px;
-            //margin-bottom: 10px;
 
             p {
                 padding: 0px;
@@ -153,21 +150,16 @@
 
         #sort-by-filter {
             display: inline-block;
-
-            //vertical-align: middle;
+            margin-right: 10px;
 
             p {
                 padding: 0px;
-                margin: 0px;
-
-                //margin: 0px 0px 6px 0px;
-           
+                margin: 0px;           
             }
 
             .radio-inline {
-                //display: inline;
                 margin-right: 5px;
-                margin-top: 4px;
+                margin-top: 6px;
 
                 label {
                     font-size: 20px;

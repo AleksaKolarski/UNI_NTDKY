@@ -1,6 +1,7 @@
 package ntdky;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,15 +37,32 @@ public class KomentarServlet extends HttpServlet {
 		}
 		
 		try {
+			if(request.getParameter("videoId") == null) {
+				throw new Exception();
+			}
+			
 			long videoId = Long.parseLong(request.getParameter("videoId"));
 			Video video = VideoDAO.get(videoId);
 			
 			if(video == null) {
 				throw new Exception();
 			}
+
+			String sortBy = request.getParameter("sortBy");
+			String sortDirection = request.getParameter("sortDirection");
 			
-			data.put("komentari", video.getKomentari());
+			if(!(Arrays.asList("datum", "rejting")).contains(sortBy)) {
+				sortBy = "datum";
+			}
+			if(!(Arrays.asList("ASC", "DESC")).contains(sortDirection)) {
+				sortDirection = "DESC";
+			}
 			
+			data.put("komentari", KomentarDAO.getAllVideoFilter(videoId, sortBy, sortDirection));
+			if(ulogovaniKorisnik != null) {
+				data.put("korisnik", ulogovaniKorisnik.getKorisnickoIme());
+				data.put("korisnikTip", ulogovaniKorisnik.getTipKorisnika().toString());
+			}
 		}catch(Exception e) {
 			System.out.println("Pogresan video id!");	
 			status = "not-found";
@@ -70,20 +88,52 @@ public class KomentarServlet extends HttpServlet {
 			String sadrzaj = request.getParameter("sadrzaj");
 			if(sadrzaj != null) {
 				if(sadrzaj.length() > 0) {
+					boolean edit = true;
 					try {
 						long videoId = Long.parseLong(request.getParameter("videoId"));
+						edit = false;
 						
 						Video video = VideoDAO.get(videoId);
 						if(video != null) {
 							Komentar komentar = new Komentar(sadrzaj, new Date(), ulogovaniKorisnik.getKorisnickoIme(), video.getId(), false);
 							if(KomentarDAO.add(komentar)) {
 								status = "success";
+								System.out.println("dodat komentar");
 							}
 						}
 					}
 					catch(Exception e) {
 					}
+					if(edit == true) {
+						try {
+							long komentarId = Long.parseLong(request.getParameter("komentarId"));
+							
+							Komentar komentar = KomentarDAO.get(komentarId);
+							if(komentar != null) {
+								komentar.setSadrzaj(sadrzaj);
+								if(KomentarDAO.update(komentar)) {
+									status = "success";
+								}
+							}
+						}
+						catch(Exception e) {
+							
+						}
+					}
 				}
+			}else {				
+				try {
+					long komentarId = Long.parseLong(request.getParameter("komentarId"));
+					String obrisan = request.getParameter("obrisan");
+					if(obrisan != null && obrisan.equals("true")) {
+						Komentar komentar = KomentarDAO.get(komentarId);
+						if(komentar != null) {
+							KomentarDAO.delete(komentar);
+							status = "success";
+						}
+					}
+				}
+				catch(Exception e) {}
 			}
 		}
 		else {

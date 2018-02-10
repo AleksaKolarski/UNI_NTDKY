@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class KomentarDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		try {
-			String query = "SELECT sadrzaj, datum, vlasnik, video, obrisan FROM Komentar WHERE id=?;";
+			String query = "SELECT sadrzaj, datum, vlasnik, video, obrisan FROM Komentar WHERE id=? AND obrisan = 0;";
 
 			pstmt = conn.prepareStatement(query);
 			pstmt.setLong(1, id);
@@ -60,7 +61,7 @@ public class KomentarDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		try {
-			String query = "SELECT id, sadrzaj, datum, vlasnik, video, obrisan FROM Komentar;";
+			String query = "SELECT id, sadrzaj, datum, vlasnik, video, obrisan FROM Komentar WHERE obrisan = 0;";
 
 			pstmt = conn.prepareStatement(query);
 			rset = pstmt.executeQuery();
@@ -158,7 +159,53 @@ public class KomentarDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		try {
-			String query = "SELECT id, sadrzaj, datum, vlasnik, video, obrisan FROM Komentar WHERE video=?;";
+			String query = "SELECT id, sadrzaj, datum, vlasnik, video, obrisan FROM Komentar WHERE video=? AND obrisan = 0;";
+
+			pstmt = conn.prepareStatement(query);
+			pstmt.setLong(1, videoId);
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				int index = 1;
+				long id = rset.getLong(index++);
+				String sadrzaj = rset.getString(index++);
+				Date datum;
+				try {
+					datum = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rset.getString(index++));
+				} catch (ParseException e) {
+					e.printStackTrace();
+					return null;
+				}
+				String vlasnik = rset.getString(index++);
+				long video = rset.getLong(index++);
+				boolean obrisan = rset.getBoolean(index++);
+
+				komentari.add(new Komentar(id, sadrzaj, datum, vlasnik, video, obrisan));
+			}
+		} catch (SQLException e) {
+			System.out.println("Greska u SQL upitu: ");
+			e.printStackTrace();
+		} finally {
+			try {pstmt.close();} catch (SQLException ex1) {ex1.printStackTrace();}
+			try {rset.close();} catch (SQLException ex1) {ex1.printStackTrace();}
+		}
+		return komentari;
+	}
+	
+	public static List<Komentar> getAllVideoFilter(long videoId, String sortBy, String sortDirection){
+		List<Komentar> komentari = new ArrayList<Komentar>();
+
+		Connection conn = ConnectionManager.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		try {
+			if(sortBy.equals("rejting")) {
+				sortBy = "((SELECT COUNT(id) FROM Lajk l WHERE l.tip = 'KOMENTAR' AND l.obrisan = 0 AND l.pozitivan = 1 AND l.komentar = k.id) - " + 
+						 " (SELECT COUNT(id) FROM Lajk l WHERE l.tip = 'KOMENTAR' AND l.obrisan = 0 AND l.pozitivan = 0 AND l.komentar = k.id))";
+			}
+			String query = "SELECT k.id, k.sadrzaj, k.datum, k.vlasnik, k.video, k.obrisan " + 
+							"FROM Komentar k " + 
+							"WHERE k.video=?  AND obrisan = 0 ORDER BY " + sortBy + " " + sortDirection + ";";
 
 			pstmt = conn.prepareStatement(query);
 			pstmt.setLong(1, videoId);
