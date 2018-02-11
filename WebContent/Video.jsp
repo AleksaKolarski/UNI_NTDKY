@@ -46,7 +46,7 @@
               <table id="video-details-table">
                 <tr id="video-details-row0">
                   <td id="video-details-r0-c0">
-                    <a href="profil.html?user=${requestScope.video.vlasnik}">${requestScope.video.vlasnik}</a>
+                    <a href="ProfilServlet?user=${requestScope.video.vlasnik}">${requestScope.video.vlasnik}</a>
                   </td>
                   <td id="video-details-r0-c1">
                     

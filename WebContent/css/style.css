@@ -304,6 +304,26 @@ body {
   padding: 0px;
   margin-top: 6px; }
 
+#profil-pretplate {
+  background: #F5F5F5;
+  border-radius: 10px;
+  box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.18);
+  padding: 6px;
+  margin-bottom: 10px; }
+  #profil-pretplate div {
+    padding-left: 5px;
+    padding-right: 5px; }
+    #profil-pretplate div .profil-pretplata {
+      background: #E5E5E5;
+      border-radius: 6px;
+      box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.13);
+      margin-bottom: 4px; }
+      #profil-pretplate div .profil-pretplata p {
+        margin: 0px;
+        display: inline; }
+      #profil-pretplate div .profil-pretplata .badge {
+        float: right; }
+
 .video {
   padding: 0px; }
   .video h3 {

@@ -12,6 +12,9 @@ $(document).ready(function (e) {
             var videi = data.videi;
             for (var i in videi) {
                 main.append(videoPanel(videi[i]));
+                if(videi[i].blokiran == '1'){
+                    $('#video-panel-' + videi[i].id).css('background', '#DDD');
+                }
             }
 
             videoPanelImgResize();

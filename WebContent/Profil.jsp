@@ -203,6 +203,19 @@
           </div>
           
           <%-- pretplate --%>
+          <c:if test="${not empty requestScope.pretplate}">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="profil-pretplate">
+              <p>Pretplate:</p>
+              <c:forEach items="${requestScope.pretplate}" var="pretplata">
+                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-2">
+                  <div class="profil-pretplata">
+                    <p><a href="ProfilServlet?user=${pretplata.key}">${pretplata.key}</a></p>
+                    <span class="badge">${pretplata.value}</span>
+                  </div>
+                </div>
+              </c:forEach>
+            </div>
+          </c:if>
         </c:if>
       </div>
     </div>

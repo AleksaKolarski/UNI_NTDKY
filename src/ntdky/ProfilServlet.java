@@ -1,7 +1,9 @@
 package ntdky;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -33,6 +35,14 @@ public class ProfilServlet extends HttpServlet {
 			if((profileUser = KorisnikDAO.get(profileUsername)) != null) {
 				profileUser.setLozinka("");
 				request.setAttribute("profil", profileUser);
+				
+				List<Korisnik> pretplate = KorisnikDAO.getPretplate(profileUser);
+				Map<String, Long> pretplateMap = new HashMap<String, Long>();
+				for(Korisnik korisnik: pretplate) {
+					pretplateMap.put(korisnik.getKorisnickoIme(), KorisnikDAO.getPretplaceneBroj(korisnik));
+				}
+				
+				request.setAttribute("pretplate", pretplateMap);
 				status = "success";
 				String edit = request.getParameter("edit");
 				if(edit != null) {

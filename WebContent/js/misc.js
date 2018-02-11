@@ -73,7 +73,7 @@ function sendFile(odakle, naziv, gde){
 
 function videoPanel(video) {
     return  '<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 video-panel">' +
-                    '<div class="panel panel-default">' +
+                    '<div class="panel panel-default" id="video-panel-' + video.id + '">' +
                         '<a href="VideoServlet?id=' + video.id + '">' +
                             '<div class="video-panel-body">' +
                                 '<img class="video-panel-img" src="img/video/icon/' + video.putanjaSlike + '" onerror="nemaSlike(event)" />' +
@@ -118,6 +118,9 @@ function popuniRezultatePretrageVidea(videi, gde){
     poljeZaPopunjavanje.empty();
     for(var i in videi){
         poljeZaPopunjavanje.append(videoPanel(videi[i]));
+        if(videi[i].blokiran == '1'){
+            $('#video-panel-' + videi[i].id).css('background', '#DDD');
+        }
     }
 
     videoPanelImgResize();
