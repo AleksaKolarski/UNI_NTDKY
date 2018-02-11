@@ -9,7 +9,7 @@ import ntdky.dao.KorisnikDAO;
 public class Korisnik {
 	public enum TipKorisnika{
 		USER,
-		ADMIN
+		ADMIN, 
 	}
 	
 	private String korisnickoIme; // jedinstveno

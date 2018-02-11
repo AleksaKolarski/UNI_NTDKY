@@ -37,6 +37,12 @@
       <!-- MAIN CONTENT -->
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2 main">
         <c:if test="${not empty requestScope.profil}">
+        <c:if test="${requestScope.profil.blokiran == true}">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="profil-blokiran-obavestenje">
+            <p class="text-center">Ovaj korisnik je blokiran!</p>
+          </div>
+        </c:if>
+        <c:if test="${requestScope.profil.blokiran == false || requestScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN' || requestScope.ulogovaniKorisnik.korisnickoIme == requestScope.profil.korisnickoIme}">
   	      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 profile-details">
             <c:choose>
               <c:when test="${not empty requestScope.profil.slika}">
@@ -216,6 +222,7 @@
               </c:forEach>
             </div>
           </c:if>
+        </c:if>
         </c:if>
       </div>
     </div>

@@ -135,7 +135,8 @@ public class Video {
 	}
 	public void incrementBrojPregleda() {
 		brojPregleda++;
-		VideoDAO.update(this);
+		//VideoDAO.update(this);
+		VideoDAO.increment(this);
 	}
 
 	public Date getDatum() {

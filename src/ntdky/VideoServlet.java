@@ -35,7 +35,7 @@ public class VideoServlet extends HttpServlet {
 		
 		try {
 			long videoId = Long.parseLong(request.getParameter("id"));
-			Video video = VideoDAO.get(videoId);
+			Video video = VideoDAO.get(videoId, ulogovaniKorisnik);
 			
 			if(video == null) {
 				throw new Exception();

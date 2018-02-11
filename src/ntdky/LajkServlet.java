@@ -40,7 +40,7 @@ public class LajkServlet extends HttpServlet {
 				long id = Long.parseLong(request.getParameter("id"));
 				
 				if(target.equals("VIDEO")) {
-					Video video = VideoDAO.get(id);
+					Video video = VideoDAO.get(id, ulogovaniKorisnik);
 					if (video == null) {
 						throw new Exception();
 					}
@@ -96,7 +96,7 @@ public class LajkServlet extends HttpServlet {
 				long id = Long.parseLong(request.getParameter("id"));
 								
 				if(target.equals("VIDEO")) {
-					Video video = VideoDAO.get(id);
+					Video video = VideoDAO.get(id, ulogovaniKorisnik);
 					if (video == null) {
 						throw new Exception();
 					}

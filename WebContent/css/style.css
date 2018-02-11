@@ -193,6 +193,16 @@ body {
 @media screen and (max-width: 767px) {
   .navigacija-dole {
     height: 250px; } }
+#profil-blokiran-obavestenje {
+  border: 1px solid #DDD;
+  border-radius: 10px;
+  box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.11);
+  background: #F5F5F5;
+  padding: 10px;
+  margin-bottom: 10px; }
+  #profil-blokiran-obavestenje p {
+    margin: 0px; }
+
 .profile-details {
   padding: 10px;
   background: #F5F5F5;
@@ -326,6 +336,15 @@ body {
 
 .video {
   padding: 0px; }
+  .video #video-blokiran-obavestenje {
+    border: 1px solid #DDD;
+    border-radius: 10px;
+    box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.11);
+    background: #F5F5F5;
+    padding: 10px;
+    margin-bottom: 10px; }
+    .video #video-blokiran-obavestenje p {
+      margin: 0px; }
   .video h3 {
     margin: 5px 0px 5px 0px; }
   .video .embed-responsive-16by9 {

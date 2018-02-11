@@ -42,7 +42,7 @@ public class KomentarServlet extends HttpServlet {
 			}
 			
 			long videoId = Long.parseLong(request.getParameter("videoId"));
-			Video video = VideoDAO.get(videoId);
+			Video video = VideoDAO.get(videoId, ulogovaniKorisnik);
 			
 			if(video == null) {
 				throw new Exception();
@@ -93,7 +93,7 @@ public class KomentarServlet extends HttpServlet {
 						long videoId = Long.parseLong(request.getParameter("videoId"));
 						edit = false;
 						
-						Video video = VideoDAO.get(videoId);
+						Video video = VideoDAO.get(videoId, ulogovaniKorisnik);
 						if(video != null) {
 							Komentar komentar = new Komentar(sadrzaj, new Date(), ulogovaniKorisnik.getKorisnickoIme(), video.getId(), false);
 							if(KomentarDAO.add(komentar)) {

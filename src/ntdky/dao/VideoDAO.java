@@ -11,23 +11,45 @@ import java.util.Date;
 import java.util.List;
 
 import ntdky.model.Video;
+import ntdky.model.Korisnik;
+import ntdky.model.Korisnik.TipKorisnika;
 import ntdky.model.Lajk.Tip;
 import ntdky.model.Video.VidljivostVidea;
 
 public class VideoDAO {
-	public static Video get(long id) {
+	public static Video get(long id, Korisnik ulogovaniKorisnik) {
 		Connection conn = ConnectionManager.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		try {
-			String query = "SELECT naziv, putanjaVidea, putanjaSlike, opis, vidljivostVidea, vidljivostKomentari, vidljivostRejting, blokiran, brojPregleda, datum, vlasnik, obrisan FROM Video WHERE id=? AND obrisan=0 AND (SELECT obrisan FROM Korisnik WHERE korisnickoIme=vlasnik)=0;";
+			String query = null;
+			
+			if(ulogovaniKorisnik == null) {
+				query = "SELECT naziv, putanjaVidea, putanjaSlike, opis, vidljivostVidea, vidljivostKomentari, vidljivostRejting, blokiran, brojPregleda, datum, vlasnik, obrisan FROM Video " + 
+						"WHERE vidljivostVidea!='PRIVATE' AND id=? AND obrisan=0 AND (SELECT obrisan FROM Korisnik WHERE korisnickoIme=vlasnik)=0;";
+			}
+			else {
+				if(ulogovaniKorisnik.getTipKorisnika() == TipKorisnika.USER) {
+					query = "SELECT naziv, putanjaVidea, putanjaSlike, opis, vidljivostVidea, vidljivostKomentari, vidljivostRejting, blokiran, brojPregleda, datum, vlasnik, obrisan FROM Video " + 
+							"WHERE (vidljivostVidea!='PRIVATE' OR vlasnik=?) AND id=? AND obrisan=0 AND (SELECT obrisan FROM Korisnik WHERE korisnickoIme=vlasnik)=0;";
+				}
+				else {
+					query = "SELECT naziv, putanjaVidea, putanjaSlike, opis, vidljivostVidea, vidljivostKomentari, vidljivostRejting, blokiran, brojPregleda, datum, vlasnik, obrisan FROM Video " + 
+							"WHERE id=? AND obrisan=0 AND (SELECT obrisan FROM Korisnik WHERE korisnickoIme=vlasnik)=0;";
+				}
+			}
+			//String query = "SELECT naziv, putanjaVidea, putanjaSlike, opis, vidljivostVidea, vidljivostKomentari, vidljivostRejting, blokiran, brojPregleda, datum, vlasnik, obrisan FROM Video WHERE id=? AND obrisan=0 AND (SELECT obrisan FROM Korisnik WHERE korisnickoIme=vlasnik)=0;";
 
 			pstmt = conn.prepareStatement(query);
-			pstmt.setLong(1, id);
+			int index = 1;
+			if(ulogovaniKorisnik != null && ulogovaniKorisnik.getTipKorisnika() == TipKorisnika.USER) {
+				pstmt.setString(index++, ulogovaniKorisnik.getKorisnickoIme());
+			}
+			pstmt.setLong(index++, id);
 			rset = pstmt.executeQuery();
 
 			if (rset.next()) {
-				int index = 1;
+				index = 1;
 				String naziv = rset.getString(index++);
 				String putanjaVidea = rset.getString(index++);
 				String putanjaSlike = rset.getString(index++);
@@ -46,6 +68,8 @@ public class VideoDAO {
 				}
 				String vlasnik = rset.getString(index++);
 				boolean obrisan = rset.getBoolean(index++);
+				
+				blokiran = (blokiran || KorisnikDAO.get(vlasnik).getBlokiran());
 
 				return new Video(id, naziv, putanjaVidea, putanjaSlike, opis, vidljivostVidea, vidljivostKomentari, vidljivostRejting, blokiran, brojPregleda, datum, vlasnik, obrisan);
 			} else {
@@ -62,21 +86,49 @@ public class VideoDAO {
 		return null;
 	}
 	
-	public static List<Video> getFilter(String nazivFilter, String vlasnikFilter, Date datumFilterMin, Date datumFilterMax, long brojFilterMin, long brojFilterMax, String sortBy, String sortDirection) {
+	public static List<Video> getFilter(String nazivFilter, String vlasnikFilter, Date datumFilterMin, Date datumFilterMax, long brojFilterMin, long brojFilterMax, String sortBy, String sortDirection, Korisnik ulogovaniKorisnik) {
 		ArrayList<Video> videi = new ArrayList<Video>();
 		
 		Connection conn = ConnectionManager.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		try {
-			String query = "SELECT id, naziv, putanjaVidea, putanjaSlike, opis, vidljivostVidea, vidljivostKomentari, vidljivostRejting, blokiran, brojPregleda, datum, vlasnik, obrisan " + 
+			String query = null;
+			
+			if(ulogovaniKorisnik == null) {
+				query = "SELECT id, naziv, putanjaVidea, putanjaSlike, opis, vidljivostVidea, vidljivostKomentari, vidljivostRejting, blokiran, brojPregleda, datum, vlasnik, obrisan " + 
+						"FROM Video " + 
+						"WHERE blokiran=0 AND vidljivostVidea='PUBLIC' AND naziv LIKE ? AND vlasnik LIKE ? AND datum BETWEEN CAST(? AS DATE) AND DATE_ADD(CAST(? AS DATE), INTERVAL 1 DAY) AND brojPregleda BETWEEN ? AND ? AND obrisan=0 AND (SELECT obrisan FROM Korisnik WHERE korisnickoIme=vlasnik)=0 AND (SELECT blokiran FROM Korisnik WHERE korisnickoIme=vlasnik)=0 ORDER BY " + sortBy + " " + sortDirection + ";";
+			}
+			else {
+				if(ulogovaniKorisnik.getTipKorisnika() == TipKorisnika.USER) {
+					query = "SELECT id, naziv, putanjaVidea, putanjaSlike, opis, vidljivostVidea, vidljivostKomentari, vidljivostRejting, blokiran, brojPregleda, datum, vlasnik, obrisan " + 
+							"FROM Video " + 
+							"WHERE ((SELECT blokiran FROM Korisnik WHERE korisnickoIme=vlasnik)=0 OR vlasnik=?) AND (blokiran=0 OR vlasnik=?) AND (vidljivostVidea='PUBLIC' OR vlasnik=?) AND naziv LIKE ? AND vlasnik LIKE ? AND datum BETWEEN CAST(? AS DATE) AND DATE_ADD(CAST(? AS DATE), INTERVAL 1 DAY) AND brojPregleda BETWEEN ? AND ? AND obrisan=0 AND (SELECT obrisan FROM Korisnik WHERE korisnickoIme=vlasnik)=0 ORDER BY " + sortBy + " " + sortDirection + ";";
+				}
+				else {
+					query = "SELECT id, naziv, putanjaVidea, putanjaSlike, opis, vidljivostVidea, vidljivostKomentari, vidljivostRejting, blokiran, brojPregleda, datum, vlasnik, obrisan " + 
 							"FROM Video " + 
 							"WHERE naziv LIKE ? AND vlasnik LIKE ? AND datum BETWEEN CAST(? AS DATE) AND DATE_ADD(CAST(? AS DATE), INTERVAL 1 DAY) AND brojPregleda BETWEEN ? AND ? AND obrisan=0 AND (SELECT obrisan FROM Korisnik WHERE korisnickoIme=vlasnik)=0 ORDER BY " + sortBy + " " + sortDirection + ";";
+				}
+			}
 			
+			/*
+			query = "SELECT id, naziv, putanjaVidea, putanjaSlike, opis, vidljivostVidea, vidljivostKomentari, vidljivostRejting, blokiran, brojPregleda, datum, vlasnik, obrisan " + 
+							"FROM Video " + 
+							"WHERE naziv LIKE ? AND vlasnik LIKE ? AND datum BETWEEN CAST(? AS DATE) AND DATE_ADD(CAST(? AS DATE), INTERVAL 1 DAY) AND brojPregleda BETWEEN ? AND ? AND obrisan=0 AND (SELECT obrisan FROM Korisnik WHERE korisnickoIme=vlasnik)=0 ORDER BY " + sortBy + " " + sortDirection + ";";
+			*/
 			pstmt = conn.prepareStatement(query);
 			int index = 1;
+			if(ulogovaniKorisnik != null && ulogovaniKorisnik.getTipKorisnika() == TipKorisnika.USER) {
+				pstmt.setString(index++, ulogovaniKorisnik.getKorisnickoIme());
+				pstmt.setString(index++, ulogovaniKorisnik.getKorisnickoIme());
+				pstmt.setString(index++, ulogovaniKorisnik.getKorisnickoIme());
+			}
+			
 			pstmt.setString(index++, "%" + nazivFilter + "%");
 			pstmt.setString(index++, "%" + vlasnikFilter + "%");
+			
 			
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 			pstmt.setString(index++, formatter.format(datumFilterMin));
@@ -108,6 +160,8 @@ public class VideoDAO {
 				}
 				String vlasnik = rset.getString(index++);
 				boolean obrisan = rset.getBoolean(index++);
+				
+				blokiran = (blokiran || KorisnikDAO.get(vlasnik).getBlokiran());
 
 				videi.add(new Video(id, naziv, putanjaVidea, putanjaSlike, opis, vidljivostVidea, vidljivostKomentari, vidljivostRejting, blokiran, brojPregleda, datum, vlasnik, obrisan));
 			}
@@ -187,6 +241,27 @@ public class VideoDAO {
 			pstmt.setString(index++, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(video.getDatum()));
 			pstmt.setString(index++, video.getVlasnik());
 			pstmt.setBoolean(index++, video.getObrisan());
+			pstmt.setLong(index++, video.getId());
+
+			return pstmt.executeUpdate() == 1;
+		} catch (SQLException ex) {
+			System.out.println("Greska u SQL upitu!");
+			ex.printStackTrace();
+		} finally {
+			try {pstmt.close();} catch (SQLException ex1) {ex1.printStackTrace();}
+		}
+		return false;
+	}
+	
+	public static boolean increment(Video video) {
+		Connection conn = ConnectionManager.getConnection();
+		PreparedStatement pstmt = null;
+		try {
+			String query = "UPDATE Video SET brojPregleda=? WHERE id=?;";
+			pstmt = conn.prepareStatement(query);
+
+			int index = 1;
+			pstmt.setLong(index++, video.getBrojPregleda());
 			pstmt.setLong(index++, video.getId());
 
 			return pstmt.executeUpdate() == 1;

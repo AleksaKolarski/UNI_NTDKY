@@ -53,7 +53,7 @@ public class PretplataServlet extends HttpServlet {
 				try {
 					long videoId = Long.parseLong(request.getParameter("videoId"));
 
-					Video video = VideoDAO.get(videoId);
+					Video video = VideoDAO.get(videoId, ulogovaniKorisnik);
 
 					if (video != null) {
 						Korisnik koga = KorisnikDAO.get(video.getVlasnik());
@@ -119,7 +119,7 @@ public class PretplataServlet extends HttpServlet {
 				try {
 					long videoId = Long.parseLong(request.getParameter("videoId"));
 
-					Video video = VideoDAO.get(videoId);
+					Video video = VideoDAO.get(videoId, ulogovaniKorisnik);
 
 					if (video != null) {
 						Korisnik koga = KorisnikDAO.get(video.getVlasnik());

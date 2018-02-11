@@ -21,6 +21,7 @@ import ntdky.dao.KorisnikDAO;
 import ntdky.dao.VideoDAO;
 import ntdky.model.Korisnik;
 import ntdky.model.Video;
+import ntdky.model.Korisnik.TipKorisnika;
 
 
 public class VideoFilterServlet extends HttpServlet {
@@ -112,7 +113,7 @@ public class VideoFilterServlet extends HttpServlet {
 		}
 		//System.out.println("sortDirection: '" + sortDirection + "'");
 		
-		List<Video> videi = VideoDAO.getFilter(nazivFilter, vlasnikFilter, datumFilterMin, datumFilterMax, brojFilterMin, brojFilterMax, sortBy, sortDirection);
+		List<Video> videi = VideoDAO.getFilter(nazivFilter, vlasnikFilter, datumFilterMin, datumFilterMax, brojFilterMin, brojFilterMax, sortBy, sortDirection, ulogovaniKorisnik);
 		if(videi != null) {
 			data.put("videi", videi);
 		}

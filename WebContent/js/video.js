@@ -125,6 +125,9 @@ function refreshVideoLikes(videoId) {
 				linijaLike.css('background-color', 'gray');
 				linijaDislike.css('width', '0%');
 			}
+			else{
+				linijaLike.css('background-color', '#0CB71B');
+			}
 			linijaLike.css('width', ((1 / zbir) * lajkovi * 100) + '%');
 			linijaDislike.css('width', ((1 / zbir) * dislajkovi * 100) + '%');
 

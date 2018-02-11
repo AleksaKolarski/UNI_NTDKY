@@ -38,7 +38,7 @@ public class VideoNewServlet extends HttpServlet {
 				if (edit != null && edit.equals("true")) {
 					// edit
 					long videoId = Long.parseLong(request.getParameter("videoId"));
-					Video video = VideoDAO.get(videoId);
+					Video video = VideoDAO.get(videoId, ulogovaniKorisnik);
 					
 					if(video == null) {
 						throw new Exception();
@@ -88,9 +88,9 @@ public class VideoNewServlet extends HttpServlet {
 			Video video = null;
 			try {
 				long videoId = Long.parseLong(request.getParameter("videoId"));
-				video = VideoDAO.get(videoId);
+				video = VideoDAO.get(videoId, ulogovaniKorisnik);
 				if(video != null) {
-					if(video.getVlasnik().equals(ulogovaniKorisnik.getKorisnickoIme()) || ulogovaniKorisnik.getTipKorisnika() == TipKorisnika.ADMIN) {
+					if((video.getVlasnik().equals(ulogovaniKorisnik.getKorisnickoIme()) && video.getBlokiran() == false) || ulogovaniKorisnik.getTipKorisnika() == TipKorisnika.ADMIN) {
 						edit = true;
 					}
 					else {

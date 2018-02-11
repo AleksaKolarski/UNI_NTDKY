@@ -36,6 +36,20 @@
       <!-- MAIN CONTENT -->
       <div class="col-xs-12 col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2 main">
 	  	  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-10 col-lg-offset-1 video">
+
+          <c:choose>
+          <c:when test="${requestScope.video.blokiran == true && requestScope.ulogovaniKorisnik.tipKorisnika != 'ADMIN' && requestScope.ulogovaniKorisnik.korisnickoIme != requestScope.video.vlasnik}">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="video-blokiran-obavestenje">
+              <p class="text-center">Ovaj video ili njegov vlasnik je blokiran!</p>
+            </div>
+          </c:when>
+
+          <c:otherwise>
+          <c:if test="${requestScope.video.blokiran == true}">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="video-blokiran-obavestenje">
+              <p class="text-center">Ovaj video ili njegov vlasnik je blokiran!</p>
+            </div>
+          </c:if>
 		      <h3>${requestScope.video.naziv}</h3>
 		      <div class="embed-responsive embed-responsive-16by9">
 		  	    <iframe src="https://www.youtube.com/embed/${requestScope.video.putanjaVidea}?rel=0&amp;showinfo=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
@@ -57,7 +71,7 @@
                 </tr>
                 <tr id="video-details-row1">
                   <td rowspan="2" id="video-details-r1-c0">
-                    <c:if test="${(requestScope.ulogovaniKorisnik.korisnickoIme == requestScope.video.vlasnik) || (requestScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN')}">
+                    <c:if test="${(requestScope.ulogovaniKorisnik.korisnickoIme == requestScope.video.vlasnik && requestScope.video.blokiran == false) || (requestScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN')}">
                       <button type="button" class="btn btn-default" id="btn-video-edit" onclick="window.location.href='/NTDKY/VideoNewServlet?videoId=${requestScope.video.id}&edit=true';">Edit video</button>
                     </c:if>
                     <c:if test="${requestScope.ulogovaniKorisnik.korisnickoIme != requestScope.video.vlasnik}">
@@ -70,23 +84,27 @@
                     </a>
                   </td>
                   <td id="video-details-r1-c2">
-                    <div id="video-details-line-container">
-                      <hr id="video-details-like-line">
-                      <hr id="video-details-dislike-line">
-                    </div>
+                    <c:if test="${requestScope.video.vidljivostRejting == true || requestScope.ulogovaniKorisnik.korisnickoIme == requestScope.video.vlasnik || requestScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN'}">
+                      <div id="video-details-line-container">
+                        <hr id="video-details-like-line">
+                        <hr id="video-details-dislike-line">
+                      </div>
+                    </c:if>
                   </td>
                 </tr>
                 
                 <tr id="video-details-row2">
                   <td id="video-details-r2-c2">
-                    <a href="#" id="video-dugme-like-link">
-                      <span class="glyphicon glyphicon-thumbs-up" id="video-dugme-like"></span>
-                    </a>
-                    <p id="video-details-broj-lajkova"></p>
-                    <a href="#" id="video-dugme-dislike-link">
-                      <span class="glyphicon glyphicon-thumbs-down" id="video-dugme-dislike"></span>
-                    </a>
-                    <p id="video-details-broj-dislajkova"></p>
+                    <c:if test="${requestScope.video.vidljivostRejting == true || requestScope.ulogovaniKorisnik.korisnickoIme == requestScope.video.vlasnik || requestScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN'}">
+                      <a href="#" id="video-dugme-like-link">
+                        <span class="glyphicon glyphicon-thumbs-up" id="video-dugme-like"></span>
+                      </a>
+                      <p id="video-details-broj-lajkova"></p>
+                      <a href="#" id="video-dugme-dislike-link">
+                        <span class="glyphicon glyphicon-thumbs-down" id="video-dugme-dislike"></span>
+                      </a>
+                      <p id="video-details-broj-dislajkova"></p>
+                    </c:if>
                   </td>
                 </tr>
               </table>
@@ -106,6 +124,7 @@
           </div>
 
           <!-- Komentari -->
+          <c:if test="${requestScope.video.vidljivostKomentari == true || requestScope.ulogovaniKorisnik.korisnickoIme == requestScope.video.vlasnik || requestScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN'}">
           <div id="komentari-container" class="col-sm-12 col-md-9 col-lg-8">
             <%-- unos novog komentara --%>
             <c:if test="${not empty requestScope.ulogovaniKorisnik}">
@@ -159,7 +178,9 @@
               </ul>
             </nav>
           </div>
-
+          </c:if>
+          </c:otherwise>
+          </c:choose>
   		  </div>
   	  </div>
     </div>

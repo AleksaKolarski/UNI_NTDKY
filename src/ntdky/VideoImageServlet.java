@@ -53,7 +53,7 @@ public class VideoImageServlet extends HttpServlet {
 						try {
 							videoId = Long.parseLong(item.getFieldName());
 
-							Video video = VideoDAO.get(videoId);
+							Video video = VideoDAO.get(videoId, ulogovaniKorisnik);
 							if (video != null) {
 								if (ulogovaniKorisnik.getKorisnickoIme().equals(video.getVlasnik()) || ulogovaniKorisnik.getTipKorisnika() == TipKorisnika.ADMIN) {
 									File file = new File("WebContent/img/video/icon", item.getFieldName());

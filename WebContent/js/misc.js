@@ -118,8 +118,14 @@ function popuniRezultatePretrageVidea(videi, gde){
     poljeZaPopunjavanje.empty();
     for(var i in videi){
         poljeZaPopunjavanje.append(videoPanel(videi[i]));
+        if(videi[i].vidljivostVidea == 'UNLISTED'){
+            $('#video-panel-' + videi[i].id).css('background', '#F3F3F3');
+        }
+        if(videi[i].vidljivostVidea == 'PRIVATE'){
+            $('#video-panel-' + videi[i].id).css('background', '#EAF6FF'); //d3eafF
+        }
         if(videi[i].blokiran == '1'){
-            $('#video-panel-' + videi[i].id).css('background', '#DDD');
+            $('#video-panel-' + videi[i].id).css('background', '#FCC');
         }
     }
 
