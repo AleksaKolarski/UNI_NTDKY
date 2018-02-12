@@ -7,12 +7,15 @@
   <listener>
     <listener-class>ntdky.InitListener</listener-class>
   </listener>
+  
   <filter>
+    <display-name>JspFilter</display-name>
     <filter-name>JspFilter</filter-name>
     <filter-class>ntdky.JspFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>JspFilter</filter-name>
+    <url-pattern>/JspFilter</url-pattern>
     <url-pattern>/AdminPanel.jsp</url-pattern>
     <url-pattern>/Pocetna.jsp</url-pattern>
     <url-pattern>/Profil.jsp</url-pattern>
@@ -173,15 +176,6 @@
     <servlet-name>AdminPanelServlet</servlet-name>
     <url-pattern>/AdminPanelServlet</url-pattern>
   </servlet-mapping>
-  <filter>
-    <display-name>JspFilter</display-name>
-    <filter-name>JspFilter</filter-name>
-    <filter-class>ntdky.JspFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>JspFilter</filter-name>
-    <url-pattern>/JspFilter</url-pattern>
-  </filter-mapping>
   <servlet>
     <description></description>
     <display-name>PocetnaServlet</display-name>

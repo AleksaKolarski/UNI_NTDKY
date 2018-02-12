@@ -52,7 +52,7 @@ body {
 
 .navigacija-gore {
   position: fixed;
-  z-index: 2;
+  z-index: 3;
   padding: 0px;
   margin-top: 7px;
   height: auto;

@@ -22,6 +22,7 @@ import ntdky.dao.VideoDAO;
 import ntdky.model.Komentar;
 import ntdky.model.Korisnik;
 import ntdky.model.Video;
+import ntdky.model.Korisnik.TipKorisnika;
 
 
 public class KomentarServlet extends HttpServlet {
@@ -98,7 +99,7 @@ public class KomentarServlet extends HttpServlet {
 		Map<String, Object> data = new HashMap<>();
 		String status = "error";
 		
-		if(ulogovaniKorisnik != null) {
+		if(ulogovaniKorisnik != null && ulogovaniKorisnik.getBlokiran() == false) {
 			String sadrzaj = request.getParameter("sadrzaj");
 			if(sadrzaj != null) {
 				if(sadrzaj.length() > 0) {
@@ -124,7 +125,7 @@ public class KomentarServlet extends HttpServlet {
 							
 							Komentar komentar = KomentarDAO.get(komentarId);
 							if(komentar != null) {
-								if(komentar.getVlasnik().equals(ulogovaniKorisnik.getKorisnickoIme())) {
+								if(komentar.getVlasnik().equals(ulogovaniKorisnik.getKorisnickoIme()) || ulogovaniKorisnik.getTipKorisnika() == TipKorisnika.ADMIN) {
 									komentar.setSadrzaj(sadrzaj);
 									if(KomentarDAO.update(komentar)) {
 										status = "success";
