@@ -50,7 +50,7 @@ function refreshSidebar(){
                         '<a href="ProfilServlet?user=' + kanali[i]["profil"] + '">' + 
                             '<li class="sidebar-subscribed-channel">' + 
                                 kanali[i]["profil"] + 
-                                '<img src="img/profile/' + ((kanali[i]["slika"])?kanali[i]["slika"]:'_.png') + '" alt="profile photo">' + 
+                                '<img src="img/profile/' + ((kanali[i]["slika"])?kanali[i]["slika"]:'_.png') + '" alt="profile photo" onerror="nemaProfilneSlike(event)">' + 
                             '</li>' + 
                         '</a>'
                     );
@@ -81,7 +81,7 @@ function refreshSidebar(){
                     '<a href="ProfilServlet?user=' + kanali[i]["profil"] + '">' + 
                         '<li class="sidebar-subscribed-channel">' + 
                             kanali[i]["profil"] + 
-                            '<img src="img/profile/' + ((kanali[i]["slika"])?kanali[i]["slika"]:'_.png') + '" alt="profile photo">' + 
+                            '<img src="img/profile/' + ((kanali[i]["slika"])?kanali[i]["slika"]:'_.png') + '" alt="profile photo" onerror="nemaProfilneSlike(event)">' + 
                         '</li>' + 
                     '</a>'
                 );

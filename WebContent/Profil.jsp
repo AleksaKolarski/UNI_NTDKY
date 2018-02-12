@@ -82,7 +82,7 @@
   	      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 profile-details">
             <c:choose>
               <c:when test="${not empty requestScope.profil.slika}">
-                <img src="img/profile/${requestScope.profil.slika}" id="profile-image" alt="profile photo">
+                <img src="img/profile/${requestScope.profil.slika}" id="profile-image" alt="profile photo" onerror="nemaProfilneSlike(event)">
               </c:when>
               <c:otherwise>
                 <img src="img/profile/_.png" id="profile-image" alt="profile photo">

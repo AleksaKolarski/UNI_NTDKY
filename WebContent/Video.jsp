@@ -62,7 +62,7 @@
                   <td id="video-details-r0-c0">
                     <c:choose>
                       <c:when test="${not empty requestScope.vlasnik.slika}">
-                        <img src="img/profile/${requestScope.vlasnik.slika}" id="profile-image-video" alt="profile photo">
+                        <img src="img/profile/${requestScope.vlasnik.slika}" id="profile-image-video" alt="profile photo" onerror="nemaProfilneSlike(event)">
                       </c:when>
                       <c:otherwise>
                         <img src="img/profile/_.png" id="profile-image-video" alt="profile photo">

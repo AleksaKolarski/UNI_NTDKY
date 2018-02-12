@@ -158,8 +158,8 @@ $(document).ready(function(e){
             $(register_dugme).on('click', function(event){
                 // vrsimo proveru trenutnog stanja polja
                 register_log.empty();
-                if(check_input(register_ime, 4, 16) == true){
-                    if(check_input(register_prezime, 4, 16) == true){
+                if(check_input(register_ime, 0, 16) == true){
+                    if(check_input(register_prezime, 0, 16) == true){
                         if(check_email(register_email) == true){
                             if(check_input(register_korisnicko_ime, 4, 16) == true){
                                 if(check_input(register_lozinka, 4, 16) == true){
@@ -193,11 +193,11 @@ $(document).ready(function(e){
                         return;
                     }
                     // greska pri unosu prezimena
-                    register_log.append('Prezime mora biti duze od 3 i krace od 17 karaktera!');
+                    register_log.append('Prezime mora biti krace od 17 karaktera!');
                     return;
                 }
                 // greska pri unosu imena
-                register_log.append('Ime mora biti duze od 3 i krace od 17 karaktera!');
+                register_log.append('Ime mora biti krace od 17 karaktera!');
             });
         }
     });

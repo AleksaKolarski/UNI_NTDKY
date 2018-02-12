@@ -194,7 +194,7 @@ public class KorisnikDAO {
 		Connection conn = ConnectionManager.getConnection();
 		PreparedStatement pstmt = null;
 		try {
-			String query = "INSERT INTO Korisnik (korisnickoIme, lozinka, ime, prezime, email, opis, slika, datum, tipKorisnika, blokiran, obrisan) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+			String query = "INSERT INTO Korisnik (korisnickoIme, lozinka, ime, prezime, email, opis, slika, datum, tipKorisnika, blokiran, obrisan) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 			pstmt = conn.prepareStatement(query);
 			
 			int index = 1;

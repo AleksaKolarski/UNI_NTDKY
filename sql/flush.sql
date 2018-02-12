@@ -1,5 +1,5 @@
 DROP SCHEMA IF EXISTS ntdky;
-CREATE SCHEMA ntdky DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE SCHEMA ntdky;
 USE ntdky;
 
 CREATE TABLE Korisnik (
@@ -17,8 +17,11 @@ CREATE TABLE Korisnik (
     
     PRIMARY KEY(korisnickoIme)
 );
-INSERT INTO Korisnik (korisnickoIme, lozinka, ime, prezime, email, opis, datum, tipKorisnika, blokiran) 
-VALUES ('adm1', 'adm1', 'Admin', 'Adminic', 'admin1@gmail.com', 'Opis jednog admina', '2018-01-01 12:25:32', 'ADMIN', 0);
+
+INSERT INTO Korisnik (korisnickoIme, lozinka, ime, prezime, email, opis, slika, datum, tipKorisnika, blokiran, obrisan) 
+VALUES ('adm1', 'adm1', 'Admin', 'Adminic', 'admin1@gmail.com', 'Opis jednog admina', 'adm1', '2018-01-01 12:25:32', 'ADMIN', 0, 0);
+
+
 INSERT INTO Korisnik (korisnickoIme, lozinka, ime, prezime, email, opis, datum, tipKorisnika, blokiran) 
 VALUES ('adm2', 'adm2', '', '', 'admin2@gmail.com', '', '2018-01-03 08:45:11', 'ADMIN', 0);
 INSERT INTO Korisnik (korisnickoIme, lozinka, ime, prezime, email, opis, datum, tipKorisnika, blokiran) 
@@ -28,18 +31,22 @@ VALUES ('user2', 'user2', '', '', 'user2@gmail.com', '', '2018-01-05 22:05:02', 
 INSERT INTO Korisnik (korisnickoIme, lozinka, ime, prezime, email, opis, datum, tipKorisnika, blokiran) 
 VALUES ('user3', 'user3', '', '', 'user3@gmail.com', '', '2018-01-06 17:27:52', 'USER', 1);
 
+
 CREATE TABLE Pretplata(
 	ko VARCHAR(16) NOT NULL, 
     koga VARCHAR(16) NOT NULL, 
     FOREIGN KEY(ko) REFERENCES Korisnik(korisnickoIme), 
     FOREIGN KEY(koga) REFERENCES Korisnik(korisnickoIme)
 );
+
+/*
 INSERT INTO Pretplata(ko, koga) 
 VALUES ('user1', 'user2');
 INSERT INTO Pretplata(ko, koga) 
 VALUES ('user1', 'user3');
 INSERT INTO Pretplata(ko, koga) 
 VALUES ('user2', 'user3');
+*/
 
 CREATE TABLE Video (
 	id BIGINT AUTO_INCREMENT, 
@@ -59,6 +66,8 @@ CREATE TABLE Video (
     PRIMARY KEY(id), 
     FOREIGN KEY(vlasnik) REFERENCES Korisnik(korisnickoIme)
 );
+
+
 INSERT INTO Video (naziv, putanjaVidea, putanjaSlike, opis, vidljivostVidea, vidljivostKomentari, vidljivostRejting, blokiran, datum, vlasnik) 
 VALUES ('The Fiat 124 Abarth Isnt a Better Mazda Miata', 'W-YcpWYAido', 'W-YcpWYAido.jpg', '', 'PUBLIC', 1, 1, 0, '2018-01-07 12:23:56', 'user1');
 INSERT INTO Video (naziv, putanjaVidea, putanjaSlike, opis, vidljivostVidea, vidljivostKomentari, vidljivostRejting, blokiran, datum, vlasnik) 
@@ -67,6 +76,7 @@ INSERT INTO Video (naziv, putanjaVidea, putanjaSlike, opis, vidljivostVidea, vid
 VALUES ('Heres a Tour of a USA-Legal R34 Nissan Skyline GT-R', '4VQIjYBbawE', '4VQIjYBbawE.jpg', '', 'UNLISTED', 1, 1, 0, '2018-01-09 08:03:18', 'user2');
 INSERT INTO Video (naziv, putanjaVidea, putanjaSlike, opis, vidljivostVidea, vidljivostKomentari, vidljivostRejting, blokiran, datum, vlasnik) 
 VALUES ('The $230,000 Mercedes-AMG G65 Is the Stupidest Car On Sale', 'f3KjIQCKmM4', 'f3KjIQCKmM4.jpg', 'Opis2', 'PRIVATE', 1, 1, 0, '2018-01-10 23:23:23', 'user2');
+
 
 CREATE TABLE Komentar (
 	id BIGINT AUTO_INCREMENT, 
@@ -80,6 +90,8 @@ CREATE TABLE Komentar (
     FOREIGN KEY(vlasnik) REFERENCES Korisnik(korisnickoIme), 
     FOREIGN KEY(video) REFERENCES Video(id)
 );
+
+/*
 INSERT INTO Komentar (sadrzaj, datum, vlasnik, video) 
 VALUES ('Ovo je komentar 1', '2018-01-11 09:32:12', 'user1', 1);
 INSERT INTO Komentar (sadrzaj, datum, vlasnik, video) 
@@ -88,6 +100,7 @@ INSERT INTO Komentar (sadrzaj, datum, vlasnik, video)
 VALUES ('Ovo je komentar 3', '2018-01-11 16:15:51', 'user3', 1);
 INSERT INTO Komentar (sadrzaj, datum, vlasnik, video) 
 VALUES ('Ovo je komentar 4', '2018-01-11 19:29:36', 'user1', 2);
+*/
 
 CREATE TABLE Lajk (
 	id BIGINT AUTO_INCREMENT, 
@@ -104,6 +117,8 @@ CREATE TABLE Lajk (
     FOREIGN KEY(video) REFERENCES Video(id), 
     FOREIGN KEY(komentar) REFERENCES Komentar(id)
 );
+
+/*
 INSERT INTO Lajk (vlasnik, pozitivan, datum, tip, video) 
 VALUES ('user1', 1, '2018-01-12 07:14:32', 'VIDEO', 1);
 INSERT INTO Lajk (vlasnik, pozitivan, datum, tip, video) 
@@ -113,3 +128,4 @@ INSERT INTO Lajk (vlasnik, pozitivan, datum, tip, video)
 VALUES ('user2', 0, '2018-01-12 07:14:32', 'VIDEO', 2);
 INSERT INTO Lajk (vlasnik, pozitivan, datum, tip, komentar) 
 VALUES ('user2', 0, '2018-01-12 20:41:21', 'KOMENTAR', 3);
+*/

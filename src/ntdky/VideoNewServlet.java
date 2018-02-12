@@ -66,6 +66,10 @@ public class VideoNewServlet extends HttpServlet {
 		catch(Exception e) {
 			status = "error";
 		}
+		
+		if(status.equals("error")) {
+			response.sendRedirect("error-404.jsp");
+		}
 
 		data.put("status", status);
 

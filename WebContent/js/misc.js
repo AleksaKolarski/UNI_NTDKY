@@ -112,6 +112,10 @@ function nemaSlike(event){
     event.target.src="./img/video/icon/_.png";
 }
 
+function nemaProfilneSlike(event){
+    event.target.src="./img/profile/_.png";
+}
+
 
 function popuniRezultatePretrageVidea(videi, gde){
     var poljeZaPopunjavanje = $(gde);

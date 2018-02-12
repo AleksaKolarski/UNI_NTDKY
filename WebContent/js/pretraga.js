@@ -10,7 +10,7 @@ $(document).ready(function (e) {
             var brojSlider = document.getElementById('broj-slider');
 
             videoFilterSlider = noUiSlider.create(brojSlider, {
-                start: [0, data.preglediMinMax[1] + (data.preglediMinMax[1] * 0.1 + data.preglediMinMax[1]%10)],
+                start: [0, 1 + data.preglediMinMax[1] + (data.preglediMinMax[1] * 0.1 + data.preglediMinMax[1]%10)],
                 tooltips: true, 
                 format: {
                     to: function (value) {
@@ -22,7 +22,7 @@ $(document).ready(function (e) {
                 }, 
                 range: {
                     'min': 0,
-                    'max': data.preglediMinMax[1] + (data.preglediMinMax[1] * 0.1 + data.preglediMinMax[1]%10)
+                    'max': 1 + data.preglediMinMax[1] + (data.preglediMinMax[1] * 0.1 + data.preglediMinMax[1]%10)
                 },
                 connect: true,
                 step: 1

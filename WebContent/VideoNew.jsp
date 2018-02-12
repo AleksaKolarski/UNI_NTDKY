@@ -75,10 +75,11 @@
 				<div id="video-new" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
 					<%-- SLIKA --%>
+          <c:if test="${requestScope.edit == true}">
         	<div id="video-new-image-wrap" class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
 						<c:choose>
-              <c:when test="${requestScope.edit == true && not empty requestScope.video.putanjaSlike}">
-                <img src="img/video/icon/${requestScope.video.putanjaSlike}" id="video-new-image" alt="video image">
+              <c:when test="${not empty requestScope.video.putanjaSlike}">
+                <img src="img/video/icon/${requestScope.video.putanjaSlike}" id="video-new-image" alt="video image"  onerror="nemaSlike(event)">
               </c:when>
               <c:otherwise>
                 <img src="img/video/icon/_.png" id="video-new-image" alt="video image">
@@ -87,6 +88,7 @@
 
             <input type="file" id="video-new-image-chooser" accept="image/*" name="${requestScope.video.id}" onchange="promenjenaSlika(event)">
 					</div>
+          </c:if>
 
 					<div id="video-new-naziv-wrap" class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
 						<p class="profile-p profile-p-title">Naziv: </p>

@@ -7,12 +7,45 @@
         border-radius: 10px;
         box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.18);
 
+        p{
+            margin: 0px;
+        }
+
         #video-new-image-wrap {
 
             #video-new-image {
                 width: 246px;
                 height: 138px;
             }
+            margin-bottom: 10px;
+        }
+
+        #video-new-naziv-wrap{
+            margin-bottom: 10px;
+        }
+
+        #video-new-putanja-wrap{
+            margin-bottom: 10px;
+        }
+
+        #video-new-opis-wrap{
+            margin-bottom: 10px;
+        }
+
+        #video-new-blokiran-wrap{
+            margin-bottom: 10px;
+        }
+
+        #video-new-vidljivost-videa-wrap{
+            margin-bottom: 10px;
+        }
+
+        #video-new-vidljivost-komentara-wrap{
+            margin-bottom: 10px;
+        }
+
+        #video-new-vidljivost-rejtinga-wrap{
+            margin-bottom: 10px;
         }
     }
 }
