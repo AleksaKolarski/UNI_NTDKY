@@ -173,6 +173,13 @@
  							    </label>
 						    </div>
 					     </div>
+               
+
+              <div id="paginacija-broj-po-strani-div">
+						    <p>Po strani:</p>
+						    <input id="paginacija-broj-po-strani" type="number" class="form-control"  value="5" min="1" max="15"/>
+					    </div>
+               
               <button type="button" class="btn btn-default" id="sortiraj-btn">Sortiraj</button>
               <hr>
             </div>
@@ -181,7 +188,6 @@
             <div id="komentari-lista">
 
             </div>
-
 
             <nav id="paginacija-nav">
               <ul class="pagination" id="paginacija">

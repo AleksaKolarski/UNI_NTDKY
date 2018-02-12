@@ -477,6 +477,18 @@ body {
           .video #komentari-container #komentar-sort-wrap #sort-by-filter .radio-inline label {
             font-size: 20px;
             margin: 0px; }
+      .video #komentari-container #komentar-sort-wrap #paginacija-broj-po-strani-div {
+        margin-left: 10px;
+        display: inline-block; }
+        .video #komentari-container #komentar-sort-wrap #paginacija-broj-po-strani-div p {
+          padding: 0px;
+          margin: 0px; }
+        .video #komentari-container #komentar-sort-wrap #paginacija-broj-po-strani-div #paginacija-broj-po-strani {
+          padding-left: 2px;
+          padding-right: 2px;
+          width: 50px;
+          text-align: center;
+          margin: auto; }
       .video #komentari-container #komentar-sort-wrap #sortiraj-btn {
         float: right;
         margin: 10px 0px 10px 0px; }

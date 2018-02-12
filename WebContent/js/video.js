@@ -61,7 +61,7 @@ $(document).ready(function (e) {
 		});
 	});
 
-	refreshComments(videoId, 0, 5);
+	refreshComments(videoId, 0, $('#paginacija-broj-po-strani').val());
 
 	if ($('#komentar-novi-button').length > 0) {
 		$('#komentar-novi-button').on('click', null, function () {
@@ -78,9 +78,8 @@ $(document).ready(function (e) {
 
 function addComment(sadrzaj, videoId) {
 	$.post('KomentarServlet', { 'sadrzaj': sadrzaj, 'videoId': videoId }, function (data) {
-		console.log(data);
 		if (data.status == 'success') {
-			refreshComments(videoId, 0, 5);
+			refreshComments(videoId, 0, $('#paginacija-broj-po-strani').val());
 			$('#komentar-novi-text').val('');
 		}
 		else {
@@ -195,7 +194,7 @@ function refreshComments(videoId, page, count, sortBy, sortDirection) {
 				var poljeKomentara = $('#komentari-lista');
 
 				$('#sortiraj-btn').on('click', null, function(){
-					refreshComments(videoId, page, count, $('#sort-filter-select').val(), $('#sort-by-filter input:radio:checked').val());
+					refreshComments(videoId, page, $('#paginacija-broj-po-strani').val(), $('#sort-filter-select').val(), $('#sort-by-filter input:radio:checked').val());
 				});
 				
 				for (var i in komentari) {
@@ -210,7 +209,7 @@ function refreshComments(videoId, page, count, sortBy, sortDirection) {
 				if (komentari.length > count) {
 					$('#paginacija-nav').css('height', 'auto');
 					for (var i = 0; i < komentari.length / count; i++) {
-						dodajStranicuPaginacije(videoId, i, count, page);
+						dodajStranicuPaginacije(videoId, i, page);
 					}
 				}
 				else {
@@ -221,11 +220,11 @@ function refreshComments(videoId, page, count, sortBy, sortDirection) {
 	});
 }
 
-function dodajStranicuPaginacije(videoId, page, count, currentPage) {
+function dodajStranicuPaginacije(videoId, page, currentPage) {
 	$('#paginacija').append('<li><a href="#" id="paginacija-komentar-' + page + '">' + (page + 1) + '</a></li>');
 	$('#paginacija-komentar-' + page).on('click', function (event) {
 		event.preventDefault();
-		refreshComments(videoId, page, count, $('#sort-filter-select').val(), $('#sort-by-filter input:radio:checked').val());
+		refreshComments(videoId, page, $('#paginacija-broj-po-strani').val(), $('#sort-filter-select').val(), $('#sort-by-filter input:radio:checked').val());
 	});
 	if (page == currentPage) {
 		$('#paginacija-komentar-' + page).css('background-color', '#337ab7');
@@ -238,8 +237,6 @@ function dodajStranicuPaginacije(videoId, page, count, currentPage) {
 }
 
 function ispisiKomentar(komentar, poljeKomentara, korisnik, korisnikTip, listaSlika) {
-	console.log(komentar);
-
 	poljeKomentara.append(
 		'<div class="komentar" id="komentar-' + komentar["komentar"].id + '">' +
 		'<img src="img/profile/' + ((komentar["slika"])?komentar["slika"]:'_.png') + '" alt="profile photo">' + 

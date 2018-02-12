@@ -225,6 +225,25 @@
                         }
                     }
                 }
+
+                #paginacija-broj-po-strani-div{
+                    margin-left: 10px;
+                    display: inline-block;
+
+                    p {
+                        padding: 0px;
+                        margin: 0px;                   
+                    }
+
+                    #paginacija-broj-po-strani{
+                        padding-left: 2px;
+                        padding-right: 2px;
+                        width: 50px;
+                        text-align: center;
+                        margin: auto;
+                    }
+                }
+
                 #sortiraj-btn{
                     float: right;
                     margin: 10px 0px 10px 0px;
