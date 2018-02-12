@@ -490,8 +490,7 @@ body {
           text-align: center;
           margin: auto; }
       .video #komentari-container #komentar-sort-wrap #sortiraj-btn {
-        float: right;
-        margin: 10px 0px 10px 0px; }
+        margin: 10px 0px 10px 5px; }
       .video #komentari-container #komentar-sort-wrap hr {
         margin-top: 10px; }
     .video #komentari-container #komentar-novi-ime {
