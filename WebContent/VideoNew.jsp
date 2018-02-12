@@ -26,6 +26,42 @@
 <body>
   <div class="container-fluid osnova">
 
+	<div class="modal fade" id="modal-obrisi" tabindex="-1">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span >&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Brisanje videa</h4>
+        </div>
+        <div class="modal-body">
+          Da li ste sigurni da zelite da obrisete ovaj video?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Odustani</button>
+          <button type="button" id="btn-video-delete-modal" class="btn btn-primary" data-dismiss="modal">Potvrdi</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal-sacuvaj" tabindex="-1">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span >&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Izmena videa</h4>
+        </div>
+        <div class="modal-body">
+          Da li ste sigurni da zelite da sacuvate izmene videa?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Odustani</button>
+          <button type="button" id="btn-video-save-modal" class="btn btn-primary" data-dismiss="modal">Potvrdi</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
     <!-- NAVIGACIJA GORE -->
     <%@include file="include/navigacija_gore.html"%>
 
@@ -94,10 +130,10 @@
 					</div>
 
 					<c:if test="${requestScope.edit == true}">
-						<button type="button" class="btn btn-default" id="video-new-btn-delete">Obrisi video</button>
+						<button type="button" class="btn btn-default" id="video-new-btn-delete" data-toggle="modal" data-target="#modal-obrisi">Obrisi video</button>
 					</c:if>
 
-					<button type="button" class="btn btn-default" id="video-new-btn-save">Save</button>
+					<button type="button" class="btn btn-default" id="video-new-btn-save" data-toggle="modal" data-target="#modal-sacuvaj">Save</button>
 
 					<p id="video-new-log"></p>
 				</div>

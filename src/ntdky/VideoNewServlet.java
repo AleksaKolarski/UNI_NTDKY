@@ -90,7 +90,7 @@ public class VideoNewServlet extends HttpServlet {
 				long videoId = Long.parseLong(request.getParameter("videoId"));
 				video = VideoDAO.get(videoId, ulogovaniKorisnik);
 				if(video != null) {
-					if((video.getVlasnik().equals(ulogovaniKorisnik.getKorisnickoIme()) && video.getBlokiran() == false) || ulogovaniKorisnik.getTipKorisnika() == TipKorisnika.ADMIN) {
+					if((video.getVlasnik().equals(ulogovaniKorisnik.getKorisnickoIme()) && video.getBlokiran() == false && ulogovaniKorisnik.getBlokiran() == false) || ulogovaniKorisnik.getTipKorisnika() == TipKorisnika.ADMIN) {
 						edit = true;
 					}
 					else {
@@ -103,7 +103,7 @@ public class VideoNewServlet extends HttpServlet {
 			}
 			
 			String obrisan = request.getParameter("obrisan");
-			if(obrisan != null && obrisan.equals("true")) {
+			if(obrisan != null && obrisan.equals("true") && status.equals("success")) {
 				VideoDAO.delete(video);
 				data.put("status", "success");
 

@@ -237,80 +237,82 @@ function dodajStranicuPaginacije(videoId, page, count, currentPage) {
 	}
 }
 
-function ispisiKomentar(komentar, poljeKomentara, korisnik, korisnikTip) {
+function ispisiKomentar(komentar, poljeKomentara, korisnik, korisnikTip, listaSlika) {
+	console.log(komentar);
 
 	poljeKomentara.append(
-		'<div class="komentar" id="komentar-' + komentar.id + '">' +
-		'<a href="profil.html?user=' + komentar.vlasnik + '">' +
-		'<p class="komentar-ime">' + komentar.vlasnik + '</p>' +
+		'<div class="komentar" id="komentar-' + komentar["komentar"].id + '">' +
+		'<img src="img/profile/' + ((komentar["slika"])?komentar["slika"]:'_.png') + '" alt="profile photo">' + 
+		'<a href="ProfilServlet?user=' + komentar["komentar"].vlasnik + '">' +
+		'<p class="komentar-ime">' + komentar["komentar"].vlasnik + '</p>' +
 		'</a>' +
-		'<p class="komentar-datum">' + $.format.date(komentar.datum, "dd.MM.yyyy. HH:mm") + '</p>' +
+		'<p class="komentar-datum">' + $.format.date(komentar["komentar"].datum, "dd.MM.yyyy. HH:mm") + '</p>' +
 		(
-			(korisnik == komentar.vlasnik || korisnikTip == 'ADMIN') ?
-				'<a href="#" id="komentar-delete-' + komentar.id + '" class="komentar-dugme-link komentar-edit-delete">' +
-				'<span id="komentar-delete-dugme-' + komentar.id + '" class="glyphicon glyphicon-remove"></span>' +
+			(korisnik == komentar["komentar"].vlasnik || korisnikTip == 'ADMIN') ?
+				'<a href="#" id="komentar-delete-' + komentar["komentar"].id + '" class="komentar-dugme-link komentar-edit-delete">' +
+				'<span id="komentar-delete-dugme-' + komentar["komentar"].id + '" class="glyphicon glyphicon-remove"></span>' +
 				'</a>' +
-				'<a href="#" id="komentar-edit-' + komentar.id + '" class="komentar-dugme-link komentar-edit-delete">' +
-				'<span id="komentar-edit-dugme-' + komentar.id + '" class="glyphicon glyphicon-pencil"></span>' +
+				'<a href="#" id="komentar-edit-' + komentar["komentar"].id + '" class="komentar-dugme-link komentar-edit-delete">' +
+				'<span id="komentar-edit-dugme-' + komentar["komentar"].id + '" class="glyphicon glyphicon-pencil"></span>' +
 				'</a>'
 				:
 				''
 		) +
-		'<div id="komentar-sadrzaj-wrap-' + komentar.id + '" class="komentar-sadrzaj-wrap">' +
-		'<p class="komentar-sadrzaj">' + komentar.sadrzaj + '</p>' +
+		'<div id="komentar-sadrzaj-wrap-' + komentar["komentar"].id + '" class="komentar-sadrzaj-wrap">' +
+		'<p class="komentar-sadrzaj">' + komentar["komentar"].sadrzaj + '</p>' +
 		'</div>' +
-		'<a href="#" id="komentar-like-' + komentar.id + '" class="komentar-dugme-link">' +
-		'<span id="komentar-like-dugme-' + komentar.id + '" class="glyphicon glyphicon-thumbs-up komentar-button-like"></span>' +
+		'<a href="#" id="komentar-like-' + komentar["komentar"].id + '" class="komentar-dugme-link">' +
+		'<span id="komentar-like-dugme-' + komentar["komentar"].id + '" class="glyphicon glyphicon-thumbs-up komentar-button-like"></span>' +
 		'</a>' +
-		'<p class="komentar-broj-like" id="komentar-broj-like-' + komentar.id + '"></p>' +
-		'<a href="#" id="komentar-dislike-' + komentar.id + '" class="komentar-dugme-link">' +
-		'<span id="komentar-dislike-dugme-' + komentar.id + '" class="glyphicon glyphicon-thumbs-down komentar-button-dislike"></span>' +
+		'<p class="komentar-broj-like" id="komentar-broj-like-' + komentar["komentar"].id + '"></p>' +
+		'<a href="#" id="komentar-dislike-' + komentar["komentar"].id + '" class="komentar-dugme-link">' +
+		'<span id="komentar-dislike-dugme-' + komentar["komentar"].id + '" class="glyphicon glyphicon-thumbs-down komentar-button-dislike"></span>' +
 		'</a>' +
-		'<p class="komentar-broj-dislike" id="komentar-broj-dislike-' + komentar.id + '"></p>' +
+		'<p class="komentar-broj-dislike" id="komentar-broj-dislike-' + komentar["komentar"].id + '"></p>' +
 		'</div>');
-	refreshCommentLikes(komentar.id);
+	refreshCommentLikes(komentar["komentar"].id);
 
-	$('#komentar-like-' + komentar.id).on('click', null, function (event) {
+	$('#komentar-like-' + komentar["komentar"].id).on('click', null, function (event) {
 		event.preventDefault();
-		$.post('LajkServlet?target=KOMENTAR&id=' + komentar.id + '&tip=like', function (data) {
+		$.post('LajkServlet?target=KOMENTAR&id=' + komentar["komentar"].id + '&tip=like', function (data) {
 			if (data.status == 'error') {
 				console.log('greska pri lajkovanju');
 			}
 			else {
-				refreshCommentLikes(komentar.id);
+				refreshCommentLikes(komentar["komentar"].id);
 			}
 		});
 	});
-	$('#komentar-dislike-' + komentar.id).on('click', null, function (event) {
+	$('#komentar-dislike-' + komentar["komentar"].id).on('click', null, function (event) {
 		event.preventDefault();
-		$.post('LajkServlet?target=KOMENTAR&id=' + komentar.id + '&tip=dislike', function (data) {
+		$.post('LajkServlet?target=KOMENTAR&id=' + komentar["komentar"].id + '&tip=dislike', function (data) {
 			if (data.status == 'error') {
 				console.log('greska pri lajkovanju');
 			}
 			else {
-				refreshCommentLikes(komentar.id);
+				refreshCommentLikes(komentar["komentar"].id);
 			}
 		});
 	});
-	$('#komentar-delete-' + komentar.id).on('click', null, function (event) {
+	$('#komentar-delete-' + komentar["komentar"].id).on('click', null, function (event) {
 		event.preventDefault();
-		$.post('KomentarServlet?komentarId=' + komentar.id + '&obrisan=true', function (data) {
+		$.post('KomentarServlet?komentarId=' + komentar["komentar"].id + '&obrisan=true', function (data) {
 			if (data.status == 'success') {
 				window.location.reload();
 			}
 		});
 	});
-	$('#komentar-edit-' + komentar.id).on('click', null, function (event) {
+	$('#komentar-edit-' + komentar["komentar"].id).on('click', null, function (event) {
 		event.preventDefault();
-		var komentarWrap = $('#komentar-sadrzaj-wrap-' + komentar.id);
+		var komentarWrap = $('#komentar-sadrzaj-wrap-' + komentar["komentar"].id);
 		komentarWrap.empty();
-		komentarWrap.append('<textarea id="komentar-sadrzaj-edit-' + komentar.id + '" class="form-control" rows="4">' + komentar.sadrzaj + '</textarea>');
-		validacija_input($('#komentar-sadrzaj-edit-' + komentar.id), 1, 1024);
-		komentarWrap.append('<button class="btn btn-default komentar-save-button" type="button" id="komentar-edit-save-' + komentar.id + '">Save</button>');
+		komentarWrap.append('<textarea id="komentar-sadrzaj-edit-' + komentar["komentar"].id + '" class="form-control" rows="4">' + komentar["komentar"].sadrzaj + '</textarea>');
+		validacija_input($('#komentar-sadrzaj-edit-' + komentar["komentar"].id), 1, 1024);
+		komentarWrap.append('<button class="btn btn-default komentar-save-button" type="button" id="komentar-edit-save-' + komentar["komentar"].id + '">Save</button>');
 		komentarWrap.css("margin-bottom", "20px");
-		$('#komentar-edit-save-' + komentar.id).on('click', null, function () {
-			var sadrzaj = $('#komentar-sadrzaj-edit-' + komentar.id).val();
-			$.post('KomentarServlet', { 'komentarId': komentar.id, 'sadrzaj': sadrzaj }, function (data) {
+		$('#komentar-edit-save-' + komentar["komentar"].id).on('click', null, function () {
+			var sadrzaj = $('#komentar-sadrzaj-edit-' + komentar["komentar"].id).val();
+			$.post('KomentarServlet', { 'komentarId': komentar["komentar"].id, 'sadrzaj': sadrzaj }, function (data) {
 				if (data.status == 'success') {
 					window.location.reload();
 				}

@@ -24,7 +24,43 @@
     <script src="js/profil.js"></script>
 </head>
 <body>
+
 <div class="container-fluid osnova">
+  <div class="modal fade" id="modal-obrisi" tabindex="-1">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span >&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Brisanje korisnika</h4>
+        </div>
+        <div class="modal-body">
+          Da li ste sigurni da zelite da obrisete ovog korisnika?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Odustani</button>
+          <button type="button" id="btn-profile-delete-modal" class="btn btn-primary" data-dismiss="modal">Potvrdi</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal-sacuvaj" tabindex="-1">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span >&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Izmena korisnika</h4>
+        </div>
+        <div class="modal-body">
+          Da li ste sigurni da zelite da sacuvate izmene korisnika?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Odustani</button>
+          <button type="button" id="btn-profile-save-modal" class="btn btn-primary" data-dismiss="modal">Potvrdi</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
     <!-- NAVIGACIJA GORE -->
     <%@include file="include/navigacija_gore.html"%>
@@ -54,12 +90,11 @@
             </c:choose>
 
             <%-- <form method="POST" enctype="multipart/form-data" action="fup.cgi"> --%>
-            <form action="ImageServlet" method="GET" id="profile-image-form" enctype="multipart/form-data" method="POST">
-              <c:if test="${(requestScope.edit == true) && ((requestScope.ulogovaniKorisnik.korisnickoIme == requestScope.profil.korisnickoIme) || (requestScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN'))}">
+            <%-- <form action="ImageServlet" method="GET" id="profile-image-form" enctype="multipart/form-data" method="POST"> --%>
+              <c:if test="${(requestScope.edit == true) && ((requestScope.ulogovaniKorisnik.korisnickoIme == requestScope.profil.korisnickoIme && requestScope.profil.blokiran == false) || (requestScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN'))}">
                 <input type="file" id="profile-image-chooser" accept="image/*" name="${requestScope.profil.korisnickoIme}" onchange="promenjenaSlika(event)">
-                
               </c:if>
-            </form>
+            <%-- </form> --%>
 
               <div class="profile-input-div">
                 <p class="profile-p profile-p-title">Korisnicko ime: </p>
@@ -69,7 +104,7 @@
               <div class="profile-input-div">
                 <p class="profile-p profile-p-title">Ime: </p>
                 <c:choose>
-                  <c:when test="${(requestScope.edit == true) && ((requestScope.ulogovaniKorisnik.korisnickoIme == requestScope.profil.korisnickoIme) || (requestScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN'))}">
+                  <c:when test="${(requestScope.edit == true) && ((requestScope.ulogovaniKorisnik.korisnickoIme == requestScope.profil.korisnickoIme && requestScope.profil.blokiran == false) || (requestScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN'))}">
                     <input type="text" id="profile-input-ime" class="form-control" value="${requestScope.profil.ime}">
                   </c:when>
                   <c:otherwise>
@@ -81,7 +116,7 @@
               <div class="profile-input-div">
                 <p class="profile-p profile-p-title">Prezime: </p>
                 <c:choose>
-                  <c:when test="${(requestScope.edit == true) && ((requestScope.ulogovaniKorisnik.korisnickoIme == requestScope.profil.korisnickoIme) || (requestScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN'))}">
+                  <c:when test="${(requestScope.edit == true) && ((requestScope.ulogovaniKorisnik.korisnickoIme == requestScope.profil.korisnickoIme && requestScope.profil.blokiran == false) || (requestScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN'))}">
                     <input type="text" id="profile-input-prezime" class="form-control" value="${requestScope.profil.prezime}">
                   </c:when>
                   <c:otherwise>
@@ -93,7 +128,7 @@
               <div class="profile-input-div">
                 <p class="profile-p profile-p-title">Opis: </p>
                 <c:choose>
-                  <c:when test="${(requestScope.edit == true) && ((requestScope.ulogovaniKorisnik.korisnickoIme == requestScope.profil.korisnickoIme) || (requestScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN'))}">
+                  <c:when test="${(requestScope.edit == true) && ((requestScope.ulogovaniKorisnik.korisnickoIme == requestScope.profil.korisnickoIme && requestScope.profil.blokiran == false) || (requestScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN'))}">
                     <textarea id="profile-input-opis" class="form-control" rows="4">${requestScope.profil.opis}</textarea>
                   </c:when>
                   <c:otherwise>
@@ -140,7 +175,7 @@
               </div>
           
               <c:if test="${not empty requestScope.ulogovaniKorisnik}">
-                <c:if test="${(requestScope.ulogovaniKorisnik.korisnickoIme == requestScope.profil.korisnickoIme) || (requestScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN')}">
+                <c:if test="${(requestScope.ulogovaniKorisnik.korisnickoIme == requestScope.profil.korisnickoIme && requestScope.profil.blokiran == false) || (requestScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN')}">
                   <c:if test="${requestScope.edit != true}">
                     <button type="button" class="btn btn-default" id="btn-profile-edit">Edit profile</button>
                   </c:if>
@@ -164,14 +199,14 @@
                       </div>
                     </c:if>
                     <div id="button-div">
-                    <button type="button" class="btn btn-default" id="btn-profile-save">Save</button>
+                    <button type="button" class="btn btn-default" id="btn-profile-save" data-toggle="modal" data-target="#modal-sacuvaj">Save</button>
                     <button type="button" class="btn btn-default" id="btn-profile-cancel">Cancel</button>
                     <p id="profile-log"></p>
                     </div>
-                    <button type="button" class="btn btn-default" id="btn-profile-delete">Obrisi nalog</button>
+                    <button type="button" class="btn btn-default" id="btn-profile-delete" data-toggle="modal" data-target="#modal-obrisi">Obrisi nalog</button>
                 </c:if>
               </c:if>
-              <c:if test="${requestScope.ulogovaniKorisnik.korisnickoIme != requestScope.profil.korisnickoIme}">
+              <c:if test="${requestScope.ulogovaniKorisnik.korisnickoIme != requestScope.profil.korisnickoIme && requestScope.ulogovaniKorisnik.blokiran == false}">
                 <button type="button" class="btn btn-default" id="btn-subscribe"></button>
               </c:if>
             </c:if>

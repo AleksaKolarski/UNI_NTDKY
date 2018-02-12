@@ -43,6 +43,7 @@ public class VideoFilterServlet extends HttpServlet {
 		// datum
 		// sortBy
 		// sortDirection
+		// sadrzaj komentara
 		
 		String nazivFilter = request.getParameter("nazivFilter");
 		if(nazivFilter == null) {
@@ -113,7 +114,12 @@ public class VideoFilterServlet extends HttpServlet {
 		}
 		//System.out.println("sortDirection: '" + sortDirection + "'");
 		
-		List<Video> videi = VideoDAO.getFilter(nazivFilter, vlasnikFilter, datumFilterMin, datumFilterMax, brojFilterMin, brojFilterMax, sortBy, sortDirection, ulogovaniKorisnik);
+		String komentarFilter = request.getParameter("komentarFilter");
+		if(komentarFilter == null) {
+			komentarFilter = "";
+		}
+		
+		List<Video> videi = VideoDAO.getFilter(nazivFilter, vlasnikFilter, datumFilterMin, datumFilterMax, brojFilterMin, brojFilterMax, sortBy, sortDirection, ulogovaniKorisnik, komentarFilter);
 		if(videi != null) {
 			data.put("videi", videi);
 		}

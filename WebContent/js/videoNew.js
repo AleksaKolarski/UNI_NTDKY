@@ -12,8 +12,8 @@ $(document).ready(function (e) {
 
     var poljeLog = $('#video-new-log');
 
-    var deleteBtn = $('#video-new-btn-delete');
-    var saveBtn = $('#video-new-btn-save');
+    var deleteBtn = $('#btn-video-delete-modal');
+    var saveBtn = $('#btn-video-save-modal');
 
     validacija_input(nazivInput, 4, 80);
     validacija_input(putanjaInput, 11, 11);
@@ -31,7 +31,7 @@ $(document).ready(function (e) {
                             if($('#video-new-image-chooser').val()){
                                 sendFile('video-new-image-chooser', videoId, 'VideoImageServlet');
                             }
-                            if(deleteBtn.val() != null){
+                            if($('#video-new-btn-delete').val() != null){
                                 window.location.href = '/NTDKY/VideoServlet?id=' + videoId;
                             }
                             else{

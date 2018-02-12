@@ -43,12 +43,17 @@ public class VideoServlet extends HttpServlet {
 				
 			video.incrementBrojPregleda();
 			request.setAttribute("video", video);
+			request.setAttribute("vlasnik", KorisnikDAO.get(video.getVlasnik()));
 			request.setAttribute("ulogovaniKorisnik", ulogovaniKorisnik);
 			request.getRequestDispatcher("Video.jsp").forward(request, response);
 			
 		}catch(Exception e) {
 			System.out.println("Pogresan video id!");	
 			status = "not-found";
+		}
+		
+		if(!status.equals("success")) {
+			response.sendRedirect("error-404.jsp");
 		}
 		
 		data.put("status", status);

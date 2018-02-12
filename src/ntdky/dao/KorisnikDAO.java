@@ -240,7 +240,7 @@ public class KorisnikDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		try {
-			String query = "SELECT koga FROM Pretplata p WHERE ko=? AND (SELECT obrisan FROM Korisnik WHERE korisnickoIme=p.koga)=0;";
+			String query = "SELECT koga FROM Pretplata p WHERE ko=? AND (SELECT obrisan FROM Korisnik WHERE korisnickoIme=p.koga)=0 AND (SELECT blokiran FROM Korisnik WHERE korisnickoIme=p.koga)=0;";
 
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, korisnik.getKorisnickoIme());
@@ -267,7 +267,7 @@ public class KorisnikDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		try {
-			String query = "SELECT count(*) FROM Pretplata p WHERE ko=? AND (SELECT obrisan FROM Korisnik WHERE korisnickoIme=p.koga)=0;";
+			String query = "SELECT count(*) FROM Pretplata p WHERE ko=? AND (SELECT obrisan FROM Korisnik WHERE korisnickoIme=p.koga)=0 AND (SELECT blokiran FROM Korisnik WHERE korisnickoIme=p.koga)=0;";
 
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, korisnik.getKorisnickoIme());
@@ -293,7 +293,7 @@ public class KorisnikDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		try {
-			String query = "SELECT count(*) FROM Pretplata p WHERE koga=? AND (SELECT obrisan FROM Korisnik WHERE korisnickoIme=p.ko)=0;";
+			String query = "SELECT count(*) FROM Pretplata p WHERE koga=? AND (SELECT obrisan FROM Korisnik WHERE korisnickoIme=p.ko)=0 AND (SELECT blokiran FROM Korisnik WHERE korisnickoIme=p.ko)=0;";
 
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, korisnik.getKorisnickoIme());
@@ -319,7 +319,7 @@ public class KorisnikDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		try {
-			String query = "SELECT ko FROM Pretplata p WHERE koga=? AND (SELECT obrisan FROM Korisnik WHERE korisnickoIme=p.ko)=0;";
+			String query = "SELECT ko FROM Pretplata p WHERE koga=? AND (SELECT obrisan FROM Korisnik WHERE korisnickoIme=p.ko)=0 AND (SELECT blokiran FROM Korisnik WHERE korisnickoIme=p.ko)=0;";
 
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, korisnik.getKorisnickoIme());
@@ -348,7 +348,7 @@ public class KorisnikDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		try {
-			String query = "SELECT k1.korisnickoIme, k1.lozinka, k1.ime, k1.prezime, k1.email, k1.opis, k1.slika, k1.datum, k1.tipKorisnika, k1.blokiran, k1.obrisan FROM Korisnik k1 WHERE k1.obrisan=0 ORDER BY (SELECT count(*) FROM Pretplata p WHERE p.koga = k1.korisnickoIme AND (SELECT obrisan FROM Korisnik k2 WHERE k2.korisnickoIme=p.ko)=0) DESC LIMIT ?;";
+			String query = "SELECT k1.korisnickoIme, k1.lozinka, k1.ime, k1.prezime, k1.email, k1.opis, k1.slika, k1.datum, k1.tipKorisnika, k1.blokiran, k1.obrisan FROM Korisnik k1 WHERE k1.obrisan=0 AND k1.blokiran = 0 ORDER BY (SELECT count(*) FROM Pretplata p WHERE p.koga = k1.korisnickoIme AND (SELECT obrisan FROM Korisnik k2 WHERE k2.korisnickoIme=p.ko)=0) DESC LIMIT ?;";
 			
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, broj);

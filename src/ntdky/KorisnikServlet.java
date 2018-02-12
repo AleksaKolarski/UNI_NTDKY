@@ -37,6 +37,7 @@ public class KorisnikServlet extends HttpServlet {
 			if(ulogovaniKorisnik.getTipKorisnika() == TipKorisnika.ADMIN) {
 				data.put("tipKorisnika", "ADMIN");
 			}
+			data.put("blokiran", ulogovaniKorisnik.getBlokiran());
 		}
 		else {
 			// nije ulogovan

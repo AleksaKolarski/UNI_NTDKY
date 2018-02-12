@@ -2,11 +2,27 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
   <display-name>NTDKY</display-name>
   <welcome-file-list>
-    <welcome-file>Pocetna.jsp</welcome-file>
+    <welcome-file>PocetnaServlet</welcome-file>
   </welcome-file-list>
   <listener>
     <listener-class>ntdky.InitListener</listener-class>
   </listener>
+  <filter>
+    <filter-name>JspFilter</filter-name>
+    <filter-class>ntdky.JspFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>JspFilter</filter-name>
+    <url-pattern>/AdminPanel.jsp</url-pattern>
+    <url-pattern>/Pocetna.jsp</url-pattern>
+    <url-pattern>/Profil.jsp</url-pattern>
+    <url-pattern>/Video.jsp</url-pattern>
+    <url-pattern>/VideoNew.jsp</url-pattern>
+  </filter-mapping>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/error404.jsp</location>
+	</error-page>
   <servlet>
     <description></description>
     <display-name>LoginServlet</display-name>
@@ -156,5 +172,24 @@
   <servlet-mapping>
     <servlet-name>AdminPanelServlet</servlet-name>
     <url-pattern>/AdminPanelServlet</url-pattern>
+  </servlet-mapping>
+  <filter>
+    <display-name>JspFilter</display-name>
+    <filter-name>JspFilter</filter-name>
+    <filter-class>ntdky.JspFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>JspFilter</filter-name>
+    <url-pattern>/JspFilter</url-pattern>
+  </filter-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PocetnaServlet</display-name>
+    <servlet-name>PocetnaServlet</servlet-name>
+    <servlet-class>ntdky.PocetnaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PocetnaServlet</servlet-name>
+    <url-pattern>/PocetnaServlet</url-pattern>
   </servlet-mapping>
 </web-app>

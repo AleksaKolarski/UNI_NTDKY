@@ -1,9 +1,11 @@
 package ntdky;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -58,7 +60,19 @@ public class KomentarServlet extends HttpServlet {
 				sortDirection = "DESC";
 			}
 			
-			data.put("komentari", KomentarDAO.getAllVideoFilter(videoId, sortBy, sortDirection));
+			List<Map<String, Object>> komentariList = new ArrayList<Map<String, Object>>();
+			
+			List<Komentar> komentari = KomentarDAO.getAllVideoFilter(videoId, sortBy, sortDirection);
+			for(Komentar kom: komentari) {
+				Map<String, Object> mapa = new HashMap<String, Object>();
+				mapa.put("komentar", kom);
+				mapa.put("slika", KorisnikDAO.get(kom.getVlasnik()).getSlika());
+				komentariList.add(mapa);
+			}
+			data.put("komentari", komentariList);
+			
+			
+			
 			if(ulogovaniKorisnik != null) {
 				data.put("korisnik", ulogovaniKorisnik.getKorisnickoIme());
 				data.put("korisnikTip", ulogovaniKorisnik.getTipKorisnika().toString());
@@ -110,9 +124,11 @@ public class KomentarServlet extends HttpServlet {
 							
 							Komentar komentar = KomentarDAO.get(komentarId);
 							if(komentar != null) {
-								komentar.setSadrzaj(sadrzaj);
-								if(KomentarDAO.update(komentar)) {
-									status = "success";
+								if(komentar.getVlasnik().equals(ulogovaniKorisnik.getKorisnickoIme())) {
+									komentar.setSadrzaj(sadrzaj);
+									if(KomentarDAO.update(komentar)) {
+										status = "success";
+									}
 								}
 							}
 						}

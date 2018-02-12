@@ -11,9 +11,9 @@ $(document).ready(function (e) {
 
     var buttonEdit = $('#btn-profile-edit');
     var buttonSubscribe = $('#btn-subscribe');
-    var buttonSave = $('#btn-profile-save');
+    var buttonSave = $('#btn-profile-save-modal');
     var buttonCancel = $('#btn-profile-cancel');
-    var buttonDelete = $('#btn-profile-delete');
+    var buttonDelete = $('#btn-profile-delete-modal');
 
     var poljeLog = $('#profile-log');
 
@@ -39,6 +39,7 @@ $(document).ready(function (e) {
         });
     });
 
+    
     buttonDelete.on('click', null, function(){
         $.post('ProfilServlet', { 'profil': profil, 'obrisan': 'true' }, function (data2) {
             if(data2.status == 'success'){
@@ -48,6 +49,7 @@ $(document).ready(function (e) {
             }
         });
     });
+    
 
     buttonEdit.on('click', null, function(){
         window.location.href = '/NTDKY/ProfilServlet?user=' + profil + '&edit=true';

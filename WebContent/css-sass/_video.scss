@@ -45,7 +45,16 @@
                     width: 100%;
                     table-layout: fixed;
 
-                    //#video-details-r0-c0 {}
+                    #video-details-row0{
+                        height: 40px;
+                    }
+
+                    #video-details-r0-c0 {
+                        #profile-image-video{
+                            width: 30px;
+                            height: 30px;
+                        }
+                    }
 
                     #video-details-r0-c1 {
                         width: 60px;
@@ -238,6 +247,12 @@
             #komentari-lista {
                 margin-bottom: 5px;
 
+                img{
+                    height: 25px;
+                    width: 25px;
+                    margin-right: 3px;
+                }
+
                 .komentar-ime {
                     display: inline;
                     padding: 0px;
@@ -256,7 +271,7 @@
                 .komentar-sadrzaj {
                     display: block;
                     padding: 0px;
-                    margin: 0px;
+                    margin: 3px 0px 0px 0px;
                     word-wrap: break-word;
                 }
 
@@ -294,7 +309,7 @@
                 }
 
                 .komentar-sadrzaj-wrap {
-
+                    margin-top: 3px;
                     textarea {
                         resize: none;
                     }

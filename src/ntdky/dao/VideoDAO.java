@@ -86,7 +86,7 @@ public class VideoDAO {
 		return null;
 	}
 	
-	public static List<Video> getFilter(String nazivFilter, String vlasnikFilter, Date datumFilterMin, Date datumFilterMax, long brojFilterMin, long brojFilterMax, String sortBy, String sortDirection, Korisnik ulogovaniKorisnik) {
+	public static List<Video> getFilter(String nazivFilter, String vlasnikFilter, Date datumFilterMin, Date datumFilterMax, long brojFilterMin, long brojFilterMax, String sortBy, String sortDirection, Korisnik ulogovaniKorisnik, String komentarFilter) {
 		ArrayList<Video> videi = new ArrayList<Video>();
 		
 		Connection conn = ConnectionManager.getConnection();
@@ -97,19 +97,19 @@ public class VideoDAO {
 			
 			if(ulogovaniKorisnik == null) {
 				query = "SELECT id, naziv, putanjaVidea, putanjaSlike, opis, vidljivostVidea, vidljivostKomentari, vidljivostRejting, blokiran, brojPregleda, datum, vlasnik, obrisan " + 
-						"FROM Video " + 
-						"WHERE blokiran=0 AND vidljivostVidea='PUBLIC' AND naziv LIKE ? AND vlasnik LIKE ? AND datum BETWEEN CAST(? AS DATE) AND DATE_ADD(CAST(? AS DATE), INTERVAL 1 DAY) AND brojPregleda BETWEEN ? AND ? AND obrisan=0 AND (SELECT obrisan FROM Korisnik WHERE korisnickoIme=vlasnik)=0 AND (SELECT blokiran FROM Korisnik WHERE korisnickoIme=vlasnik)=0 ORDER BY " + sortBy + " " + sortDirection + ";";
+						"FROM Video v " + 
+						"WHERE blokiran=0 AND vidljivostVidea='PUBLIC' AND naziv LIKE ? AND vlasnik LIKE ? AND datum BETWEEN CAST(? AS DATE) AND DATE_ADD(CAST(? AS DATE), INTERVAL 1 DAY) AND brojPregleda BETWEEN ? AND ? AND obrisan=0 AND (SELECT obrisan FROM Korisnik WHERE korisnickoIme=vlasnik)=0 AND (SELECT blokiran FROM Korisnik WHERE korisnickoIme=vlasnik)=0 " + (!(komentarFilter.equals(""))?("AND (SELECT COUNT(k.id) FROM Komentar k WHERE k.sadrzaj LIKE ? AND k.video = v.id AND k.obrisan = 0) > 0"):"") + " ORDER BY " + sortBy + " " + sortDirection + " ;";
 			}
 			else {
 				if(ulogovaniKorisnik.getTipKorisnika() == TipKorisnika.USER) {
 					query = "SELECT id, naziv, putanjaVidea, putanjaSlike, opis, vidljivostVidea, vidljivostKomentari, vidljivostRejting, blokiran, brojPregleda, datum, vlasnik, obrisan " + 
-							"FROM Video " + 
-							"WHERE ((SELECT blokiran FROM Korisnik WHERE korisnickoIme=vlasnik)=0 OR vlasnik=?) AND (blokiran=0 OR vlasnik=?) AND (vidljivostVidea='PUBLIC' OR vlasnik=?) AND naziv LIKE ? AND vlasnik LIKE ? AND datum BETWEEN CAST(? AS DATE) AND DATE_ADD(CAST(? AS DATE), INTERVAL 1 DAY) AND brojPregleda BETWEEN ? AND ? AND obrisan=0 AND (SELECT obrisan FROM Korisnik WHERE korisnickoIme=vlasnik)=0 ORDER BY " + sortBy + " " + sortDirection + ";";
+							"FROM Video v " + 
+							"WHERE ((SELECT blokiran FROM Korisnik WHERE korisnickoIme=vlasnik)=0 OR vlasnik=?) AND (blokiran=0 OR vlasnik=?) AND (vidljivostVidea='PUBLIC' OR vlasnik=?) AND naziv LIKE ? AND vlasnik LIKE ? AND datum BETWEEN CAST(? AS DATE) AND DATE_ADD(CAST(? AS DATE), INTERVAL 1 DAY) AND brojPregleda BETWEEN ? AND ? AND obrisan=0 AND (SELECT obrisan FROM Korisnik WHERE korisnickoIme=vlasnik)=0 " + (!(komentarFilter.equals(""))?("AND (SELECT COUNT(k.id) FROM Komentar k WHERE k.sadrzaj LIKE ? AND k.video = v.id AND k.obrisan = 0) > 0"):"") + " ORDER BY " + sortBy + " " + sortDirection + ";";
 				}
 				else {
 					query = "SELECT id, naziv, putanjaVidea, putanjaSlike, opis, vidljivostVidea, vidljivostKomentari, vidljivostRejting, blokiran, brojPregleda, datum, vlasnik, obrisan " + 
-							"FROM Video " + 
-							"WHERE naziv LIKE ? AND vlasnik LIKE ? AND datum BETWEEN CAST(? AS DATE) AND DATE_ADD(CAST(? AS DATE), INTERVAL 1 DAY) AND brojPregleda BETWEEN ? AND ? AND obrisan=0 AND (SELECT obrisan FROM Korisnik WHERE korisnickoIme=vlasnik)=0 ORDER BY " + sortBy + " " + sortDirection + ";";
+							"FROM Video v " + 
+							"WHERE naziv LIKE ? AND vlasnik LIKE ? AND datum BETWEEN CAST(? AS DATE) AND DATE_ADD(CAST(? AS DATE), INTERVAL 1 DAY) AND brojPregleda BETWEEN ? AND ? AND obrisan=0 AND (SELECT obrisan FROM Korisnik WHERE korisnickoIme=vlasnik)=0 " +  ((!komentarFilter.equals(""))?("AND (SELECT COUNT(k.id) FROM Komentar k WHERE k.sadrzaj LIKE ? AND k.video = v.id AND k.obrisan = 0) > 0"):"") + " ORDER BY " + sortBy + " " + sortDirection + ";";
 				}
 			}
 			
@@ -134,8 +134,15 @@ public class VideoDAO {
 			pstmt.setString(index++, formatter.format(datumFilterMin));
 			pstmt.setString(index++, formatter.format(datumFilterMax));
 			
+			
 			pstmt.setLong(index++, brojFilterMin);
 			pstmt.setLong(index++, brojFilterMax);
+			
+			if(!komentarFilter.equals("")) {
+				pstmt.setString(index++, "%" + komentarFilter + "%");
+			}
+			
+			//System.out.println(pstmt);
 						
 			rset = pstmt.executeQuery();
 

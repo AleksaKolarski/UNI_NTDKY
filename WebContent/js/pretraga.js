@@ -52,6 +52,7 @@ function novaPretragaVidea(){
     
     var naziv = $('#naziv-filter-polje').val();
     var vlasnik = $('#vlasnik-filter-polje').val();
+    var komentar = $('#komentar-filter-polje').val();
     
     var brojPregleda = videoFilterSlider.get();
 
@@ -61,7 +62,7 @@ function novaPretragaVidea(){
     var sortBy = $('#sort-filter-select').val();
     var sortDirection = $('#sort-by-filter input:radio:checked').val();
 
-    $.get('VideoFilterServlet', {"nazivFilter":naziv, "vlasnikFilter":vlasnik, "datumFilterMin":datumMin, "datumFilterMax":datumMax, "brojFilterMin":brojPregleda[0], "brojFilterMax":brojPregleda[1], "sortBy":sortBy, "sortDirection":sortDirection}, function(data){
+    $.get('VideoFilterServlet', {"nazivFilter":naziv, "vlasnikFilter":vlasnik, "datumFilterMin":datumMin, "datumFilterMax":datumMax, "brojFilterMin":brojPregleda[0], "brojFilterMax":brojPregleda[1], "sortBy":sortBy, "sortDirection":sortDirection, "komentarFilter":komentar}, function(data){
         if(data.status == 'success'){
             popuniRezultatePretrageVidea(data.videi, '.main');
         }

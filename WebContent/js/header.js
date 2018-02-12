@@ -30,7 +30,7 @@ $(document).ready(function(e){
                         '</button>' + 
                         '<ul class="dropdown-menu dropdown-menu-right" id="profil-dropdown">' + 
                             '<li><a href="ProfilServlet?user=' + korisnik + '">Moj profil</a></li>' + 
-                            '<li><a href="VideoNewServlet">Postavite novi video</a></li>' + 
+                            ((data.blokiran == false)?'<li><a href="VideoNewServlet">Postavite novi video</a></li>':'') +
                             ((data.tipKorisnika == 'ADMIN')?'<li><a href="AdminPanelServlet">Korisnici</a></li>':'') +
                             '<li class="divider"></li>' + 
                             '<li><a href="LogoutServlet">Izloguj se</a></li>' + 
@@ -204,5 +204,6 @@ $(document).ready(function(e){
 
     $('#header-pretraga-btn').on('click', null, function(){
         window.location.href = '/NTDKY/Pretraga.jsp?naziv=' + $('#header-pretraga-input').val();
+        //$.get('PretragaServlet', {"naziv":$('#header-pretraga-input').val()}, function(data){});
     });
 });

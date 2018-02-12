@@ -60,6 +60,14 @@
               <table id="video-details-table">
                 <tr id="video-details-row0">
                   <td id="video-details-r0-c0">
+                    <c:choose>
+                      <c:when test="${not empty requestScope.vlasnik.slika}">
+                        <img src="img/profile/${requestScope.vlasnik.slika}" id="profile-image-video" alt="profile photo">
+                      </c:when>
+                      <c:otherwise>
+                        <img src="img/profile/_.png" id="profile-image-video" alt="profile photo">
+                      </c:otherwise>
+                    </c:choose>
                     <a href="ProfilServlet?user=${requestScope.video.vlasnik}">${requestScope.video.vlasnik}</a>
                   </td>
                   <td id="video-details-r0-c1">
@@ -128,6 +136,7 @@
           <div id="komentari-container" class="col-sm-12 col-md-9 col-lg-8">
             <%-- unos novog komentara --%>
             <c:if test="${not empty requestScope.ulogovaniKorisnik}">
+            <c:if test="${(requestScope.ulogovaniKorisnik.blokiran == false && requestScope.video.blokiran == false) || requestScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN'}">
               <p id="komentar-novi-ime">${requestScope.ulogovaniKorisnik.korisnickoIme}:</p>
               <div class="input-group" id="komentar-novi-container">
                 <input type="text" class="form-control" placeholder="Komentar..." id="komentar-novi-text">
@@ -138,6 +147,7 @@
                 </span>
               </div>
               <hr>
+            </c:if>
             </c:if>
 
             <div id="komentar-sort-wrap">

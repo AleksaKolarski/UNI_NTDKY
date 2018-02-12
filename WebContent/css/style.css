@@ -28,6 +28,11 @@
 ** Autor: Aleksa Kolarski (SF 27/2016)
 ** 2018
 */
+/* SCSS fajl za donju navigaciju. 
+**
+** Autor: Aleksa Kolarski (SF 27/2016)
+** 2018
+*/
 * {
   margin: 0;
   padding: 0;
@@ -188,11 +193,19 @@ body {
     list-style: none;
     height: 100%; }
     .navigacija-dole ul li div {
-      text-align: center; }
+      text-align: center;
+      margin-top: 8px; }
+      .navigacija-dole ul li div p {
+        margin: 0px; }
 
 @media screen and (max-width: 767px) {
   .navigacija-dole {
-    height: 250px; } }
+    height: 250px; }
+    .navigacija-dole ul li div {
+      text-align: center;
+      margin-top: 15px; }
+      .navigacija-dole ul li div p {
+        margin: 0px; } }
 #profil-blokiran-obavestenje {
   border: 1px solid #DDD;
   border-radius: 10px;
@@ -362,6 +375,11 @@ body {
       .video .video-details #video-details-heading #video-details-table {
         width: 100%;
         table-layout: fixed; }
+        .video .video-details #video-details-heading #video-details-table #video-details-row0 {
+          height: 40px; }
+        .video .video-details #video-details-heading #video-details-table #video-details-r0-c0 #profile-image-video {
+          width: 30px;
+          height: 30px; }
         .video .video-details #video-details-heading #video-details-table #video-details-r0-c1 {
           width: 60px;
           text-align: center;
@@ -471,6 +489,10 @@ body {
       margin-bottom: 10px; }
     .video #komentari-container #komentari-lista {
       margin-bottom: 5px; }
+      .video #komentari-container #komentari-lista img {
+        height: 25px;
+        width: 25px;
+        margin-right: 3px; }
       .video #komentari-container #komentari-lista .komentar-ime {
         display: inline;
         padding: 0px;
@@ -485,7 +507,7 @@ body {
       .video #komentari-container #komentari-lista .komentar-sadrzaj {
         display: block;
         padding: 0px;
-        margin: 0px;
+        margin: 3px 0px 0px 0px;
         word-wrap: break-word; }
       .video #komentari-container #komentari-lista .komentar-button-like {
         display: inline;
@@ -508,11 +530,13 @@ body {
         float: right;
         margin: 3px;
         height: 14px; }
-      .video #komentari-container #komentari-lista .komentar-sadrzaj-wrap textarea {
-        resize: none; }
-      .video #komentari-container #komentari-lista .komentar-sadrzaj-wrap .komentar-save-button {
-        margin-top: 3px;
-        float: right; }
+      .video #komentari-container #komentari-lista .komentar-sadrzaj-wrap {
+        margin-top: 3px; }
+        .video #komentari-container #komentari-lista .komentar-sadrzaj-wrap textarea {
+          resize: none; }
+        .video #komentari-container #komentari-lista .komentar-sadrzaj-wrap .komentar-save-button {
+          margin-top: 3px;
+          float: right; }
     .video #komentari-container hr {
       margin: 0px 0px 10px 0px;
       padding: 0px;
@@ -580,6 +604,11 @@ body {
   #pretraga-levo #vlasnik-filter {
     margin-top: 10px; }
     #pretraga-levo #vlasnik-filter p {
+      padding: 0px;
+      margin: 0px; }
+  #pretraga-levo #komentar-filter {
+    margin-top: 10px; }
+    #pretraga-levo #komentar-filter p {
       padding: 0px;
       margin: 0px; }
   #pretraga-levo #broj-filter {
@@ -717,6 +746,13 @@ body {
     position: initial;
     margin-bottom: 10px;
     border-radius: 10px; } }
+#error-404 {
+  text-align: center;
+  background: #F5F5F5;
+  border-radius: 10px;
+  box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.18);
+  padding: 20px 0px 20px 0px; }
+
 .page {
   margin-top: 70px;
   margin-left: -15px;

@@ -44,6 +44,12 @@
 					<p>Vlasnik:</p>
 					<input type="text" class="form-control" id="vlasnik-filter-polje" placeholder="Vlasnik"/>
 				</div>
+				
+				<div id="komentar-filter">
+					<p>Sadrzaj komentara:</p>
+					<input type="text" class="form-control" id="komentar-filter-polje" placeholder="Sadrzaj komentara"/>
+				</div>
+
 				<div id="broj-filter">
 					<p>Broj pregleda:</p> 
 					<div id="broj-slider"></div>

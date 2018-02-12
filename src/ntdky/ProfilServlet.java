@@ -58,6 +58,10 @@ public class ProfilServlet extends HttpServlet {
 			}
 		}
 		
+		if(status.equals("error")) {
+			response.sendRedirect("error-404.jsp");
+		}
+		
 		data.put("status", status);
 		
 		ObjectMapper mapper = new ObjectMapper();
@@ -76,7 +80,7 @@ public class ProfilServlet extends HttpServlet {
 		
 		if (ulogovaniKorisnik != null) {
 			String profil = request.getParameter("profil");
-			if(profil != null && (ulogovaniKorisnik.getKorisnickoIme().equals(profil) || ulogovaniKorisnik.getTipKorisnika() == TipKorisnika.ADMIN)) {
+			if(profil != null && ((ulogovaniKorisnik.getKorisnickoIme().equals(profil) && ulogovaniKorisnik.getBlokiran() == false) || ulogovaniKorisnik.getTipKorisnika() == TipKorisnika.ADMIN)) {
 				Korisnik korisnik = KorisnikDAO.get(profil);
 				if(korisnik != null) {
 					
