@@ -91,13 +91,13 @@ public class LajkServlet extends HttpServlet {
 		
 		String status = "success";
 
-		if(ulogovaniKorisnik != null && target != null && tipLajka != null) {
+		if(ulogovaniKorisnik != null && ulogovaniKorisnik.getBlokiran() == false && target != null && tipLajka != null) {
 			try {
 				long id = Long.parseLong(request.getParameter("id"));
 								
 				if(target.equals("VIDEO")) {
 					Video video = VideoDAO.get(id, ulogovaniKorisnik);
-					if (video == null) {
+					if (video == null || video.getVidljivostRejting() == false) {
 						throw new Exception();
 					}
 					

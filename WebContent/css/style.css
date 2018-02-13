@@ -467,7 +467,8 @@ body {
           width: auto;
           padding: 4px 8px 4px 8px; }
       .video #komentari-container #komentar-sort-wrap #sort-by-filter {
-        display: inline-block; }
+        display: inline-block;
+        vertical-align: top; }
         .video #komentari-container #komentar-sort-wrap #sort-by-filter p {
           padding: 0px;
           margin: 0px; }
@@ -479,7 +480,8 @@ body {
             margin: 0px; }
       .video #komentari-container #komentar-sort-wrap #paginacija-broj-po-strani-div {
         margin-left: 10px;
-        display: inline-block; }
+        display: inline-block;
+        vertical-align: top; }
         .video #komentari-container #komentar-sort-wrap #paginacija-broj-po-strani-div p {
           padding: 0px;
           margin: 0px; }
@@ -490,7 +492,8 @@ body {
           text-align: center;
           margin: auto; }
       .video #komentari-container #komentar-sort-wrap #sortiraj-btn {
-        margin: 10px 0px 10px 5px; }
+        display: inline-block;
+        margin: 5px 0px 7px 5px; }
       .video #komentari-container #komentar-sort-wrap hr {
         margin-top: 10px; }
     .video #komentari-container #komentar-novi-ime {

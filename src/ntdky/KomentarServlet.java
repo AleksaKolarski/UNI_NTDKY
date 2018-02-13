@@ -109,7 +109,7 @@ public class KomentarServlet extends HttpServlet {
 						edit = false;
 						
 						Video video = VideoDAO.get(videoId, ulogovaniKorisnik);
-						if(video != null) {
+						if(video != null && video.getVidljivostKomentari() == true) {
 							Komentar komentar = new Komentar(sadrzaj, new Date(), ulogovaniKorisnik.getKorisnickoIme(), video.getId(), false);
 							if(KomentarDAO.add(komentar)) {
 								status = "success";

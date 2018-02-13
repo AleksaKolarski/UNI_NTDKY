@@ -93,7 +93,7 @@ public class PretplataServlet extends HttpServlet {
 		Map<String, Object> data = new HashMap<>();
 		String status;
 
-		if (ulogovaniKorisnik != null) {
+		if (ulogovaniKorisnik != null && ulogovaniKorisnik.getBlokiran() == false) {
 			status = "success";
 
 			boolean gotovo = false;

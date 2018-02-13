@@ -6,7 +6,7 @@
 <head>
 	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Profil: ${requestScope.profil.korisnickoIme}</title>
+	<title>Korisnici</title>
 	
 	<!-- Bootstrap and jQuery -->
   	<link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css">

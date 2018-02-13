@@ -34,8 +34,6 @@ public class VideoImageServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Korisnik ulogovaniKorisnik = KorisnikDAO.get((String) session.getAttribute("ulogovaniKorisnik"));
 
-		String status = "error";
-
 		if (ulogovaniKorisnik != null) {
 
 			if (!ServletFileUpload.isMultipartContent(request)) {
@@ -61,7 +59,6 @@ public class VideoImageServlet extends HttpServlet {
 
 									video.setPutanjaSlike(item.getFieldName());
 									VideoDAO.update(video);
-									status = "success";
 								}
 							}
 						} catch (Exception e) {}

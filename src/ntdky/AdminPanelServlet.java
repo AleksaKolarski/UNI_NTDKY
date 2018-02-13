@@ -92,6 +92,10 @@ public class AdminPanelServlet extends HttpServlet {
 			request.getRequestDispatcher("AdminPanel.jsp").forward(request, response);
 			status = "success";
 		}
+		
+		if(!status.equals("success")) {
+			response.sendRedirect("error-404.jsp");
+		}
 
 		
 		data.put("status", status);

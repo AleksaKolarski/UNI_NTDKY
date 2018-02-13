@@ -209,6 +209,7 @@
         
                 #sort-by-filter {
                     display: inline-block;
+                    vertical-align: top;
                 
                     p {
                         padding: 0px;
@@ -229,6 +230,7 @@
                 #paginacija-broj-po-strani-div{
                     margin-left: 10px;
                     display: inline-block;
+                    vertical-align: top;
 
                     p {
                         padding: 0px;
@@ -245,10 +247,10 @@
                 }
 
                 #sortiraj-btn{
-                    
+                    display: inline-block;
                     //float:right;
                     //display: ;
-                    margin: 10px 0px 10px 5px;
+                    margin: 5px 0px 7px 5px;
                 }
 
                 hr{

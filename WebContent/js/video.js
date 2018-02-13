@@ -239,7 +239,7 @@ function dodajStranicuPaginacije(videoId, page, currentPage) {
 function ispisiKomentar(komentar, poljeKomentara, korisnik, korisnikTip, listaSlika) {
 	poljeKomentara.append(
 		'<div class="komentar" id="komentar-' + komentar["komentar"].id + '">' +
-		'<img src="img/profile/' + ((komentar["slika"])?komentar["slika"]:'_.png') + '" alt="profile photo">' + 
+		'<img src="img/profile/' + ((komentar["slika"])?komentar["slika"]:'_.png') + '" alt="profile photo" onerror="nemaProfilneSlike(event)">' + 
 		'<a href="ProfilServlet?user=' + komentar["komentar"].vlasnik + '">' +
 		'<p class="komentar-ime">' + komentar["komentar"].vlasnik + '</p>' +
 		'</a>' +

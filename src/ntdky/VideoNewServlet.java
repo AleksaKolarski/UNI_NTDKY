@@ -32,7 +32,7 @@ public class VideoNewServlet extends HttpServlet {
 		String status = "success";
 		
 		try {
-			if (ulogovaniKorisnik != null) {
+			if (ulogovaniKorisnik != null && ulogovaniKorisnik.getBlokiran() == false) {
 				String edit = request.getParameter("edit");
 
 				if (edit != null && edit.equals("true")) {

@@ -1,19 +1,7 @@
 package ntdky;
 
-import java.util.Date;
-import java.util.List;
-
 import ntdky.dao.ConnectionManager;
-import ntdky.dao.KomentarDAO;
-import ntdky.dao.KorisnikDAO;
-import ntdky.dao.LajkDAO;
-import ntdky.dao.VideoDAO;
-import ntdky.model.Komentar;
-import ntdky.model.Korisnik;
-import ntdky.model.Korisnik.TipKorisnika;
-import ntdky.model.Lajk;
-import ntdky.model.Video;
-import ntdky.model.Video.VidljivostVidea;
+
 
 public class TestMain {
 

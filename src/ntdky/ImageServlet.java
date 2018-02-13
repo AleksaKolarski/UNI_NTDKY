@@ -30,7 +30,6 @@ public class ImageServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Korisnik ulogovaniKorisnik = KorisnikDAO.get((String) session.getAttribute("ulogovaniKorisnik"));
 
-		String status = "error";
 		
 		if (ulogovaniKorisnik != null) {
 
@@ -52,7 +51,6 @@ public class ImageServlet extends HttpServlet {
 							Korisnik korisnik = KorisnikDAO.get(item.getFieldName());
 							korisnik.setSlika(item.getFieldName());
 							KorisnikDAO.update(korisnik);
-							status = "success";
 						}
 					}
 				}

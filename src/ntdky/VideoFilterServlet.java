@@ -2,7 +2,6 @@ package ntdky;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -21,7 +20,6 @@ import ntdky.dao.KorisnikDAO;
 import ntdky.dao.VideoDAO;
 import ntdky.model.Korisnik;
 import ntdky.model.Video;
-import ntdky.model.Korisnik.TipKorisnika;
 
 
 public class VideoFilterServlet extends HttpServlet {

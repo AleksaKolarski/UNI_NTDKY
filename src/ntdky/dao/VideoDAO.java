@@ -13,7 +13,6 @@ import java.util.List;
 import ntdky.model.Video;
 import ntdky.model.Korisnik;
 import ntdky.model.Korisnik.TipKorisnika;
-import ntdky.model.Lajk.Tip;
 import ntdky.model.Video.VidljivostVidea;
 
 public class VideoDAO {

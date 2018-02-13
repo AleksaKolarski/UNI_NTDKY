@@ -6,7 +6,7 @@
 <head>
 	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
-	  <title>Video: ${requestScope.naziv}</title>
+	  <title>${requestScope.video.naziv}</title>
 	
 	  <!-- Bootstrap and jQuery -->
   	<link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css">
@@ -50,7 +50,7 @@
               <p class="text-center">Ovaj video ili njegov vlasnik je blokiran!</p>
             </div>
           </c:if>
-		      <h3>${requestScope.video.naziv}</h3>
+		      <h3>${requestScope.video.naziv} ${(requestScope.video.vidljivostVidea != 'PUBLIC')?((requestScope.video.vidljivostVidea == 'PRIVATE')?'(Privatan video)':'(Neizlistan video)'):''}</h3>
 		      <div class="embed-responsive embed-responsive-16by9">
 		  	    <iframe src="https://www.youtube.com/embed/${requestScope.video.putanjaVidea}?rel=0&amp;showinfo=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 		      </div>
@@ -82,7 +82,7 @@
                     <c:if test="${(requestScope.ulogovaniKorisnik.korisnickoIme == requestScope.video.vlasnik && requestScope.video.blokiran == false) || (requestScope.ulogovaniKorisnik.tipKorisnika == 'ADMIN')}">
                       <button type="button" class="btn btn-default" id="btn-video-edit" onclick="window.location.href='/NTDKY/VideoNewServlet?videoId=${requestScope.video.id}&edit=true';">Edit video</button>
                     </c:if>
-                    <c:if test="${requestScope.ulogovaniKorisnik.korisnickoIme != requestScope.video.vlasnik}">
+                    <c:if test="${requestScope.ulogovaniKorisnik.korisnickoIme != requestScope.video.vlasnik && requestScope.ulogovaniKorisnik.blokiran == false}">
                       <button type="button" class="btn btn-default" id="btn-subscribe"></button>
                     </c:if>
                   </td>
